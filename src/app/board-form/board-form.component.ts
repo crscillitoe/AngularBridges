@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from '../board';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-board-form',
@@ -9,13 +10,15 @@ import { Board } from '../board';
 
 export class BoardFormComponent implements OnInit {
 
+
     onSubmit() { 
         console.log(this.model);
+        this.router.navigate(['routedPage']);
     }
 
     model = new Board(null , null);
 
-    constructor() { }
+    constructor(private router: Router) { }
 
     ngOnInit() {
 

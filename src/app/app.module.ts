@@ -5,18 +5,30 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BoardFormComponent } from './board-form/board-form.component';
+import { BoardComponentComponent } from './board-component/board-component.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const appRoutes: Routes = [
+    { path: 'entryPage', component: 'BoardFormComponent'},
+    { path: 'routedPage', component: 'BoardComponent'}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoardFormComponent
+    BoardFormComponent,
+    BoardComponentComponent
   ],
   imports: [
       BrowserModule,
-      FormsModule
+      FormsModule,
+      RouterModule.forRoot(
+          appRoutes,
+          { enableTracing: true }
+      )
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
