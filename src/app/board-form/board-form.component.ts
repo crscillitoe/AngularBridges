@@ -9,15 +9,10 @@ import { Board } from '../board';
 
 export class BoardFormComponent implements OnInit {
 
-    submitted = false;
     onSubmit() { 
-        if(this.model.getWidth() < 5) {
-            console.log("NO"); 
-        } else {
-            this.submitted = true; 
-            console.log(this.model);
-        }
+        console.log(this.model);
     }
+
     model = new Board(null , null);
 
     constructor() { }
