@@ -9,8 +9,8 @@ import { BoardComponentComponent } from './board-component/board-component.compo
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
-    { path: 'entryPage', component: 'BoardFormComponent'},
-    { path: 'routedPage', component: 'BoardComponent'}
+    { path: '', component: BoardFormComponent},
+    { path: 'routedPage', component: BoardComponentComponent }
 ];
 
 @NgModule({
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
       FormsModule,
       RouterModule.forRoot(
           appRoutes,
-          { enableTracing: true }
+          { enableTracing: false }
       )
   ],
   providers: [],

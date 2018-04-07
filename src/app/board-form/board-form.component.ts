@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from '../board';
 import { Router } from '@angular/router';
+import { BoardComponentComponent } from '../board-component/board-component.component';
 
 @Component({
     selector: 'app-board-form',
@@ -12,8 +13,7 @@ export class BoardFormComponent implements OnInit {
 
 
     onSubmit() { 
-        console.log(this.model);
-        this.router.navigate(['routedPage']);
+        this.router.navigate(['routedPage', this.model]);
     }
 
     model = new Board(null , null);
