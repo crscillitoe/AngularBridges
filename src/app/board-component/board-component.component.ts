@@ -27,12 +27,43 @@ export class BoardComponentComponent implements OnInit {
             fullscreen: true
         }).appendTo(tempCanvas);
 
+        this.draw();    
+    }
+
+    draw() {
+        this.drawBackground();
         this.drawGrid();    
+        this.drawCircles();
+        this.canvas.update();
     }
 
     drawGrid() {
+        var edgeLength = Math.min(this.width, this.height);
+        var diameter = Math.min(this.canvas.width - (edgeLength * 10), this.canvas.height - (edgeLength * 10)) / (edgeLength + 1);
+        var xAdd = this.canvas.width/2 - ((this.width + 1) * (diameter + (diameter/5)))/2;
+        var yAdd = this.canvas.height/2 - ((this.height + 1) * (diameter + (diameter/5)))/2;
+
+    }
+
+    drawCircles() {
+        var edgeLength = Math.min(this.width, this.height);
+        var diameter = Math.min(this.canvas.width - (edgeLength * 10), this.canvas.height - (edgeLength * 10)) / (edgeLength + 1);
+        var xAdd = this.canvas.width/2 - ((this.width + 1) * (diameter + (diameter/5)))/2;
+        var yAdd = this.canvas.height/2 - ((this.height + 1) * (diameter + (diameter/5)))/2;
+
+
+
+        for(let node of this.board.getNodes()) {
+            var circleX = xAdd + (node.getX() * (diameter + (diameter/5)));
+            var circleY = yAdd + (node.getY() * (diameter + (diameter/5)));
+
+            var tempCircle = this.canvas.makeCircle(circleX, circleY, diameter/2);
+            tempCircle.fill = "#FFFFFF";
+        }
+    }
+
+    drawBackground() {
         var background = this.canvas.makeRectangle(0, 0, this.canvas.width * 2, this.canvas.height * 2);
-        background.fill = '#073642';
-        this.canvas.update();
+        background.fill = '#EEE8D5';
     }
 }

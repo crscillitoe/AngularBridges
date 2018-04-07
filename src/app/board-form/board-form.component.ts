@@ -13,7 +13,12 @@ export class BoardFormComponent implements OnInit {
 
 
     onSubmit() { 
-        this.router.navigate(['routedPage', this.model]);
+        if(this.model.getWidth() < 5 || this.model.getHeight() < 5
+        || this.model.getWidth() >30 || this.model.getHeight() > 30) {
+            
+        } else {
+            this.router.navigate(['routedPage', this.model]);
+        }
     }
 
     model = new Board(null , null);
