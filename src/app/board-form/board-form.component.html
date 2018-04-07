@@ -1,0 +1,21 @@
+<div class="container">
+    <h1>Enter Board Width and Height</h1>
+    <form (ngSubmit)="onSubmit()" #boardForm="ngForm">
+        <div class="form-group">
+            <label for="width">Width</label>
+            <input type="text" class="form-control" id="width" required
+            [(ngModel)]="model.width" name="width">
+        </div>
+
+        <div class="form-group">
+            <label for="height">Height</label>
+            <input type="text" class="form-control" id="height" required
+            [(ngModel)]="model.height" name="height">
+        </div>
+
+        
+        <button type="submit" class="btn btn-success"
+            [disabled]="!boardForm.form.valid">Submit</button>
+
+    </form>
+</div>
