@@ -45,12 +45,6 @@ export class Board {
                         var count;
                         var add = true;
                         for(count = randomNode.getY() - 1 ; count >= randomNode.getY() - randomDistanceAway ; count--) {
-                            for(let n of occupiedSquares) {
-                                if(n.getX() == randomNode.getX() && n.getY() == count) {
-                                    add = false;
-                                }
-                            }
-
                             for(let n of tempNodes) {
                                 if(n.getX() == randomNode.getX() && n.getY() == count) {
                                     if(count <= randomNode.getY() - 2 && add) {
@@ -67,6 +61,12 @@ export class Board {
                                             add = false;
                                         }
                                     }
+                                    add = false;
+                                }
+                            }
+
+                            for(let n of occupiedSquares) {
+                                if(n.getX() == randomNode.getX() && n.getY() == count) {
                                     add = false;
                                 }
                             }
@@ -117,12 +117,6 @@ export class Board {
                         var count;
                         var add = true;
                         for(count = randomNode.getY() + 1 ; count <= randomNode.getY() + randomDistanceAway ; count++) {
-                            for(let n of occupiedSquares) {
-                                if(n.getX() == randomNode.getX() && n.getY() == count) {
-                                    add = false;
-                                }
-                            }
-
                             for(let n of tempNodes) {
                                 if(n.getX() == randomNode.getX() && n.getY() == count) {
                                     if(count >= randomNode.getY() + 2 && add) {
@@ -139,6 +133,12 @@ export class Board {
                                             add = false;
                                         }
                                     }
+                                    add = false;
+                                }
+                            }
+
+                            for(let n of occupiedSquares) {
+                                if(n.getX() == randomNode.getX() && n.getY() == count) {
                                     add = false;
                                 }
                             }
@@ -187,12 +187,6 @@ export class Board {
                         var count;
                         var add = true;
                         for(count = randomNode.getX() - 1 ; count >= randomNode.getX() - randomDistanceAway ; count--) {
-                            for(let n of occupiedSquares) {
-                                if(n.getX() == count && n.getY() == randomNode.getY()) {
-                                    add = false;
-                                }
-                            }
-
                             for(let n of tempNodes) {
                                 if(n.getX() == count && n.getY() == randomNode.getY()) {
                                     if(count <= randomNode.getX() - 2 && add) {
@@ -209,6 +203,12 @@ export class Board {
                                             add = false;
                                         }
                                     }
+                                    add = false;
+                                }
+                            }
+
+                            for(let n of occupiedSquares) {
+                                if(n.getX() == count && n.getY() == randomNode.getY()) {
                                     add = false;
                                 }
                             }
@@ -257,12 +257,6 @@ export class Board {
                         var count;
                         var add = true;
                         for(count = randomNode.getX() + 1 ; count <= randomNode.getX() + randomDistanceAway ; count++) {
-                            for(let n of occupiedSquares) {
-                                if(n.getX() == count && n.getY() == randomNode.getY()) {
-                                    add = false;
-                                }
-                            }
-
                             for(let n of tempNodes) {
                                 if(n.getX() == count && n.getY() == randomNode.getY()) {
                                     if(count >= randomNode.getX() + 2 && add) {
@@ -279,6 +273,12 @@ export class Board {
                                             add = false;
                                         }
                                     }
+                                    add = false;
+                                }
+                            }
+
+                            for(let n of occupiedSquares) {
+                                if(n.getX() == count && n.getY() == randomNode.getY()) {
                                     add = false;
                                 }
                             }
