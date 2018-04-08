@@ -53,6 +53,20 @@ export class Board {
 
                             for(let n of tempNodes) {
                                 if(n.getX() == randomNode.getX() && n.getY() == count) {
+                                    if(count <= randomNode.getY() - 2 && add) {
+                                        if(!n.getDown()) {
+                                            var numBridges = this.randomInt(1,2);
+                                            randomNode.setVal(randomNode.getVal() + numBridges);
+                                            n.setVal(n.getVal() + numBridges);
+                                            randomNode.setUp(true);
+                                            n.setDown(true);
+                                            var tempCount;
+                                            for(tempCount = randomNode.getY() ; tempCount >= tempNode.getY() ; tempCount--) {
+                                                occupiedSquares.push(new MyNode(randomNode.getX(), tempCount));
+                                            }
+                                            add = false;
+                                        }
+                                    }
                                     add = false;
                                 }
                             }
@@ -111,6 +125,20 @@ export class Board {
 
                             for(let n of tempNodes) {
                                 if(n.getX() == randomNode.getX() && n.getY() == count) {
+                                    if(count >= randomNode.getY() + 2 && add) {
+                                        if(!n.getUp()) {
+                                            var numBridges = this.randomInt(1,2);
+                                            randomNode.setVal(randomNode.getVal() + numBridges);
+                                            n.setVal(n.getVal() + numBridges);
+                                            randomNode.setDown(true);
+                                            n.setUp(true);
+                                            var tempCount;
+                                            for(tempCount = randomNode.getY() ; tempCount <= tempNode.getY() ; tempCount++) {
+                                                occupiedSquares.push(new MyNode(randomNode.getX(), tempCount));
+                                            }
+                                            add = false;
+                                        }
+                                    }
                                     add = false;
                                 }
                             }
@@ -167,6 +195,20 @@ export class Board {
 
                             for(let n of tempNodes) {
                                 if(n.getX() == count && n.getY() == randomNode.getY()) {
+                                    if(count <= randomNode.getX() - 2 && add) {
+                                        if(!n.getRight()) {
+                                            var numBridges = this.randomInt(1,2);
+                                            randomNode.setVal(randomNode.getVal() + numBridges);
+                                            n.setVal(n.getVal() + numBridges);
+                                            randomNode.setLeft(true);
+                                            n.setRight(true);
+                                            var tempCount;
+                                            for(tempCount = randomNode.getX() ; tempCount >= tempNode.getX() ; tempCount--) {
+                                                occupiedSquares.push(new MyNode(tempCount, randomNode.getY()));
+                                            }
+                                            add = false;
+                                        }
+                                    }
                                     add = false;
                                 }
                             }
@@ -223,6 +265,20 @@ export class Board {
 
                             for(let n of tempNodes) {
                                 if(n.getX() == count && n.getY() == randomNode.getY()) {
+                                    if(count >= randomNode.getX() + 2 && add) {
+                                        if(!n.getLeft()) {
+                                            var numBridges = this.randomInt(1,2);
+                                            randomNode.setVal(randomNode.getVal() + numBridges);
+                                            n.setVal(n.getVal() + numBridges);
+                                            randomNode.setRight(true);
+                                            n.setLeft(true);
+                                            var tempCount;
+                                            for(tempCount = randomNode.getX() ; tempCount <= tempNode.getX() ; tempCount++) {
+                                                occupiedSquares.push(new MyNode(tempCount, randomNode.getY()));
+                                            }
+                                            add = false;
+                                        }
+                                    }
                                     add = false;
                                 }
                             }
