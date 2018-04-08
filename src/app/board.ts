@@ -3,16 +3,16 @@ export class Board {
     height: number;
     nodes: Array<MyNode>;
 
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number, numNodes: number) {
         this.width = width;
         this.height = height;
         this.nodes = new Array<MyNode>();
-        this.generateBoard();
+        this.generateBoard(numNodes);
     }
 
-    private generateBoard() {
+    private generateBoard(numNodes: number) {
         var chance = 4;
-        var nodesToAdd = Math.floor(Math.sqrt((this.width * this.height)) * 2);
+        var nodesToAdd = numNodes;
 
         var firstX = this.randomInt(1, this.width);
         var firstY = this.randomInt(1, this.height);
@@ -28,7 +28,7 @@ export class Board {
         nodesToAdd--;
         while(nodesToAdd > 0) {
             LagCount++;
-            if(LagCount > 50000) {
+            if(LagCount > 500000) {
                 nodesToAdd = 0;
             }
             var randomNode = tempNodes[this.randomInt(0, tempNodes.length - 1)];
@@ -85,7 +85,6 @@ export class Board {
                                 randomNode.setUp(true);
                                 tempNode.setDown(true);
                                 tempNodes.push(tempNode);
-                                console.log(tempNode);
                                 for(count = randomNode.getY() ; count >= tempNode.getY() ; count--) {
                                     occupiedSquares.push(new MyNode(randomNode.getX(), count));
                                 }
@@ -142,7 +141,6 @@ export class Board {
                                 randomNode.setDown(true);
                                 tempNode.setUp(true);
                                 tempNodes.push(tempNode);
-                                console.log(tempNode);
                                 for(count = randomNode.getY() ; count <= tempNode.getY() ; count++) {
                                     occupiedSquares.push(new MyNode(randomNode.getX(), count));
                                 }
@@ -199,7 +197,6 @@ export class Board {
                                 randomNode.setLeft(true);
                                 tempNode.setRight(true);
                                 tempNodes.push(tempNode);
-                                console.log(tempNode);
                                 for(count = randomNode.getX() ; count >= tempNode.getX() ; count--) {
                                     occupiedSquares.push(new MyNode(count, randomNode.getY()));
                                 }
@@ -256,7 +253,6 @@ export class Board {
                                 randomNode.setRight(true);
                                 tempNode.setLeft(true);
                                 tempNodes.push(tempNode);
-                                console.log(tempNode);
                                 for(count = randomNode.getX() ; count <= tempNode.getX() ; count++) {
                                     occupiedSquares.push(new MyNode(count, randomNode.getY()));
                                 }
