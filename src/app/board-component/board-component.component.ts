@@ -21,6 +21,15 @@ export class BoardComponentComponent implements OnInit {
     board: Board;
     canvas: Two;
 
+    circleColor: string[];
+    circleTextColor: string;
+    circleSelectedColor: string[];
+    circleSelectedTextColor: string;
+    backgroundColor: string;
+    gridColor: string;
+    bridgeColor: string;
+    wrongCircleColor: string;
+
     constructor(private route: ActivatedRoute) { 
     }
 
@@ -42,7 +51,39 @@ export class BoardComponentComponent implements OnInit {
         tempCanvas.addEventListener('mouseup', (e) => this.mouseReleased(e), false);
         this.onResize(document.getElementsByTagName("canvas")[0], (e) => this.fixSizes());
 
+        this.nightScheme();
         this.fixSizes();
+    }
+
+    nightScheme() {
+        this.circleColor = [
+            "#4db93b",
+            "#aad46d",
+            "#80daaf",
+            "#4bb5ac",
+            "#ffba53",
+            "#d88799",
+            "#f24b3e",
+            "#dc1d2b",
+            "#ec2474"
+        ];
+        this.circleTextColor = "ebdbb2";
+        this.circleSelectedColor = [
+            "#ff77ad",
+            "#d1f898",
+            "#a5fad1",
+            "#84e8de",
+            "#ffd79d",
+            "#f8abbd",
+            "#ff9289",
+            "#f86872",
+            "#ff77ad",
+        ];
+        this.circleSelectedTextColor = "#ebdbb2";
+        this.backgroundColor = "#2c2c2c";
+        this.gridColor = "#a89984";
+        this.bridgeColor = "#fff2ad";
+        this.wrongCircleColor = "#FFFFFF";
     }
 
     fixSizes() {
@@ -74,6 +115,7 @@ export class BoardComponentComponent implements OnInit {
             var circleY = this.yAdd + (1 * (this.diameter + (this.diameter/5)));
             var circleY2 = this.yAdd + (this.height * (this.diameter + (this.diameter/5)));
             var tempLine = this.canvas.makeLine(circleX, circleY, circleX, circleY2);
+            tempLine.stroke = this.gridColor;
         }
 
         for(y = 1 ; y <= this.height ; y++) {
@@ -81,6 +123,7 @@ export class BoardComponentComponent implements OnInit {
             var circleY = this.yAdd + (y * (this.diameter + (this.diameter/5)));
             var circleX2 = this.xAdd + (this.width * (this.diameter + (this.diameter/5)));
             var tempLine = this.canvas.makeLine(circleX, circleY, circleX2, circleY);
+            tempLine.stroke = this.gridColor;
         }
     }
 
@@ -94,23 +137,51 @@ export class BoardComponentComponent implements OnInit {
         var circleX = this.xAdd + (node.getX() * (this.diameter + (this.diameter/5)));
         var circleY = this.yAdd + (node.getY() * (this.diameter + (this.diameter/5)));
         var tempCircle = this.canvas.makeCircle(circleX, circleY, this.diameter/2);
-        tempCircle.fill = "#FFFFFF";
 
-        var circleText = this.canvas.makeText("" + node.getVal(), circleX, circleY, null);
+        var circleString = "" + node.getVal();
+
+        if(node.getVal() - this.getNumBridges(node) >= 0) {
+            tempCircle.fill = this.circleColor[node.getVal() - this.getNumBridges(node)];
+            tempCircle.stroke = this.circleColor[node.getVal() - this.getNumBridges(node)];
+        } else {
+            tempCircle.fill = this.wrongCircleColor;
+        }
+
+        var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
+        circleText.size = this.diameter/2;
+        circleText.fill = this.circleTextColor;
+    }
+
+    getNumBridges(node) {
+        var toReturn = 0;
+        for(let b of node.getBridges()) {
+            toReturn += b.getNum();
+        }
+        return toReturn;
     }
 
     drawCircleRed(node: MyNode) {
         var circleX = this.xAdd + (node.getX() * (this.diameter + (this.diameter/5)));
         var circleY = this.yAdd + (node.getY() * (this.diameter + (this.diameter/5)));
         var tempCircle = this.canvas.makeCircle(circleX, circleY, this.diameter/2);
-        tempCircle.fill = "#FF0000";
 
-        var circleText = this.canvas.makeText("" + node.getVal(), circleX, circleY, null);
+        var circleString = "" + node.getVal();
+
+        if(node.getVal() - this.getNumBridges(node) >= 0) {
+            tempCircle.fill = this.circleSelectedColor[node.getVal() - this.getNumBridges(node)];
+        } else {
+            tempCircle.fill = this.circleSelectedColor[0];
+        }
+        tempCircle.stroke = "#FFFFFF";
+
+        var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
+        circleText.size = this.diameter/2;
+        circleText.fill = this.circleTextColor;
     }
 
     drawBackground() {
         var background = this.canvas.makeRectangle(0, 0, this.canvas.width * 2, this.canvas.height * 2);
-        background.fill = '#EEE8D5';
+        background.fill = this.backgroundColor;
     }
 
     isCircleHere(x: number, y: number) {
@@ -160,6 +231,7 @@ export class BoardComponentComponent implements OnInit {
                         var n2y = this.yAdd + (bridge.getN2().getY() * (this.diameter + (this.diameter/5)));
                         var lineToDraw = this.canvas.makeLine(n1x, n1y, n2x, n2y);
                         lineToDraw.linewidth = this.diameter/5;
+                        lineToDraw.stroke = this.bridgeColor;
                     } else {
                         var n1x = this.xAdd + (bridge.getN1().getX() * (this.diameter + (this.diameter/5)));
                         var n1y = this.yAdd + (bridge.getN1().getY() * (this.diameter + (this.diameter/5)));
@@ -170,11 +242,15 @@ export class BoardComponentComponent implements OnInit {
                             var lineToDraw2 = this.canvas.makeLine(n1x + this.diameter/3, n1y, n2x + this.diameter/3, n2y);
                             lineToDraw1.linewidth = this.diameter/5;
                             lineToDraw2.linewidth = this.diameter/5;
+                            lineToDraw1.stroke = this.bridgeColor;
+                            lineToDraw2.stroke = this.bridgeColor;
                         } else {
                             var lineToDraw1 = this.canvas.makeLine(n1x, n1y - this.diameter/3, n2x, n2y - this.diameter/3);
                             var lineToDraw2 = this.canvas.makeLine(n1x, n1y + this.diameter/3, n2x, n2y + this.diameter/3);
                             lineToDraw1.linewidth = this.diameter/5;
                             lineToDraw2.linewidth = this.diameter/5;
+                            lineToDraw1.stroke = this.bridgeColor;
+                            lineToDraw2.stroke = this.bridgeColor;
                         }
                     }
                 }
