@@ -11,10 +11,22 @@ export class Board {
     }
 
     private testAddingNodes() {
-        this.addNode(new MyNode(this.width, this.height));
-        this.addNode(new MyNode(this.width, 1));
-        this.addNode(new MyNode(1, this.height));
-        this.addNode(new MyNode(1, 1));
+        let node1 = new MyNode(this.width, this.height);
+        node1.setVal(5);
+
+        let node2 = new MyNode(this.width, 1);
+        node2.setVal(4);
+
+        let node3 = new MyNode(1, this.height);
+        node3.setVal(2);
+
+        let node4 = new MyNode(1, 1);
+        node4.setVal(1);
+
+        this.addNode(node1);
+        this.addNode(node2);
+        this.addNode(node3);
+        this.addNode(node4);
     }
 
     addNode(node: MyNode) {
@@ -63,7 +75,7 @@ export class MyNode {
     }
 
     addBridge(bridge: Bridge) {
-        this.bridges.push(Bridge);
+        this.bridges.push(bridge);
     }
 
     getX() { return this.x; }
