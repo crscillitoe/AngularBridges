@@ -131,13 +131,14 @@ export class BoardComponentComponent implements OnInit {
             this.coloredNode = this.getCircleHere(pointX, pointY);
             this.drawCircleRed(this.coloredNode);
             this.canvas.update();
+        } else {
+            this.coloredNode = undefined;
         }
     }
 
     drawBridges() {
         for(let node of this.board.getNodes()) {
             for(let bridge of node.getBridges()) {
-                console.log(bridge);
                 if(bridge.getNum() > 0) {
                     if(bridge.getNum() === 1) {
                         var n1x = this.xAdd + (bridge.getN1().getX() * (this.diameter + (this.diameter/5)));
@@ -170,6 +171,9 @@ export class BoardComponentComponent implements OnInit {
 
     bridgeUp() {
         var counter;
+        if(this.isCircleHere(this.coloredNode.getX() , this.coloredNode.getY() - 1)) {
+            return;
+        }
         for(counter = this.coloredNode.getY() - 1; counter > 0; counter--) {
             if(this.isCircleHere(this.coloredNode.getX(), counter)) {
                 var toBridgeTo = this.getCircleHere(this.coloredNode.getX(), counter);
@@ -201,6 +205,9 @@ export class BoardComponentComponent implements OnInit {
 
     bridgeDown() {
         var counter;
+        if(this.isCircleHere(this.coloredNode.getX() , this.coloredNode.getY() + 1)) {
+            return;
+        }
         for(counter = this.coloredNode.getY() + 1; counter < this.height + 1; counter++) {
             if(this.isCircleHere(this.coloredNode.getX(), counter)) {
                 var toBridgeTo = this.getCircleHere(this.coloredNode.getX(), counter);
@@ -232,6 +239,9 @@ export class BoardComponentComponent implements OnInit {
 
     bridgeLeft() {
         var counter;
+        if(this.isCircleHere(this.coloredNode.getX() - 1, this.coloredNode.getY())) {
+            return;
+        }
         for(counter = this.coloredNode.getX() - 1; counter > 0; counter--) {
             if(this.isCircleHere(counter, this.coloredNode.getY())) {
                 var toBridgeTo = this.getCircleHere(counter, this.coloredNode.getY());
@@ -263,6 +273,9 @@ export class BoardComponentComponent implements OnInit {
 
     bridgeRight() {
         var counter;
+        if(this.isCircleHere(this.coloredNode.getX() + 1, this.coloredNode.getY())) {
+            return;
+        }
         for(counter = this.coloredNode.getX() + 1; counter < this.width + 1; counter++) {
             if(this.isCircleHere(counter, this.coloredNode.getY())) {
                 var toBridgeTo = this.getCircleHere(counter, this.coloredNode.getY());
@@ -296,32 +309,30 @@ export class BoardComponentComponent implements OnInit {
         var x = mouseEventData.clientX;
         var y = mouseEventData.clientY;
 
-        if(Math.abs(this.pressedX - x) > Math.abs(this.pressedY - y)) {
-            if(this.pressedX > x) {
-                this.bridgeLeft();
-                this.canvas.clear();
-                this.draw();
-            } else {
-                this.bridgeRight();
-                this.canvas.clear();
-                this.draw();
-            }
-        } else {
-            if(this.pressedY > y) {
-                this.bridgeUp();
-                this.canvas.clear();
-                this.draw();
-            } else {
-                this.bridgeDown();
-                this.canvas.clear();
-                this.draw();
-            }
-        }
 
 
         if(this.coloredNode !== undefined) {
-            this.drawCircle(this.coloredNode);
-            this.canvas.update();
+            if(Math.abs(this.pressedX - x) > Math.abs(this.pressedY - y)) {
+                if(this.pressedX > x) {
+                    this.bridgeLeft();
+                    this.canvas.clear();
+                    this.draw();
+                } else {
+                    this.bridgeRight();
+                    this.canvas.clear();
+                    this.draw();
+                }
+            } else {
+                if(this.pressedY > y) {
+                    this.bridgeUp();
+                    this.canvas.clear();
+                    this.draw();
+                } else {
+                    this.bridgeDown();
+                    this.canvas.clear();
+                    this.draw();
+                }
+            }
         }
     }
 }
