@@ -1,6 +1,7 @@
 export class Board {
     width: number;
     height: number;
+    numNodes: number;
     nodes: Array<MyNode>;
 
     constructor(width: number, height: number, numNodes: number) {
