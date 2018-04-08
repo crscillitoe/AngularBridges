@@ -36,8 +36,12 @@ export class BoardComponentComponent implements OnInit {
         }).appendTo(tempCanvas);
         tempCanvas.addEventListener('mousedown', (e) => this.mousePressed(e), false);
         tempCanvas.addEventListener('mouseup', (e) => this.mouseReleased(e), false);
-        this.onResize(document.getElementsByTagName("canvas")[0], this.canvas);
+        this.onResize(document.getElementsByTagName("canvas")[0], (e) => this.fixSizes());
 
+        this.fixSizes();
+    }
+
+    fixSizes() {
         this.edgeLength = Math.max(this.width, this.height);
         if(this.edgeLength < 35) {
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 10), this.canvas.height - (this.edgeLength * 10)) / (this.edgeLength + 1);
@@ -341,14 +345,14 @@ export class BoardComponentComponent implements OnInit {
         }
     }
 
-    onResize(element, twoCanvas) {
+    onResize(element, callback) {
         var elementHeight = element.height;
         var elementWidth = element.width;
         setInterval(function() {
             if(element.height !== elementHeight || element.width !== elementWidth ) {
                 elementHeight = element.height;
                 elementWidth = element.width;
-                twoCanvas.update();
+                callback();
             }
         }, 300);
     }
