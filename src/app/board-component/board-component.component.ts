@@ -137,6 +137,7 @@ export class BoardComponentComponent implements OnInit {
     drawBridges() {
         for(let node of this.board.getNodes()) {
             for(let bridge of node.getBridges()) {
+                console.log(bridge);
                 if(bridge.getNum() > 0) {
                     if(bridge.getNum() === 1) {
                         var n1x = this.xAdd + (bridge.getN1().getX() * (this.diameter + (this.diameter/5)));

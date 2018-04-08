@@ -7,7 +7,176 @@ export class Board {
         this.width = width;
         this.height = height;
         this.nodes = new Array<MyNode>();
-        this.testAddingNodes();
+        this.generateBoard();
+    }
+
+    private generateBoard() {
+        var chance = 4;
+        var nodesToAdd = Math.floor(Math.sqrt((this.width * this.height)) * 2);
+
+        var firstX = this.randomInt(1, this.width);
+        var firstY = this.randomInt(1, this.height);
+
+        var tempNodes = new Array<MyNode>();
+        var occupiedSquares = new Array<MyNode>();
+
+        let tempNode = new MyNode(firstX, firstY);
+        tempNode.setVal(0);
+        tempNodes.push(tempNode);
+
+        var count = 0;
+        nodesToAdd--;
+        while(nodesToAdd > 0) {
+            count++;
+            if(count === 500000) {
+                break;
+            }
+            var randomNode = tempNodes[this.randomInt(0, tempNodes.length - 1)];
+
+            // Determine direction
+            var diceRoll = this.randomInt(1, 4);
+
+            //UP
+            if(diceRoll === 1) {
+                if(randomNode.getY() - 1 > 2) {
+                    var randomDistanceAway = this.randomInt(2, randomNode.getY() - 1);
+                    var count;
+                    var add = true;
+                    for(count = randomNode.getY() - 1 ; count > randomNode.getY() - randomDistanceAway ; count--) {
+                        for(let n of occupiedSquares) {
+                            if(n.getX() == randomNode.getX() && n.getY() == count) {
+                                add = false;
+                            }
+                        }
+
+                        for(let n of tempNodes) {
+                            if(n.getX() == randomNode.getX() && n.getY() == count) {
+                                add = false;
+                            }
+                        }
+                    }
+                    if(add) {
+                        var numBridges = this.randomInt(1,2);
+                        let tempNode = new MyNode(randomNode.getX(), randomNode.getY() - randomDistanceAway);
+                        randomNode.setVal(randomNode.getVal() + numBridges);
+                        tempNode.setVal(numBridges);
+                        tempNodes.push(tempNode);
+                        console.log(tempNode);
+                        for(count = randomNode.getY() ; count >= tempNode.getY() ; count--) {
+                            occupiedSquares.push(new MyNode(randomNode.getX(), count);
+                        }
+                        nodesToAdd--;
+                    }
+                }
+            } 
+            //DOWN 
+            else if(diceRoll === 2) {
+                if(randomNode.getY() + 1 < this.height - 2) {
+                    var randomDistanceAway = this.randomInt(2, this.height - randomNode.getY());
+                    var count;
+                    var add = true;
+                    for(count = randomNode.getY() + 1 ; count < randomNode.getY() + randomDistanceAway ; count++) {
+                        for(let n of occupiedSquares) {
+                            if(n.getX() == randomNode.getX() && n.getY() == count) {
+                                add = false;
+                            }
+                        }
+
+                        for(let n of tempNodes) {
+                            if(n.getX() == randomNode.getX() && n.getY() == count) {
+                                add = false;
+                            }
+                        }
+                    }
+                    if(add) {
+                        var numBridges = this.randomInt(1,2);
+                        let tempNode = new MyNode(randomNode.getX(), randomNode.getY() + randomDistanceAway);
+                        randomNode.setVal(randomNode.getVal() + numBridges);
+                        tempNode.setVal(numBridges);
+                        tempNodes.push(tempNode);
+                        console.log(tempNode);
+                        for(count = randomNode.getY() ; count <= tempNode.getY() ; count++) {
+                            occupiedSquares.push(new MyNode(randomNode.getX(), count);
+                        }
+                        nodesToAdd--;
+                    }
+                }
+
+            } 
+            //LEFT
+            else if(diceRoll === 3) {
+                if(randomNode.getX() - 1 > 2) {
+                    var randomDistanceAway = this.randomInt(2, randomNode.getX() - 1);
+                    var count;
+                    var add = true;
+                    for(count = randomNode.getX() - 1 ; count > randomNode.getX() - randomDistanceAway ; count--) {
+                        for(let n of occupiedSquares) {
+                            if(n.getX() == count && n.getY() == randomNode.getY()) {
+                                add = false;
+                            }
+                        }
+
+                        for(let n of tempNodes) {
+                            if(n.getX() == count && n.getY() == randomNode.getY()) {
+                                add = false;
+                            }
+                        }
+                    }
+                    if(add) {
+                        var numBridges = this.randomInt(1,2);
+                        let tempNode = new MyNode(randomNode.getX() - randomDistanceAway, randomNode.getY());
+                        randomNode.setVal(randomNode.getVal() + numBridges);
+                        tempNode.setVal(numBridges);
+                        tempNodes.push(tempNode);
+                        console.log(tempNode);
+                        for(count = randomNode.getX() ; count >= tempNode.getX() ; count--) {
+                            occupiedSquares.push(new MyNode(count, randomNode.getY();
+                        }
+                        nodesToAdd--;
+                    }
+                }
+            } 
+            //RIGHT 
+            else if(diceRoll === 4) {
+                if(randomNode.getX() + 1 < this.width - 2) {
+                    var randomDistanceAway = this.randomInt(2, this.width - randomNode.getX());
+                    var count;
+                    var add = true;
+                    for(count = randomNode.getX() + 1 ; count < randomNode.getX() + randomDistanceAway ; count++) {
+                        for(let n of occupiedSquares) {
+                            if(n.getX() == count && n.getY() == randomNode.getY()) {
+                                add = false;
+                            }
+                        }
+
+                        for(let n of tempNodes) {
+                            if(n.getX() == count && n.getY() == randomNode.getY()) {
+                                add = false;
+                            }
+                        }
+                    }
+                    if(add) {
+                        var numBridges = this.randomInt(1,2);
+                        let tempNode = new MyNode(randomNode.getX() + randomDistanceAway, randomNode.getY());
+                        randomNode.setVal(randomNode.getVal() + numBridges);
+                        tempNode.setVal(numBridges);
+                        tempNodes.push(tempNode);
+                        console.log(tempNode);
+                        for(count = randomNode.getX() ; count <= tempNode.getX() ; count++) {
+                            occupiedSquares.push(new MyNode(count, randomNode.getY();
+                        }
+                        nodesToAdd--;
+                    }
+                }
+            }
+        }
+        for(let n of tempNodes) {
+            this.addNode(n);
+        }
+    }
+
+    private randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     private testAddingNodes() {
