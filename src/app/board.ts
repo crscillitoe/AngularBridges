@@ -24,12 +24,12 @@ export class Board {
         tempNode.setVal(0);
         tempNodes.push(tempNode);
 
-        var count = 0;
+        var LagCount = 0;
         nodesToAdd--;
         while(nodesToAdd > 0) {
-            count++;
-            if(count === 500000) {
-                break;
+            LagCount++;
+            if(LagCount > 50000) {
+                nodesToAdd = 0;
             }
             var randomNode = tempNodes[this.randomInt(0, tempNodes.length - 1)];
 
@@ -63,7 +63,7 @@ export class Board {
                         tempNodes.push(tempNode);
                         console.log(tempNode);
                         for(count = randomNode.getY() ; count >= tempNode.getY() ; count--) {
-                            occupiedSquares.push(new MyNode(randomNode.getX(), count);
+                            occupiedSquares.push(new MyNode(randomNode.getX(), count));
                         }
                         nodesToAdd--;
                     }
@@ -96,7 +96,7 @@ export class Board {
                         tempNodes.push(tempNode);
                         console.log(tempNode);
                         for(count = randomNode.getY() ; count <= tempNode.getY() ; count++) {
-                            occupiedSquares.push(new MyNode(randomNode.getX(), count);
+                            occupiedSquares.push(new MyNode(randomNode.getX(), count));
                         }
                         nodesToAdd--;
                     }
@@ -130,7 +130,7 @@ export class Board {
                         tempNodes.push(tempNode);
                         console.log(tempNode);
                         for(count = randomNode.getX() ; count >= tempNode.getX() ; count--) {
-                            occupiedSquares.push(new MyNode(count, randomNode.getY();
+                            occupiedSquares.push(new MyNode(count, randomNode.getY()));
                         }
                         nodesToAdd--;
                     }
@@ -163,7 +163,7 @@ export class Board {
                         tempNodes.push(tempNode);
                         console.log(tempNode);
                         for(count = randomNode.getX() ; count <= tempNode.getX() ; count++) {
-                            occupiedSquares.push(new MyNode(count, randomNode.getY();
+                            occupiedSquares.push(new MyNode(count, randomNode.getY()));
                         }
                         nodesToAdd--;
                     }

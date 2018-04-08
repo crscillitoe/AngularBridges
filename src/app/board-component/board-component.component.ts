@@ -299,20 +299,25 @@ export class BoardComponentComponent implements OnInit {
         if(Math.abs(this.pressedX - x) > Math.abs(this.pressedY - y)) {
             if(this.pressedX > x) {
                 this.bridgeLeft();
+                this.canvas.clear();
                 this.draw();
             } else {
                 this.bridgeRight();
+                this.canvas.clear();
                 this.draw();
             }
         } else {
             if(this.pressedY > y) {
                 this.bridgeUp();
+                this.canvas.clear();
                 this.draw();
             } else {
                 this.bridgeDown();
+                this.canvas.clear();
                 this.draw();
             }
         }
+
 
         if(this.coloredNode !== undefined) {
             this.drawCircle(this.coloredNode);
