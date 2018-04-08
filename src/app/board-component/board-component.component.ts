@@ -42,6 +42,8 @@ export class BoardComponentComponent implements OnInit {
             numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
         }
         this.board = new Board(this.width, this.height, numNodes);
+
+
         var tempCanvas = document.getElementById('myCanvas');
         this.canvas = new Two({
             type: Two.Types.canvas,
@@ -67,7 +69,7 @@ export class BoardComponentComponent implements OnInit {
             "#dc1d2b",
             "#ec2474"
         ];
-        this.circleTextColor = "ebdbb2";
+        this.circleTextColor = "#303030";
         this.circleSelectedColor = [
             "#ff77ad",
             "#d1f898",
@@ -87,6 +89,7 @@ export class BoardComponentComponent implements OnInit {
     }
 
     fixSizes() {
+
         this.edgeLength = Math.max(this.width, this.height);
         if(this.edgeLength < 35) {
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 10), this.canvas.height - (this.edgeLength * 10)) / (this.edgeLength + 1);
@@ -95,6 +98,7 @@ export class BoardComponentComponent implements OnInit {
         }
         this.xAdd = this.canvas.width/2 - ((this.width + 1) * (this.diameter + (this.diameter/5)))/2;
         this.yAdd = this.canvas.height/2 - ((this.height + 1) * (this.diameter + (this.diameter/5)))/2;
+
 
         this.draw();    
     }

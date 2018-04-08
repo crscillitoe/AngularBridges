@@ -1,0 +1,58 @@
+#all {
+    background-color: #2c2c2c;
+    height: 100%;
+}
+
+#logo {
+    max-width: 100%;
+    display: inline-block;
+    height: auto;
+    width: auto;
+    background-color: #2c2c2c;
+}
+
+#rules {
+    max-width: 100%;
+    display: inline-block;
+    height: auto;
+    width: auto;
+    background-color: #2c2c2c;
+}
+    
+#form {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+#widthInput {
+    width: 75px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#heightInput {
+    width: 75px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#numInput {
+    width: 300px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+#images {
+    position: absolute;
+    display: table;
+    top:0px;
+    background-color: #2c2c2c;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
