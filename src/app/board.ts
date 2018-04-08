@@ -55,7 +55,7 @@ export class Board {
                                             randomNode.setUp(true);
                                             n.setDown(true);
                                             var tempCount;
-                                            for(tempCount = randomNode.getY() ; tempCount >= tempNode.getY() ; tempCount--) {
+                                            for(tempCount = randomNode.getY() ; tempCount >= n.getY() ; tempCount--) {
                                                 occupiedSquares.push(new MyNode(randomNode.getX(), tempCount));
                                             }
                                             add = false;
@@ -127,7 +127,7 @@ export class Board {
                                             randomNode.setDown(true);
                                             n.setUp(true);
                                             var tempCount;
-                                            for(tempCount = randomNode.getY() ; tempCount <= tempNode.getY() ; tempCount++) {
+                                            for(tempCount = randomNode.getY() ; tempCount <= n.getY() ; tempCount++) {
                                                 occupiedSquares.push(new MyNode(randomNode.getX(), tempCount));
                                             }
                                             add = false;
@@ -197,7 +197,7 @@ export class Board {
                                             randomNode.setLeft(true);
                                             n.setRight(true);
                                             var tempCount;
-                                            for(tempCount = randomNode.getX() ; tempCount >= tempNode.getX() ; tempCount--) {
+                                            for(tempCount = randomNode.getX() ; tempCount >= n.getX() ; tempCount--) {
                                                 occupiedSquares.push(new MyNode(tempCount, randomNode.getY()));
                                             }
                                             add = false;
@@ -267,7 +267,7 @@ export class Board {
                                             randomNode.setRight(true);
                                             n.setLeft(true);
                                             var tempCount;
-                                            for(tempCount = randomNode.getX() ; tempCount <= tempNode.getX() ; tempCount++) {
+                                            for(tempCount = randomNode.getX() ; tempCount <= n.getX() ; tempCount++) {
                                                 occupiedSquares.push(new MyNode(tempCount, randomNode.getY()));
                                             }
                                             add = false;
