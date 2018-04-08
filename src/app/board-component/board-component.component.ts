@@ -188,8 +188,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
-                    var bridge = new Bridge(this.coloredNode, toBridgeTo);
-                    bridge.setNum(1);
+                    var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
                 }
@@ -220,8 +219,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
-                    var bridge = new Bridge(this.coloredNode, toBridgeTo);
-                    bridge.setNum(1);
+                    var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
                 }
@@ -252,8 +250,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
-                    var bridge = new Bridge(this.coloredNode, toBridgeTo);
-                    bridge.setNum(1);
+                    var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
                 }
@@ -284,8 +281,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
-                    var bridge = new Bridge(this.coloredNode, toBridgeTo);
-                    bridge.setNum(1);
+                    var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
                 }
