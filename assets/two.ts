@@ -72,6 +72,7 @@ declare module Two {
 
         stroke: string; // color
         fill: string; // color
+        size: number;
         linewidth: number;
         opacity: number; // 0-1
         /** http://www.w3.org/TR/SVG/images/painting/linecap.svg */
