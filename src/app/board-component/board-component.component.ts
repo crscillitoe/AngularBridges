@@ -38,7 +38,11 @@ export class BoardComponentComponent implements OnInit {
         tempCanvas.addEventListener('mouseup', (e) => this.mouseReleased(e), false);
 
         this.edgeLength = Math.max(this.width, this.height);
-        this.diameter = Math.min(this.canvas.width - (this.edgeLength * 10), this.canvas.height - (this.edgeLength * 10)) / (this.edgeLength + 1);
+        if(this.edgeLength < 35) {
+            this.diameter = Math.min(this.canvas.width - (this.edgeLength * 10), this.canvas.height - (this.edgeLength * 10)) / (this.edgeLength + 1);
+        } else {
+            this.diameter = Math.min(this.canvas.width - (this.edgeLength * 4), this.canvas.height - (this.edgeLength * 4)) / (this.edgeLength + 1);
+        }
         this.xAdd = this.canvas.width/2 - ((this.width + 1) * (this.diameter + (this.diameter/5)))/2;
         this.yAdd = this.canvas.height/2 - ((this.height + 1) * (this.diameter + (this.diameter/5)))/2;
 
