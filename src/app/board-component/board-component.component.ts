@@ -29,6 +29,9 @@ export class BoardComponentComponent implements OnInit {
         this.width = Number(this.route.snapshot.paramMap.get('width'));
         this.height = Number(this.route.snapshot.paramMap.get('height'));
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
+        if(numNodes === 0) {
+            numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
+        }
         this.board = new Board(this.width, this.height, numNodes);
         var tempCanvas = document.getElementById('myCanvas');
         this.canvas = new Two({

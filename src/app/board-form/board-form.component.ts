@@ -21,7 +21,7 @@ export class BoardFormComponent implements OnInit {
         }
     }
 
-    model = new Board(null , null);
+    model = new Board(null , null, null);
 
     constructor(private router: Router) { }
 
