@@ -7,13 +7,13 @@ export class Board {
     constructor(width: number, height: number, numNodes: number) {
         this.width = width;
         this.height = height;
+        this.numNodes = numNodes;
         this.nodes = new Array<MyNode>();
-        this.generateBoard(numNodes);
     }
 
-    private generateBoard(numNodes: number) {
+    private generateBoard() {
         var chance = 4;
-        var nodesToAdd = numNodes;
+        var nodesToAdd = this.numNodes;
 
         var firstX = this.randomInt(1, this.width);
         var firstY = this.randomInt(1, this.height);

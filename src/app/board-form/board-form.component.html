@@ -10,7 +10,7 @@
     </div>
     
     <div class="container" id="form">
-        <p>Enter Board Width and Height (Between 7 and 40 inclusive (values over 40 for dev purposes only use at your own risk))</p>
+        <p>Enter Board Width and Height (Between 7 and 40 inclusive)</p>
         <form (ngSubmit)="onSubmit()" #boardForm="ngForm">
             <div class="form-group" id="widthInput">
                 <label for="width">Width</label>
@@ -25,8 +25,9 @@
             </div>
 
             <div class="form-group" id="numInput">
+                <label for="buttons">Difficulty</label>
                 <mat-button-toggle-group ng-model="data.group2" id="buttons">
-                    <mat-button-toggle value="easy" class="togglebutton" (click)="onClick1('easy')">Easy</mat-button-toggle>
+                    <mat-button-toggle value="easy" class="togglebutton" (click)="onClick1('easy')" checked="checked">Easy</mat-button-toggle>
                     <mat-button-toggle value="medium" class="togglebutton" (click)="onClick1('medium')">Medium</mat-button-toggle>
                     <mat-button-toggle value="hard" class="togglebutton" (click)="onClick1('hard')">Hard</mat-button-toggle>
                 </mat-button-toggle-group>

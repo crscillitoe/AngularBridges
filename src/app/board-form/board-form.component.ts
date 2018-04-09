@@ -16,7 +16,7 @@ export class BoardFormComponent implements OnInit {
 
     onSubmit() { 
         if(this.model.getWidth() < 7 || this.model.getHeight() < 7
-        || this.model.getWidth() >100 || this.model.getHeight() > 100) {
+        || this.model.getWidth() >40 || this.model.getHeight() > 40) {
             
         } else {
             if(this.difficulty == 'easy') {
@@ -43,5 +43,4 @@ export class BoardFormComponent implements OnInit {
     ngOnInit() {
 
     }
-
 }

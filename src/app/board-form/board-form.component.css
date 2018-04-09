@@ -41,12 +41,14 @@
 }
 
 #numInput {
+    width: 210px;
     display: inline-block;
     margin-right: 10px;
 }
 
 #buttons {
     background-color: #5CB85C;
+    height: 36px;
     color: #ffffff;
     border-radius: 15px;
 }

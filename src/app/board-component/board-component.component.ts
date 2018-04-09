@@ -42,6 +42,7 @@ export class BoardComponentComponent implements OnInit {
             numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
         }
         this.board = new Board(this.width, this.height, numNodes);
+        this.board.generateBoard();
 
 
         var tempCanvas = document.getElementById('myCanvas');
@@ -224,6 +225,7 @@ export class BoardComponentComponent implements OnInit {
 
         var pointX = Math.round((x - this.xAdd)/(this.diameter + (this.diameter/5)));
         var pointY = Math.round((y - this.yAdd)/(this.diameter + (this.diameter/5)));
+
 
         if(this.isCircleHere(pointX, pointY)) {
             this.coloredNode = this.getCircleHere(pointX, pointY);
