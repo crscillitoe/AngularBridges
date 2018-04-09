@@ -11,7 +11,7 @@ export class Board {
         this.nodes = new Array<MyNode>();
     }
 
-    private generateBoard() {
+    public generateBoard() {
         var chance = 4;
         var nodesToAdd = this.numNodes;
 
