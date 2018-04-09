@@ -452,4 +452,13 @@ export class BoardComponentComponent implements OnInit {
             }
         }, 300);
     }
+
+    clearBoard() {
+        for(let n of this.board.getNodes()) {
+            for(let b of n.getBridges()) {
+                b.setNum(0);
+            }
+        }
+        this.draw();
+    }
 }
