@@ -12,7 +12,8 @@ import { BoardComponentComponent } from '../board-component/board-component.comp
 export class BoardFormComponent implements OnInit {
 
 
-    onSubmit() { 
+    onSubmit(difficulty: string) { 
+        console.log(difficulty);
         if(this.model.getWidth() < 7 || this.model.getHeight() < 7
         || this.model.getWidth() >100 || this.model.getHeight() > 100) {
             

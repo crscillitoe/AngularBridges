@@ -23,11 +23,14 @@
                 <input type="text" class="form-control" id="height" required
                 [(ngModel)]="model.height" name="height">
             </div>
-    
+
+
             <div class="form-group" id="numInput">
-                <label for="height">Number of Nodes (Empty for Default)</label>
-                <input type="text" class="form-control" id="numNodes"
-                [(ngModel)]="model.numNodes" name="numNodes">
+                <mat-radio-group ng-model="data.group2">
+                    <mat-radio-button value="easy" class="btn btn-success mat-primary">Easy</mat-radio-button>
+                    <mat-radio-button value="medium" class="btn btn-success">Medium</mat-radio-button>
+                    <mat-radio-button value="hard" class="btn btn-success">Hard</mat-radio-button>
+                </mat-radio-group>
             </div>
     
             
