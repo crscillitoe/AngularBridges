@@ -41,11 +41,15 @@
 }
 
 #numInput {
-    width: 300px;
     display: inline-block;
     margin-right: 10px;
 }
 
+#buttons {
+    background-color: #5CB85C;
+    color: #ffffff;
+    border-radius: 15px;
+}
 
 #images {
     position: absolute;

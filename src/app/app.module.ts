@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { BoardFormComponent } from './board-form/board-form.component';
 import { BoardComponentComponent } from './board-component/board-component.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MatFormFieldModule, MatRadioModule } from '@angular/material';
+import {    MatFormFieldModule, 
+            MatRadioModule,
+            MatButtonToggleModule } from '@angular/material';
 
 const appRoutes: Routes = [
     { path: '', component: BoardFormComponent},
@@ -25,6 +27,7 @@ const appRoutes: Routes = [
       FormsModule,
       MatRadioModule,
       MatFormFieldModule,
+      MatButtonToggleModule,
       RouterModule.forRoot(
           appRoutes,
           { enableTracing: false }
@@ -32,7 +35,8 @@ const appRoutes: Routes = [
   ],
   exports: [
       MatRadioModule,
-      MatFormFieldModule
+      MatFormFieldModule,
+      MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

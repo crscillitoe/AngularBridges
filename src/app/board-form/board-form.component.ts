@@ -11,20 +11,34 @@ import { BoardComponentComponent } from '../board-component/board-component.comp
 
 export class BoardFormComponent implements OnInit {
 
+    difficulty: string;
 
-    onSubmit(difficulty: string) { 
-        console.log(difficulty);
+
+    onSubmit() { 
         if(this.model.getWidth() < 7 || this.model.getHeight() < 7
         || this.model.getWidth() >100 || this.model.getHeight() > 100) {
             
         } else {
+            if(this.difficulty == 'easy') {
+                this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;
+            } else if(this.difficulty == 'medium') {
+                this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;
+            } else if(this.difficulty == 'hard') {
+                this.model.numNodes = 500000;
+            }
             this.router.navigate(['routedPage', this.model]);
         }
     }
 
+    onClick1(clicked: string) {
+        this.difficulty = clicked;
+    }
+
     model = new Board(null , null, null);
 
-    constructor(private router: Router) { }
+    constructor(private router: Router) { 
+        this.difficulty = 'easy'; 
+    }
 
     ngOnInit() {
 
