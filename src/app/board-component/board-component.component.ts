@@ -45,10 +45,18 @@ export class BoardComponentComponent implements OnInit {
 
 
         var tempCanvas = document.getElementById('myCanvas');
-        this.canvas = new Two({
-            type: Two.Types.canvas,
-            fullscreen: true
-        }).appendTo(tempCanvas);
+        if(this.width > 40 || this.height > 40) {
+            this.canvas = new Two({
+                type: Two.Types.canvas,
+                width: 5000,
+                height: 5000
+            }).appendTo(tempCanvas);
+        } else {
+            this.canvas = new Two({
+                type: Two.Types.canvas,
+                fullscreen: true
+            }).appendTo(tempCanvas);
+        }
         tempCanvas.addEventListener('mousedown', (e) => this.mousePressed(e), false);
         tempCanvas.addEventListener('mouseup', (e) => this.mouseReleased(e), false);
         this.onResize(document.getElementsByTagName("canvas")[0], (e) => this.fixSizes());
@@ -93,8 +101,10 @@ export class BoardComponentComponent implements OnInit {
         this.edgeLength = Math.max(this.width, this.height);
         if(this.edgeLength < 35) {
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 10), this.canvas.height - (this.edgeLength * 10)) / (this.edgeLength + 1);
-        } else {
+        } else if(this.edgeLength <= 40){
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 4), this.canvas.height - (this.edgeLength * 4)) / (this.edgeLength + 1);
+        } else {
+            this.diameter = 25;
         }
         this.xAdd = this.canvas.width/2 - ((this.width + 1) * (this.diameter + (this.diameter/5)))/2;
         this.yAdd = this.canvas.height/2 - ((this.height + 1) * (this.diameter + (this.diameter/5)))/2;
