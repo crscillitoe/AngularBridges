@@ -17,12 +17,16 @@ export class BoardComponentComponent implements OnInit {
     yAdd: number;
     pressedX: number;
     pressedY: number;
+    drawLetters: boolean;
+    drawGridBool: boolean;
+    drawTextColorBool: boolean;
     coloredNode: MyNode;
     board: Board;
     canvas: Two;
 
     circleColor: string[];
     circleTextColor: string;
+    circleTextColors: string[];
     circleSelectedColor: string[];
     circleSelectedTextColor: string;
     backgroundColor: string;
@@ -35,6 +39,9 @@ export class BoardComponentComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        this.drawLetters = true;
+        this.drawGridBool = false;
+        this.drawTextColorBool = false;
         this.width = Number(this.route.snapshot.paramMap.get('width'));
         this.height = Number(this.route.snapshot.paramMap.get('height'));
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
@@ -46,7 +53,7 @@ export class BoardComponentComponent implements OnInit {
 
 
         var tempCanvas = document.getElementById('myCanvas');
-        if(this.width > 40 || this.height > 40) {
+        if(this.width > 80 || this.height > 80) {
             this.canvas = new Two({
                 type: Two.Types.canvas,
                 width: 5000,
@@ -78,6 +85,19 @@ export class BoardComponentComponent implements OnInit {
             "#dc1d2b",
             "#ec2474"
         ];
+
+        this.circleTextColors = [
+            "#b246c4",
+            "#552B92",
+            "#7F2550",
+            "#b44a53",
+            "#0045AC",
+            "#277866",
+            "#0db4c1",
+            "#23e2d4",
+            "#13db8b"
+        ];
+
         this.circleTextColor = "#303030";
         this.circleSelectedColor = [
             "#ff77ad",
@@ -100,13 +120,25 @@ export class BoardComponentComponent implements OnInit {
     fixSizes() {
 
         this.edgeLength = Math.max(this.width, this.height);
+
+
         if(this.edgeLength < 35) {
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 10), this.canvas.height - (this.edgeLength * 10)) / (this.edgeLength + 1);
-        } else if(this.edgeLength <= 40){
+        } else if(this.edgeLength <= 50) {
+            this.diameter = Math.min(this.canvas.width - (this.edgeLength * 5), this.canvas.height - (this.edgeLength * 5)) / (this.edgeLength + 1);
+        } else if(this.edgeLength <= 60) {
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 4), this.canvas.height - (this.edgeLength * 4)) / (this.edgeLength + 1);
+        } else if(this.edgeLength <= 70) {
+            this.diameter = Math.min(this.canvas.width - (this.edgeLength * 3), this.canvas.height - (this.edgeLength * 3)) / (this.edgeLength + 1);
+        } else if(this.edgeLength <= 75) {
+            this.diameter = Math.min(this.canvas.width - (this.edgeLength * 2.7), this.canvas.height - (this.edgeLength * 2.7)) / (this.edgeLength + 1);
+        } else if(this.edgeLength <= 80) {
+            this.diameter = Math.min(this.canvas.width - (this.edgeLength * 2.3), this.canvas.height - (this.edgeLength * 2.3)) / (this.edgeLength + 1);
         } else {
             this.diameter = 25;
         }
+
+
         this.xAdd = this.canvas.width/2 - ((this.width + 1) * (this.diameter + (this.diameter/5)))/2;
         this.yAdd = this.canvas.height/2 - ((this.height + 1) * (this.diameter + (this.diameter/5)))/2;
 
@@ -116,7 +148,9 @@ export class BoardComponentComponent implements OnInit {
 
     draw() {
         this.drawBackground();
-        this.drawGrid();    
+        if(this.drawGridBool) {
+            this.drawGrid();    
+        }
         this.drawBridges();
         this.drawCircles();
         this.canvas.update();
@@ -151,7 +185,7 @@ export class BoardComponentComponent implements OnInit {
     drawCircle(node: MyNode) {
         var circleX = this.xAdd + (node.getX() * (this.diameter + (this.diameter/5)));
         var circleY = this.yAdd + (node.getY() * (this.diameter + (this.diameter/5)));
-        var tempCircle = this.canvas.makeCircle(circleX, circleY, this.diameter/2);
+        var tempCircle = this.canvas.makeCircle(circleX, circleY, this.diameter/1.5);
 
         var circleString = "" + node.getVal();
 
@@ -162,9 +196,35 @@ export class BoardComponentComponent implements OnInit {
             tempCircle.fill = this.wrongCircleColor;
         }
 
-        var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
-        circleText.size = this.diameter/2;
-        circleText.fill = this.circleTextColor;
+        if(this.drawLetters) {
+            var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
+            circleText.size = this.diameter * 1.5;
+            if(this.drawTextColorBool) {
+                circleText.fill = this.circleTextColors[node.getVal() - this.getNumBridges(node)];
+                circleText.stroke = this.circleTextColors[node.getVal() - this.getNumBridges(node)];
+            } else {
+                circleText.fill = this.circleTextColor;
+                circleText.stroke = this.circleTextColor;
+            }
+        }
+    }
+
+    toggleLetters() {
+        this.drawLetters = !this.drawLetters;
+        this.canvas.clear();
+        this.draw();
+    }
+
+    toggleTextColor() {
+        this.drawTextColorBool = !this.drawTextColorBool;
+        this.canvas.clear();
+        this.draw();
+    }
+
+    toggleGrid() {
+        this.drawGridBool = !this.drawGridBool;
+        this.canvas.clear();
+        this.draw();
     }
 
     getNumBridges(node) {
@@ -178,7 +238,7 @@ export class BoardComponentComponent implements OnInit {
     drawCircleRed(node: MyNode) {
         var circleX = this.xAdd + (node.getX() * (this.diameter + (this.diameter/5)));
         var circleY = this.yAdd + (node.getY() * (this.diameter + (this.diameter/5)));
-        var tempCircle = this.canvas.makeCircle(circleX, circleY, this.diameter/2);
+        var tempCircle = this.canvas.makeCircle(circleX, circleY, this.diameter/1.5);
 
         var circleString = "" + node.getVal();
 
@@ -189,10 +249,13 @@ export class BoardComponentComponent implements OnInit {
         }
         tempCircle.stroke = "#FFFFFF";
 
-        var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
-        circleText.size = this.diameter/2;
-        circleText.fill = this.circleTextColor;
+        if(this.drawLetters) {
+            var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
+            circleText.size = this.diameter * 1.5;
+            circleText.fill = this.circleTextColor;
+        }
     }
+
 
     drawBackground() {
         var background = this.canvas.makeRectangle(0, 0, this.canvas.width * 2, this.canvas.height * 2);
