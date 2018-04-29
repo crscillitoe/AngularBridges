@@ -53,7 +53,7 @@ export class BoardComponentComponent implements OnInit {
 
 
         var tempCanvas = document.getElementById('myCanvas');
-        if(this.width > 80 || this.height > 80) {
+        if(this.width > 100 || this.height > 100) {
             this.canvas = new Two({
                 type: Two.Types.canvas,
                 width: 5000,
@@ -134,6 +134,8 @@ export class BoardComponentComponent implements OnInit {
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 2.7), this.canvas.height - (this.edgeLength * 2.7)) / (this.edgeLength + 1);
         } else if(this.edgeLength <= 80) {
             this.diameter = Math.min(this.canvas.width - (this.edgeLength * 2.3), this.canvas.height - (this.edgeLength * 2.3)) / (this.edgeLength + 1);
+        } else if(this.edgeLength <= 100) {
+            this.diameter = Math.min(this.canvas.width - (this.edgeLength * 2), this.canvas.height - (this.edgeLength * 2)) / (this.edgeLength + 1);
         } else {
             this.diameter = 25;
         }
