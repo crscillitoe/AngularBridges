@@ -31,13 +31,29 @@ export class BoardFormComponent implements OnInit {
     }
 
     onClick1(clicked: string) {
-        this.difficulty = clicked;
+        if(clicked=='10x10') {
+            this.model.width = 10;
+            this.model.height = 10;
+        } else if(clicked=='25x25') {
+            this.model.width = 25;
+            this.model.height = 25;
+        } else if(clicked=='40x40') {
+            this.model.width = 40;
+            this.model.height = 40;
+        } else if(clicked=='100x100') {
+            this.model.width = 100;
+            this.model.height = 100;
+        } else {
+            this.difficulty = clicked;
+        }
     }
 
     model = new Board(null , null, null);
 
     constructor(private router: Router) { 
         this.difficulty = 'easy'; 
+        this.model.width = 25;
+        this.model.height = 25;
     }
 
     ngOnInit() {

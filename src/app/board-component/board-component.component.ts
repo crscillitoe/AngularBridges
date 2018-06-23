@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Board, MyNode, Bridge } from '../board';
 import { ActivatedRoute } from '@angular/router';
+//import { Two } from './two';
 
 @Component({
   selector: 'app-board-component',
@@ -40,7 +41,7 @@ export class BoardComponentComponent implements OnInit {
     // Initializes data
     ngOnInit() {
         this.drawLetters = true;
-        this.drawGridBool = false;
+        this.drawGridBool = true;
         this.drawTextColorBool = false;
         this.width = Number(this.route.snapshot.paramMap.get('width'));
         this.height = Number(this.route.snapshot.paramMap.get('height'));
@@ -199,7 +200,7 @@ export class BoardComponentComponent implements OnInit {
         }
 
         if(this.drawLetters) {
-            var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
+            var circleText = this.canvas.makeText(circleString, circleX, circleY + this.diameter/10, null);
             circleText.size = this.diameter * 1.5;
             if(this.drawTextColorBool) {
                 circleText.fill = this.circleTextColors[node.getVal() - this.getNumBridges(node)];

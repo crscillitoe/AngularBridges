@@ -12,16 +12,14 @@
     <div class="container" id="form">
         <p>Enter Board Width and Height (Between 7 and 40 inclusive)</p>
         <form (ngSubmit)="onSubmit()" #boardForm="ngForm">
-            <div class="form-group" id="widthInput">
-                <label for="width">Width</label>
-                <input type="text" class="form-control" id="width" required
-                [(ngModel)]="model.width" name="width">
-            </div>
-    
-            <div class="form-group" id="heightInput">
-                <label for="height">Height</label>
-                <input type="text" class="form-control" id="height" required
-                [(ngModel)]="model.height" name="height">
+            <div class="form-group" id="sizeInput">
+                <label for="buttons">Board Size</label>
+                <mat-button-toggle-group ng-model="data.group2" id="buttons">
+                    <mat-button-toggle value="10x10" class="togglebutton" (click)="onClick1('10x10')" checked="checked">10x10</mat-button-toggle>
+                    <mat-button-toggle value="25x25" class="togglebutton" (click)="onClick1('25x25')" checked="checked">25x25</mat-button-toggle>
+                    <mat-button-toggle value="40x40" class="togglebutton" (click)="onClick1('40x40')">40x40</mat-button-toggle>
+                    <mat-button-toggle value="100x100" class="togglebutton" (click)="onClick1('100x100')">100x100</mat-button-toggle>
+                </mat-button-toggle-group>
             </div>
 
             <div class="form-group" id="numInput">
