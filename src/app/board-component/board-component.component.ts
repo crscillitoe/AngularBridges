@@ -14,6 +14,7 @@ export class BoardComponentComponent implements OnInit {
     height: number;
     edgeLength: number;
     diameter: number;
+    solved: boolean;
     xAdd: number;
     yAdd: number;
     pressedX: number;
@@ -34,6 +35,10 @@ export class BoardComponentComponent implements OnInit {
     gridColor: string;
     bridgeColor: string;
     wrongCircleColor: string;
+    seconds: any;
+    minutes: any;
+    hours: any;
+    t: any;
 
     constructor(private route: ActivatedRoute) { 
     }
@@ -43,6 +48,7 @@ export class BoardComponentComponent implements OnInit {
         this.drawLetters = true;
         this.drawGridBool = true;
         this.drawTextColorBool = false;
+        this.solved = false;
         this.width = Number(this.route.snapshot.paramMap.get('width'));
         this.height = Number(this.route.snapshot.paramMap.get('height'));
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
@@ -66,12 +72,42 @@ export class BoardComponentComponent implements OnInit {
                 fullscreen: true
             }).appendTo(tempCanvas);
         }
+        this.seconds = 0;
+        this.minutes = 0;
+        this.hours = 0;
+        this.timer();
+
+
+
         tempCanvas.addEventListener('mousedown', (e) => this.mousePressed(e), false);
         tempCanvas.addEventListener('mouseup', (e) => this.mouseReleased(e), false);
+
         this.onResize(document.getElementsByTagName("canvas")[0], (e) => this.fixSizes());
 
         this.nightScheme();
         this.fixSizes();
+    }
+
+    add(_this) {
+        var h1 = document.getElementsByTagName("h1")[0];
+        _this.seconds++;
+        if (_this.seconds >= 60) {
+            _this.seconds = 0;
+            _this.minutes++;
+            if (_this.minutes >= 60) {
+                _this.minutes = 0;
+                _this.hours++;
+            }
+        }
+        h1.textContent = (_this.hours ? (_this.hours > 9 ? _this.hours : "0" + _this.hours) : "00") + ":" + (_this.minutes ? (_this.minutes > 9 ? _this.minutes : "0" + _this.minutes) : "00") + ":" + (_this.seconds > 9 ? _this.seconds : "0" + _this.seconds);
+        _this.timer();
+    }
+
+    timer() {
+        if(!this.solved) {
+            var _this = this;
+            this.t = setTimeout(function() {_this.add(_this)}, 1000);
+        }
     }
 
     nightScheme() {
@@ -504,6 +540,25 @@ export class BoardComponentComponent implements OnInit {
                     this.draw();
                 }
             }
+        }
+    }
+
+    done() {
+        //if(this.width == 40 && this.height == 40) {
+        for(let n of this.board.getNodes()) {
+            var total = 0;
+            for(let b of n.bridges) {
+                total += b.num;
+            }
+            if(total != n.val) {
+                console.log("NOT SOLVED");
+                return;
+            }
+        }
+
+        console.log("SOLVED");
+        this.solved = true;
+        if(this.width == 40 && this.height == 40) {
         }
     }
 
