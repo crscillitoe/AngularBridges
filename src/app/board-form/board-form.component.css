@@ -40,6 +40,12 @@
     margin-right: 10px;
 }
 
+#sizeInput {
+    width: 600px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
 #numInput {
     width: 210px;
     display: inline-block;

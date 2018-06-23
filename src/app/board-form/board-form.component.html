@@ -15,9 +15,13 @@
             <div class="form-group" id="sizeInput">
                 <label for="buttons">Board Size</label>
                 <mat-button-toggle-group ng-model="data.group2" id="buttons">
+                    <mat-button-toggle value="7x7" class="togglebutton" (click)="onClick1('7x7')" checked="checked">7x7</mat-button-toggle>
                     <mat-button-toggle value="10x10" class="togglebutton" (click)="onClick1('10x10')" checked="checked">10x10</mat-button-toggle>
+                    <mat-button-toggle value="15x15" class="togglebutton" (click)="onClick1('15x15')" checked="checked">15x15</mat-button-toggle>
                     <mat-button-toggle value="25x25" class="togglebutton" (click)="onClick1('25x25')" checked="checked">25x25</mat-button-toggle>
                     <mat-button-toggle value="40x40" class="togglebutton" (click)="onClick1('40x40')">40x40</mat-button-toggle>
+                    <mat-button-toggle value="60x60" class="togglebutton" (click)="onClick1('60x60')">60x60</mat-button-toggle>
+                    <mat-button-toggle value="80x80" class="togglebutton" (click)="onClick1('80x80')">80x80</mat-button-toggle>
                     <mat-button-toggle value="100x100" class="togglebutton" (click)="onClick1('100x100')">100x100</mat-button-toggle>
                 </mat-button-toggle-group>
             </div>

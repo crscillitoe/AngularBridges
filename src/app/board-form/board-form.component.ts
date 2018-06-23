@@ -37,6 +37,18 @@ export class BoardFormComponent implements OnInit {
         } else if(clicked=='25x25') {
             this.model.width = 25;
             this.model.height = 25;
+        } else if(clicked=='15x15') {
+            this.model.width = 15;
+            this.model.height = 15;
+        } else if(clicked=='7x7') {
+            this.model.width = 7;
+            this.model.height = 7;
+        } else if(clicked=='60x60') {
+            this.model.width = 60;
+            this.model.height = 60;
+        } else if(clicked=='80x80') {
+            this.model.width = 80;
+            this.model.height = 80;
         } else if(clicked=='40x40') {
             this.model.width = 40;
             this.model.height = 40;

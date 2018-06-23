@@ -236,7 +236,7 @@ export class BoardComponentComponent implements OnInit {
         }
 
         if(this.drawLetters) {
-            var circleText = this.canvas.makeText(circleString, circleX, circleY + this.diameter/10, null);
+            var circleText = this.canvas.makeText(circleString, circleX, circleY, null);
             circleText.size = this.diameter * 1.5;
             if(this.drawTextColorBool) {
                 circleText.fill = this.circleTextColors[node.getVal() - this.getNumBridges(node)];
