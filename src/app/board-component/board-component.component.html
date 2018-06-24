@@ -1,12 +1,15 @@
 <html>
     <div class="container" id="gameScreen">
-        <div id="myCanvas">
+        <div id="canvasContainer">
+            <div id="myCanvas"></div>
         </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
 
         <div class="container" id="timerContainer">
             <h1 id="timer"><time>00:00:00</time></h1>
         </div>
+
         <div class="container" id="buttons">
             <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>
             <br>
@@ -20,7 +23,7 @@
             <button class="btn btn-outline" (click)="toggleTextColor()">Toggle Text Color</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="done()">Done</button>
+            <button class="btn btn-outline-done" (click)="done()">Done</button>
         </div>
     </div>
 </html>

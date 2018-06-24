@@ -83,7 +83,6 @@ export class BoardComponentComponent implements OnInit {
         tempCanvas.addEventListener('mouseup', (e) => this.mouseReleased(e), false);
 
         this.onResize(document.getElementsByTagName("canvas")[0], (e) => this.fixSizes());
-
         this.nightScheme();
         this.fixSizes();
     }
@@ -196,6 +195,13 @@ export class BoardComponentComponent implements OnInit {
     }
 
     drawGrid() {
+        var rect = this.canvas.makeRectangle(   this.diameter/2 + this.xAdd + (this.width * (this.diameter + (this.diameter/5)))/2, 
+                                                this.diameter/2 + this.yAdd + (this.height * (this.diameter + (this.diameter/5)))/2, 
+                                                2 * this.diameter + this.width * (this.diameter + (this.diameter/5)), 
+                                                2 * this.diameter + this.height * (this.diameter + (this.diameter/5)));
+        rect.stroke = this.gridColor;
+        rect.fill = this.backgroundColor;
+
         var x = 0;
         var y = 0;
         for(x = 1 ; x <= this.width ; x++) {
