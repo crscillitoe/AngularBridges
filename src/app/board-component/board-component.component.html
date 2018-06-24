@@ -4,21 +4,23 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
 
-        <h1 id="timer"><time>00:00:00</time></h1>
-        <div class="container" id="form">
-            <button class="btn btn-success" (click)="clearBoard()">Clear Board</button>
+        <div class="container" id="timerContainer">
+            <h1 id="timer"><time>00:00:00</time></h1>
         </div>
-        <div class="container" id="form2">
-            <button class="btn btn-success" (click)="toggleLetters()">Toggle Numbering</button>
-        </div>
-        <div class="container" id="form3">
-            <button class="btn btn-success" (click)="toggleGrid()">Toggle Grid</button>
-        </div>
-        <div class="container" id="form4">
-            <button class="btn btn-success" (click)="toggleTextColor()">Toggle Text Color</button>
-        </div>
-        <div class="container" id="form5">
-            <button class="btn btn-success" (click)="done()">Done</button>
+        <div class="container" id="buttons">
+            <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>
+            <br>
+            <br>
+            <button class="btn btn-outline" (click)="toggleLetters()">Toggle Numbering</button>
+            <br>
+            <br>
+            <button class="btn btn-outline" (click)="toggleGrid()">Toggle Grid</button>
+            <br>
+            <br>
+            <button class="btn btn-outline" (click)="toggleTextColor()">Toggle Text Color</button>
+            <br>
+            <br>
+            <button class="btn btn-outline" (click)="done()">Done</button>
         </div>
     </div>
 </html>
