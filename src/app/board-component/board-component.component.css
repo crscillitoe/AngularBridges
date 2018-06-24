@@ -28,8 +28,8 @@ body {
     border-width: 1px;
     background-color: #2c2c2c;
     position: absolute;
-    top:8%;
-    left:2%;
+    top:30px;
+    left:10px;
     vertical-align: middle;
     width:200px;
     padding-left:26px;
@@ -43,8 +43,8 @@ body {
     border-width: 1px;
     background-color: #2c2c2c;
     position: absolute;
-    top:15%;
-    left:2%;
+    top:100px;
+    left:10px;
     width:200px;
     padding-top:15px;
     padding-bottom:15px;

@@ -177,7 +177,8 @@ export class BoardComponentComponent implements OnInit {
         }
 
 
-        this.xAdd = this.canvas.width/2 - ((this.width + 1) * (this.diameter + (this.diameter/5)))/2;
+        //this.xAdd = this.canvas.width/2 - ((this.width + 1) * (this.diameter + (this.diameter/5)))/2;
+        this.xAdd = 250;
         this.yAdd = this.canvas.height/2 - ((this.height + 1) * (this.diameter + (this.diameter/5)))/2;
 
 
