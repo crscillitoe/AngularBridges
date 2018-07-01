@@ -10,24 +10,39 @@ import { RouterModule, Routes } from '@angular/router';
 import {    MatFormFieldModule, 
             MatRadioModule,
             MatButtonToggleModule } from '@angular/material';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { HttpClientModule } from '@angular/common/http';
+
+import { environment } from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 
 const appRoutes: Routes = [
     { path: '', component: BoardFormComponent},
-    { path: 'routedPage', component: BoardComponentComponent }
+    { path: 'mainMenu', component: BoardFormComponent},
+    { path: 'routedPage', component: BoardComponentComponent },
+    { path: 'leaderboards', component: LeaderboardsComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardFormComponent,
-    BoardComponentComponent
+    BoardComponentComponent,
+    LeaderboardsComponent
   ],
   imports: [
       BrowserModule,
+      HttpClientModule,
       FormsModule,
       MatRadioModule,
       MatFormFieldModule,
       MatButtonToggleModule,
+      AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
       RouterModule.forRoot(
           appRoutes,
           { enableTracing: false }

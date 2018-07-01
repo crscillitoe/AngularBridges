@@ -1,47 +1,74 @@
 body {
-    background-color: #2c2c2c;
+    background-color: var(--background-color);
 }
 
 .btn-outline {
     width: 100%;
-    background-color: #2c2c2c;
-    border-color: #a89984;
+    background-color: var(--background-color);
+    border-color: var(--grid-color);
     border-style: solid;
-    color: #a89984;
+    color: var(--grid-color);
     outline: 5px;
     margin:auto;
 }
 
 .btn-outline-done {
     width: 100%;
-    background-color: #2c2c2c;
-    border-color: #aad46d;
+    background-color: var(--background-color);
+    border-color: var(--done-color);
     border-style: solid;
-    color: #aad46d;
+    color: var(--done-color);
+    outline: 5px;
+    margin:auto;
+    }
+hr{
+    border: 1px solid var(--grid-color);
+}
+
+#label {
+    color: var(--grid-color);
+}
+
+.btn-outline-back {
+    width: 100%;
+    background-color: var(--background-color);
+    border-color: var(--back-color);
+    border-style: solid;
+    color: var(--back-color);
+    outline: 5px;
+    margin:auto;
+}
+
+.btn-outline-newboard {
+    width: 100%;
+    background-color: var(--background-color);
+    border-color: var(--newboard-color);
+    border-style: solid;
+    color: var(--newboard-color);
     outline: 5px;
     margin:auto;
 }
 
 #timerContainer {
-    border-color: #a89984;
+    border-color: var(--grid-color);
     border-style: solid;
     border-width: 1px;
-    background-color: #2c2c2c;
+    background-color: var(--background-color);
     position: absolute;
     top:30px;
     left:10px;
     vertical-align: middle;
     width:200px;
-    padding-left:26px;
+    padding-left:4px;
     padding-top:5px;
     padding-bottom:5px;
 }
 
 #buttons {
-    border-color: #a89984;
+    border-color: var(--grid-color);
     border-style: solid;
     border-width: 1px;
-    background-color: #2c2c2c;
+    background-color: var(--background-color);
     position: absolute;
     top:100px;
     left:10px;
@@ -52,8 +79,8 @@ body {
 }
 
 #timer {
-    color: #ffba53;
-    background-color: #2c2c2c;
+    color: var(--timer-color);
+    background-color: var(--background-color);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -63,11 +90,25 @@ body {
     margin: auto;
 }
 
+
 #myCanvas {
-    height:100%;
-    width:70%;
-    background-color: #2c2c2c;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    cursor: url(mouse.png), auto;
+    left: 225px;
+    top:0px;
+    background-color: var(--background-color);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#memes {
+    position: absolute;
+    text-align: center;
+    color:#a89984;
+    bottom:0;
+    left:5px;
 }

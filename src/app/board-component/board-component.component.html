@@ -1,29 +1,41 @@
+
 <html>
-    <div class="container" id="gameScreen">
-        <div id="canvasContainer">
-            <div id="myCanvas"></div>
-        </div>
+        
+    <div class="container" id="gameScreen" onresize="fixSizes()" (contextmenu)="contextMenu()">
+            <img id="mouseImage" src="assets/mouse.png" style="display: none;">
+            <img id="mouseHoverImage" src="assets/mouseHover.png" style="display: none;">
+            <canvas  id="myCanvas" width="1500" height="800"></canvas>
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
 
         <div class="container" id="timerContainer">
             <h1 id="timer"><time>00:00:00</time></h1>
+            
         </div>
 
         <div class="container" id="buttons">
+            <button *ngIf="!solved" class="btn btn-outline-done" (click)="done()">Done</button>
+            <label *ngIf="solved && seed == 0" id="label">Enter your name
+                <input class="form-control" *ngIf="solved && seed == 0 && isLoggedIn()" type="text" [(ngModel)]="name" maxlength="10">
+            </label>
+            <button *ngIf="solved && seed == 0" class="btn btn-outline-done" (click)="submit()">Submit</button>
+            <hr>
             <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="toggleLetters()">Toggle Numbering</button>
+            <button class="btn btn-outline" (click)="fixSizes()">Resize</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="toggleGrid()">Toggle Grid</button>
+            <button class="btn btn-outline" (click)="bigBoard()">Big Board</button>
+            <hr>
+            <button class="btn btn-outline-newboard" (click)="newBoard()">New Board</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="toggleTextColor()">Toggle Text Color</button>
-            <br>
-            <br>
-            <button class="btn btn-outline-done" (click)="done()">Done</button>
+            <button class="btn btn-outline-back" (click)="back()">Back to Main Menu</button>
+        </div>
+        <div id="memes">
+            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.3.1</p>
         </div>
     </div>
 </html>

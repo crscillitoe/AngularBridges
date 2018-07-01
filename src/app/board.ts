@@ -1,13 +1,27 @@
 export class Board {
     width: number;
+    theme: string;
     height: number;
     numNodes: number;
+    extreme: boolean;
+    initialSeed:number;
+    seed: number;
+    hotkeys: boolean;
     nodes: Array<MyNode>;
+    numbers: boolean;
+    grid: boolean;
 
-    constructor(width: number, height: number, numNodes: number) {
+    constructor(width: number, height: number, numNodes: number, extreme: boolean, seed: number, theme: string, hotkeys: boolean, numbers: boolean, grid: boolean) {
         this.width = width;
         this.height = height;
         this.numNodes = numNodes;
+        this.extreme = extreme;
+        this.initialSeed = seed;
+        this.seed = seed;
+        this.theme = theme;
+        this.hotkeys = hotkeys;
+        this.numbers = numbers;
+        this.grid = grid;
         this.nodes = new Array<MyNode>();
     }
 
@@ -15,8 +29,18 @@ export class Board {
         var chance = 4;
         var nodesToAdd = this.numNodes;
 
-        var firstX = this.randomInt(1, this.width);
-        var firstY = this.randomInt(1, this.height);
+        if(this.seed == 0) {
+            this.seed = this.randomIntReal(0, 2000000000);
+            this.initialSeed = this.seed;
+        }
+
+        var firstX = 1;
+        var firstY = 1;
+
+        if(!this.extreme) {
+            firstX = this.randomInt(1, this.width);
+            firstY = this.randomInt(1, this.height);
+        }
 
         var tempNodes = new Array<MyNode>();
         var occupiedSquares = new Array<MyNode>();
@@ -26,12 +50,18 @@ export class Board {
         tempNodes.push(tempNode);
 
         var LagCount = 0;
+        var toCountTo = 50000;
         nodesToAdd--;
+        if(this.extreme) {
+            toCountTo = 200000;
+            nodesToAdd = 50000000;
+        }
         while(nodesToAdd > 0) {
             LagCount++;
-            if(LagCount > 500000) {
+            if(LagCount > toCountTo) {
                 nodesToAdd = 0;
             }
+
             var randomNode = tempNodes[this.randomInt(0, tempNodes.length - 1)];
 
             // Determine direction
@@ -41,7 +71,18 @@ export class Board {
             if(diceRoll === 1) {
                 if(!randomNode.getUp()) {
                     if(randomNode.getY() - 1 > 2) {
-                        var randomDistanceAway = this.randomInt(2, randomNode.getY() - 1);
+
+                        var randomDistanceAway = 0;
+                        if(this.extreme) {
+                            if(randomNode.getY() - 1 > 3) {
+                                randomDistanceAway = this.randomInt(2, 3)
+                            } else {
+                                randomDistanceAway = this.randomInt(2, randomNode.getY() - 1);
+                            }
+                        } else {
+                            randomDistanceAway = this.randomInt(2, randomNode.getY() - 1);
+                        }
+
                         var count;
                         var add = true;
                         for(count = randomNode.getY() - 1 ; count >= randomNode.getY() - randomDistanceAway ; count--) {
@@ -113,7 +154,18 @@ export class Board {
             else if(diceRoll === 2) {
                 if(!randomNode.getDown()) {
                     if(randomNode.getY() + 1 < this.height - 2) {
-                        var randomDistanceAway = this.randomInt(2, this.height - randomNode.getY());
+
+                        var randomDistanceAway = 0;
+                        if(this.extreme) {
+                            if(this.height - randomNode.getY() > 3) {
+                                randomDistanceAway = this.randomInt(2, 3)
+                            } else {
+                                randomDistanceAway = this.randomInt(2, this.height - randomNode.getY());
+                            }
+                        } else {
+                            randomDistanceAway = this.randomInt(2, this.height - randomNode.getY());
+                        }
+
                         var count;
                         var add = true;
                         for(count = randomNode.getY() + 1 ; count <= randomNode.getY() + randomDistanceAway ; count++) {
@@ -183,7 +235,18 @@ export class Board {
             else if(diceRoll === 3) {
                 if(!randomNode.getLeft()) {
                     if(randomNode.getX() - 1 > 2) {
-                        var randomDistanceAway = this.randomInt(2, randomNode.getX() - 1);
+
+                        var randomDistanceAway = 0;
+                        if(this.extreme) {
+                            if(randomNode.getX() - 1 > 3) {
+                                randomDistanceAway = this.randomInt(2, 3)
+                            } else {
+                                randomDistanceAway = this.randomInt(2, randomNode.getX() - 1);
+                            }
+                        } else {
+                            randomDistanceAway = this.randomInt(2, randomNode.getX() - 1);
+                        }
+
                         var count;
                         var add = true;
                         for(count = randomNode.getX() - 1 ; count >= randomNode.getX() - randomDistanceAway ; count--) {
@@ -253,7 +316,17 @@ export class Board {
             else if(diceRoll === 4) {
                 if(!randomNode.getRight()) {
                     if(randomNode.getX() + 1 < this.width - 2) {
-                        var randomDistanceAway = this.randomInt(2, this.width - randomNode.getX());
+                        var randomDistanceAway = 0;
+                        if(this.extreme) {
+                            if(this.width - randomNode.getX() > 3) {
+                                randomDistanceAway = this.randomInt(2, 3)
+                            } else {
+                                randomDistanceAway = this.randomInt(2, this.width - randomNode.getX());
+                            }
+                        } else {
+                            randomDistanceAway = this.randomInt(2, this.width - randomNode.getX());
+                        }
+
                         var count;
                         var add = true;
                         for(count = randomNode.getX() + 1 ; count <= randomNode.getX() + randomDistanceAway ; count++) {
@@ -325,8 +398,17 @@ export class Board {
         }
     }
 
-    private randomInt(min, max) {
+    private randomIntReal(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    private randomInt(min, max) {
+        return Math.floor(this.random() * (max - min + 1) + min);
+    }
+
+    random() {
+        var x = Math.sin(++this.seed) * 10000;
+        return x - Math.floor(x);
     }
 
     private testAddingNodes() {
