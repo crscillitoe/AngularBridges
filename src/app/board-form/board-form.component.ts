@@ -86,6 +86,175 @@ export class BoardFormComponent implements OnInit {
         }
     }
 
+    quickLaunch(m) {
+        if(m=='7x7easy') {
+            this.model.width = 7;
+            this.model.height = 7;
+            this.difficulty = 'easy'
+            this.onSubmit();
+        } else if(m == '15x15easy') {
+            this.model.width = 15;
+            this.model.height = 15;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '15x15medium') {
+            this.model.width = 15;
+            this.model.height = 15;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='15x15hard') {
+            this.model.width = 15;
+            this.model.height = 15;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '15x15extreme') {
+            this.model.width = 15;
+            this.model.height = 15;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        }  else if(m == '25x25easy') {
+            this.model.width = 25;
+            this.model.height = 25;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '25x25medium') {
+            this.model.width = 25;
+            this.model.height = 25;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='25x25hard') {
+            this.model.width = 25;
+            this.model.height = 25;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '25x25extreme') {
+            this.model.width = 25;
+            this.model.height = 25;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        }  else if(m == '40x40easy') {
+            this.model.width = 40;
+            this.model.height = 40;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '40x40medium') {
+            this.model.width = 40;
+            this.model.height = 40;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='40x40hard') {
+            this.model.width = 40;
+            this.model.height = 40;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '40x40extreme') {
+            this.model.width = 40;
+            this.model.height = 40;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        }  else if(m == '10x10easy') {
+            this.model.width = 10;
+            this.model.height = 10;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '10x10medium') {
+            this.model.width = 10;
+            this.model.height = 10;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='10x10hard') {
+            this.model.width = 10;
+            this.model.height = 10;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '10x10extreme') {
+            this.model.width = 10;
+            this.model.height = 10;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        }  else if(m == '7x7easy') {
+            this.model.width = 7;
+            this.model.height = 7;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '7x7medium') {
+            this.model.width = 7;
+            this.model.height = 7;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='7x7hard') {
+            this.model.width = 7;
+            this.model.height = 7;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '7x7extreme') {
+            this.model.width = 7;
+            this.model.height = 7;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        }  else if(m == '100x100easy') {
+            this.model.width = 100;
+            this.model.height = 100;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '100x100medium') {
+            this.model.width = 100;
+            this.model.height = 100;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='100x100hard') {
+            this.model.width = 100;
+            this.model.height = 100;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '100x100extreme') {
+            this.model.width = 100;
+            this.model.height = 100;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        } else if(m == '60x60easy') {
+            this.model.width = 60;
+            this.model.height = 60;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '60x60medium') {
+            this.model.width = 60;
+            this.model.height = 60;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='60x60hard') {
+            this.model.width = 60;
+            this.model.height = 60;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '60x60extreme') {
+            this.model.width = 60;
+            this.model.height = 60;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        } else if(m == '80x80easy') {
+            this.model.width = 80;
+            this.model.height = 80;
+            this.difficulty = 'easy';
+            this.onSubmit();
+        } else if(m == '80x80medium') {
+            this.model.width = 80;
+            this.model.height = 80;
+            this.difficulty = 'medium';
+            this.onSubmit();
+        } else if(m =='80x80hard') {
+            this.model.width = 80;
+            this.model.height = 80;
+            this.difficulty = 'hard';
+            this.onSubmit();
+        } else if(m == '80x80extreme') {
+            this.model.width = 80;
+            this.model.height = 80;
+            this.difficulty = 'extreme';
+            this.onSubmit();
+        }
+    }
+
     model = new Board(null , null, null, null, null, null, null, null, null);
 
     leaderboards()

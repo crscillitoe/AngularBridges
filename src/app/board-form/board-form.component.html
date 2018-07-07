@@ -1,13 +1,20 @@
 <div id="all">
-    <div id="images">
+    <!--<div id="images">
         <div id="logo">
             <img width="300" src="assets/LogicBridges2.0._v2.png">
         </div>
-    </div>
+    </div>-->
     
     <div class="container" id="form">
         <form (ngSubmit)="onSubmit()" #boardForm="ngForm">
+                <div id="logo">
+                        <img width="150" src="assets/LogicBridges2.0._v2.png" id="logoClass">
+                    </div>
+
+
         <div class="form-group" id="numInput2">
+
+            
                 <label>Theme</label>
                 <select id="buttons2" (change)="changeTheme($event.target.value)">
                     <option value="light" class="togglebutton">Light Theme  </option>
@@ -17,7 +24,7 @@
                 <!--<input type="checkbox" (click)="onClick1('hotkeys')">Disable Hotkeys-->
                 
             </div>
-            <div class="form-group" id="sizeInput">
+            <!--<div class="form-group" id="sizeInput">
                 <label>Board Size</label>
                 <select (change)="onClick1($event.target.value)" id="buttons2">
                     <option value="7x7" class="togglebutton" (click)="onClick1('7x7')">7x7</option>
@@ -38,9 +45,13 @@
                     <option value="hard" class="togglebutton" (click)="onClick1('hard')">Hard</option>
                     <option value="extreme" class="togglebutton" (click)="onClick1('extreme')">Extreme</option>
                 </select>
-            </div>
+            </div>-->
 
-            <div class="form-group" id="numbering">
+            
+            
+              
+
+            <div class="form-group" id="sizeInput">
                 <label>Numbers</label>
                 <select (change)="changeNumbering($event.target.value)" id="buttons2">
                     <option value="true" class="togglebutton" (click)="onClick1('medium')" selected="selected">On</option>
@@ -48,7 +59,7 @@
                 </select>
             </div>
 
-            <div class="form-group" id="grid">
+            <div class="form-group" id="numInput">
                     <label>Grid</label>
                     <select (change)="changeGrid($event.target.value)" id="buttons2">
                         <option value="true" class="togglebutton" (click)="onClick1('medium')" selected="selected">On</option>
@@ -56,19 +67,66 @@
                     </select>
                 </div>
 
+            <div id="quickLaunchersEasy">
+                <label>Easy</label>
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7easy')" value="7x7">               
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10easy')" value="10x10">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15easy')" value="15x15">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25easy')" value="25x25">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40easy')" value="40x40">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60easy')" value="60x60">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80easy')" value="80x80">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100easy')" value="100x100">
+            </div>
+
+            <div id="quickLaunchersMedium">
+                <label>Medium</label>
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7medium')" value="7x7">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10medium')" value="10x10">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15medium')" value="15x15">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25medium')" value="25x25">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40medium')" value="40x40">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60medium')" value="60x60">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80medium')" value="80x80">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100medium')" value="100x100">
+            </div>
+
+            <div id="quickLaunchersHard">
+                <label>Hard</label>
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7hard')" value="7x7">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10hard')" value="10x10">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15hard')" value="15x15">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25hard')" value="25x25">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40hard')" value="40x40">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60hard')" value="60x60">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80hard')" value="80x80">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100hard')" value="100x100">
+            </div>
+
+            <div id="quickLaunchersExtreme">
+                <label>Extreme</label>
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7extreme')" value="7x7">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10extreme')" value="10x10">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15extreme')" value="15x15">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25extreme')" value="25x25">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40extreme')" value="40x40">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60extreme')" value="60x60">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80extreme')" value="80x80">
+                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100extreme')" value="100x100">
+            </div>
+
             <label id="label">Patch Notes</label>
             <div id="patchNotes">
                 
                 <div id="pathNotesBody">
                     <p>
-                        <b>PATCH 8.3.1 -</b><br>
-                        1. Put the patch notes on the main screen<br>
-                        2. Slightly shifted buttons on main screen, still trying to get a nice layout.<br>
-                        3. Seed input occurs right above the Generate Board button.<br><br>
-                        <b>PATCH 8.3.2 -</b><br>
-                        1. Shift WASD now either sets bridges to 2 or 0<br><br>
-                        <b>PATCH 8.3.3 -</b><br>
-                        1. The color of a circle slightly changes when your mouse hovers over it.<br>
+                        <b>PATCH 8.4.2</b><br>
+                        1. Made the main menu layout smoother<br><br>
+                        <b>PATCH 8.4.3</b><br>
+                        1. Fixed a bug that stopped the user from being able to select a color scheme<br>
+                        2. Added buttons back to the gameplay screen to toggle numbers/grid<br><br>
+                        <b>PATCH 8.4.4</b><br>
+                        1. Added leaderboards for 60x60s and 80x80s<br>
                     </p>
                 </div>
             </div>
@@ -78,9 +136,8 @@
             
                 </div>
             </div>
-
-
-              
+           
+            
             
     
         </form>
@@ -89,15 +146,14 @@
         
     </div>
     <div id="buttons5">
-        
+        <label style="color:#a89984">Seed<br>
+            <input style="color:black" name="in" type="number" [(ngModel)]="seed"/>
+            </label>
     </div>
 
     <div id="leaderboards">
-            <label style="color:#a89984">Seed<br>
-                <input style="color:black" name="in" type="number" [(ngModel)]="seed"/>
-                </label><br><br>
-            <button (click)="onSubmit()" class="btn btn-outline-done"
-            [disabled]="!boardForm.form.valid">Generate Board</button><br><br>
+            
+
         <button type="submit" class="btn btn-outline-leaderboards" (click)="leaderboards()">Leaderboards</button>
     </div>
 
@@ -108,7 +164,9 @@
     <div id="memes">
         <span id="span"><p>Copyright © 420 BC <br>Woohoojin Incorporated<br>Death to Arco<br>Lisa is Good<br>
             <a href="https://discord.gg/PtysEsh" style="color:#a89984">Click me to join our Discord server!</a>
-            <br>Release Version: 8.3.3
+            <br>Release Version: 8.4.4
         </p></span>
     </div>
+
+    
 </div>

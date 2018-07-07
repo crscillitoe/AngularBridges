@@ -127,7 +127,6 @@ export class BoardComponentComponent implements OnInit {
         }
         this.board = new Board(this.width, this.height, numNodes, this.extreme, this.seed, null, null, null, null);
         this.board.generateBoard();
-        console.log(this.board);
 
 
         this.canvas = document.getElementById('myCanvas');
@@ -145,19 +144,11 @@ export class BoardComponentComponent implements OnInit {
         this.canvas.addEventListener('mouseup', (e) => this.mouseReleased(e), false);
         
         var hotkeys = this.route.snapshot.paramMap.get('hotkeys') == 'true';
-        console.log(hotkeys);
         if(hotkeys) {
             this.canvas.addEventListener('mousemove', (e) => this.mouseMove(e), false);
         }
         window.addEventListener('keydown', function(e) {__this.keyPressed(e, __this) }, false);
         window.addEventListener('keyup', function(e) {__this.keyReleased(e, __this) }, false);
-
-        
-        document.addEventListener('keydown', event => {
-            if(event.key == ' ') {
-                __this.done();
-            }
-        });
 
         if(theme == 'night') {
             this.nightTheme();
@@ -601,6 +592,7 @@ export class BoardComponentComponent implements OnInit {
     }
 
     mousePressed(mouseEventData) {
+        if(!this.solved) {
             var x = mouseEventData.clientX + window.scrollX;
             var y = mouseEventData.clientY + window.scrollY;
             this.pressedX = x;
@@ -616,7 +608,7 @@ export class BoardComponentComponent implements OnInit {
             } else {
                 this.coloredNode = undefined;
             }
-       
+        }
     }
 
     drawBridges() {
@@ -945,12 +937,14 @@ export class BoardComponentComponent implements OnInit {
                         if(button == 2) {
                             this.bridgeLeft();
                         }
+                        this.done();
                         this.draw();
                     } else {
                         this.bridgeRight();
                         if(button == 2) {
                             this.bridgeRight();
                         }
+                        this.done();
                         this.draw();
                     }
                 } else {
@@ -959,12 +953,14 @@ export class BoardComponentComponent implements OnInit {
                         if(button == 2) {
                             this.bridgeUp();
                         }
+                        this.done();
                         this.draw();
                     } else {
                         this.bridgeDown();
                         if(button == 2) {
                             this.bridgeDown();
                         }
+                        this.done();
                         this.draw();
                     }
                 }
@@ -983,6 +979,7 @@ export class BoardComponentComponent implements OnInit {
                 this.bridgeUp();
             }
             this.coloredNode = undefined;
+            this.done();
             this.draw();
         }
     }
@@ -1016,7 +1013,345 @@ export class BoardComponentComponent implements OnInit {
                 .subscribe((data) => {
                 this.router.navigate(['leaderboards']);
             });
-        } else if(this.width == 25 && this.height == 25 && this.extreme && this.name != "") {
+        }  else if(this.width == 7 && this.height == 7 && numNodes == 21 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/7x7medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+        else if(this.width == 15 && this.height == 15 && numNodes == 30 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/15x15easy/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }  else if(this.width == 15 && this.height == 15 && numNodes == 45 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/15x15medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+
+        else if(this.width == 25 && this.height == 25 && numNodes == 50 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/25x25easy/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }  
+        
+        else if(this.width == 40 && this.height == 40 && numNodes == 80 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/40x40easy/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }  else if(this.width == 40 && this.height == 40 && numNodes == 120 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/40x40medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+
+        else if(this.width == 100 && this.height == 100 && numNodes == 200 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/100x100easy/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }  else if(this.width == 100 && this.height == 100 && numNodes == 300 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/100x100medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+        else if(this.width == 25 && this.height == 25 && numNodes == 75 && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/25x25medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+        else if(this.width == 7 && this.height == 7 && numNodes == 500000 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/7x7hard/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/7x7extreme/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+
+
+        else if(this.width == 10 && this.height == 10 && numNodes == 20 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/10x10easy/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+
+        else if(this.width == 10 && this.height == 10 && numNodes == 30 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/10x10medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+
+        else if(this.width == 10 && this.height == 10 && numNodes == 500000 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/10x10hard/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+        
+        else if(this.width == 10 && this.height == 10 && numNodes == 500000 && this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/10x10extreme/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+
+        
+        else if(this.width == 60 && this.height == 60 && numNodes == 120 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/60x60easy/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+
+        else if(this.width == 60 && this.height == 60 && numNodes == 180 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/60x60medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+
+        else if(this.width == 60 && this.height == 60 && numNodes == 500000 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/60x60hard/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+        
+        else if(this.width == 60 && this.height == 60 && numNodes == 500000 && this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/60x60extreme/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+
+        
+        else if(this.width == 80 && this.height == 80 && numNodes == 160 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/80x80easy/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+
+        else if(this.width == 80 && this.height == 80 && numNodes == 240 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/80x80medium/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+
+        else if(this.width == 80 && this.height == 80 && numNodes == 500000 && !this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/80x80hard/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+        
+        else if(this.width == 80 && this.height == 80 && numNodes == 500000 && this.extreme && this.name != "") {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/80x80extreme/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        }
+        
+        
+        else if(this.width == 25 && this.height == 25 && this.extreme && this.name != "") {
             let m = {
                 name: this.name,
                 hours: this.hours,
@@ -1111,89 +1446,99 @@ export class BoardComponentComponent implements OnInit {
     }
 
     keyPressed(event, __this) {
-        if(event.code == "ShiftLeft") {
-            __this.shift = true;
-        }
+        if(!this.solved) {
+            if(event.code == "ShiftLeft") {
+                __this.shift = true;
+            }
 
-        if(event.key == "w") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.bridgeUp();
-                this.draw();
-                this.coloredNode = undefined;
-            }
-        } else if(event.key == "W") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.specialBridgeUp();
-                this.draw();
-                this.coloredNode = undefined;
-            }
-        } else if(event.key == "s") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.bridgeDown();
-                this.draw();
-                this.coloredNode = undefined;
-            }
-        } else if(event.key == "S") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.specialBridgeDown();
-                this.draw();
-                this.coloredNode = undefined;
-            }
-        } else if(event.key == "a") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.bridgeLeft();
-                this.draw();
-                this.coloredNode = undefined;
-            }
-        } else if(event.key == "A") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.specialBridgeLeft();
-                this.draw();
-                this.coloredNode = undefined;
-            }
-        } else if(event.key == "d") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.bridgeRight();
-                this.draw();
-                this.coloredNode = undefined;
-            }
-        } else if(event.key == "D") {
-            var pointX = Math.round(((this.mouseX - 225))/this.factor);
-            var pointY = Math.round(((this.mouseY - 0))/this.factor);
-            
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.specialBridgeRight();
-                this.draw();
-                this.coloredNode = undefined;
+            if(event.key == "w") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.bridgeUp();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
+            } else if(event.key == "W") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.specialBridgeUp();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
+            } else if(event.key == "s") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.bridgeDown();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
+            } else if(event.key == "S") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.specialBridgeDown();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
+            } else if(event.key == "a") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.bridgeLeft();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
+            } else if(event.key == "A") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.specialBridgeLeft();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
+            } else if(event.key == "d") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.bridgeRight();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
+            } else if(event.key == "D") {
+                var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.specialBridgeRight();
+                    this.done();
+                    this.draw();
+                    this.coloredNode = undefined;
+                }
             }
         }
     }
@@ -1211,12 +1556,10 @@ export class BoardComponentComponent implements OnInit {
                 total += b.num;
             }
             if(total != n.val) {
-                console.log("NOT SOLVED");
                 return;
             }
         }
 
-        console.log("SOLVED");
         this.solved = true;
         if(this.width == 40 && this.height == 40) {
         }

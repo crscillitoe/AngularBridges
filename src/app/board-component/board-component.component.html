@@ -15,12 +15,17 @@
         </div>
 
         <div class="container" id="buttons">
-            <button *ngIf="!solved" class="btn btn-outline-done" (click)="done()">Done</button>
             <label *ngIf="solved && seed == 0" id="label">Enter your name
                 <input class="form-control" *ngIf="solved && seed == 0 && isLoggedIn()" type="text" [(ngModel)]="name" maxlength="10">
             </label>
             <button *ngIf="solved && seed == 0" class="btn btn-outline-done" (click)="submit()">Submit</button>
-            <hr>
+            <hr *ngIf="solved && seed == 0">
+            <button class="btn btn-outline" (click)="toggleLetters()">Toggle Numbers</button>
+            <br>
+            <br>
+            <button class="btn btn-outline" (click)="toggleGrid()">Toggle Grid</button>
+            <br>
+            <br>
             <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>
             <br>
             <br>
@@ -35,7 +40,7 @@
             <button class="btn btn-outline-back" (click)="back()">Back to Main Menu</button>
         </div>
         <div id="memes">
-            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.3.3</p>
+            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.4.4</p>
         </div>
     </div>
 </html>
