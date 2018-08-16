@@ -163,12 +163,14 @@ export class BoardComponentComponent implements OnInit {
     }
 
     mouseMove(mouseEventData) {
-        this.drawMouseX = mouseEventData.clientX - 225;
-        this.drawMouseY = mouseEventData.clientY;
-        this.mouseX = mouseEventData.clientX + window.scrollX;
-        this.mouseY = this.drawMouseY + window.scrollY;
-        
-        this.draw();
+        if(!this.pause) {
+            this.drawMouseX = mouseEventData.clientX - 225;
+            this.drawMouseY = mouseEventData.clientY;
+            this.mouseX = mouseEventData.clientX + window.scrollX;
+            this.mouseY = this.drawMouseY + window.scrollY;
+            
+            this.draw();
+        }
     }
 
     drawMouse() {
@@ -605,21 +607,23 @@ export class BoardComponentComponent implements OnInit {
     }
 
     mousePressed(mouseEventData) {
-        if(!this.solved) {
-            var x = mouseEventData.clientX + window.scrollX;
-            var y = mouseEventData.clientY + window.scrollY;
-            this.pressedX = x;
-            this.pressedY = y;
+        if(!this.pause) {
+            if(!this.solved) {
+                var x = mouseEventData.clientX + window.scrollX;
+                var y = mouseEventData.clientY + window.scrollY;
+                this.pressedX = x;
+                this.pressedY = y;
 
 
-            var pointX = Math.round(((x - 225))/this.factor);
-            var pointY = Math.round(((y - 0))/this.factor);
+                var pointX = Math.round(((x - 225))/this.factor);
+                var pointY = Math.round(((y - 0))/this.factor);
 
-            if(this.isCircleHere(pointX, pointY)) {
-                this.coloredNode = this.getCircleHere(pointX, pointY);
-                this.drawCircleRed(this.coloredNode);
-            } else {
-                this.coloredNode = undefined;
+                if(this.isCircleHere(pointX, pointY)) {
+                    this.coloredNode = this.getCircleHere(pointX, pointY);
+                    this.drawCircleRed(this.coloredNode);
+                } else {
+                    this.coloredNode = undefined;
+                }
             }
         }
     }
@@ -939,61 +943,63 @@ export class BoardComponentComponent implements OnInit {
     }
 
     mouseReleased(mouseEventData) {
-        var x = mouseEventData.clientX + window.scrollX;
-        var y = mouseEventData.clientY + window.scrollY;
-        var button = mouseEventData.button;
-        if(!this.shift) {
-            if(this.coloredNode !== undefined) {
-                if(Math.abs(this.pressedX - x) > Math.abs(this.pressedY - y)) {
-                    if(this.pressedX > x) {
-                        this.bridgeLeft();
-                        if(button == 2) {
+        if(!this.pause) {
+            var x = mouseEventData.clientX + window.scrollX;
+            var y = mouseEventData.clientY + window.scrollY;
+            var button = mouseEventData.button;
+            if(!this.shift) {
+                if(this.coloredNode !== undefined) {
+                    if(Math.abs(this.pressedX - x) > Math.abs(this.pressedY - y)) {
+                        if(this.pressedX > x) {
                             this.bridgeLeft();
-                        }
-                        this.done();
-                        this.draw();
-                    } else {
-                        this.bridgeRight();
-                        if(button == 2) {
+                            if(button == 2) {
+                                this.bridgeLeft();
+                            }
+                            this.done();
+                            this.draw();
+                        } else {
                             this.bridgeRight();
+                            if(button == 2) {
+                                this.bridgeRight();
+                            }
+                            this.done();
+                            this.draw();
                         }
-                        this.done();
-                        this.draw();
-                    }
-                } else {
-                    if(this.pressedY > y) {
-                        this.bridgeUp();
-                        if(button == 2) {
-                            this.bridgeUp();
-                        }
-                        this.done();
-                        this.draw();
                     } else {
-                        this.bridgeDown();
-                        if(button == 2) {
+                        if(this.pressedY > y) {
+                            this.bridgeUp();
+                            if(button == 2) {
+                                this.bridgeUp();
+                            }
+                            this.done();
+                            this.draw();
+                        } else {
                             this.bridgeDown();
+                            if(button == 2) {
+                                this.bridgeDown();
+                            }
+                            this.done();
+                            this.draw();
                         }
-                        this.done();
-                        this.draw();
                     }
+                    this.coloredNode = undefined;
+                    this.draw();
                 }
-                this.coloredNode = undefined;
-                this.draw();
-            }
-        } else {
-            this.bridgeDown();
-            this.bridgeLeft();
-            this.bridgeRight();
-            this.bridgeUp();
-            if(button == 2) {
+            } else {
                 this.bridgeDown();
                 this.bridgeLeft();
                 this.bridgeRight();
                 this.bridgeUp();
+                if(button == 2) {
+                    this.bridgeDown();
+                    this.bridgeLeft();
+                    this.bridgeRight();
+                    this.bridgeUp();
+                }
+                this.coloredNode = undefined;
+                this.done();
+                this.draw();
             }
-            this.coloredNode = undefined;
-            this.done();
-            this.draw();
         }
     }
     
@@ -1459,100 +1465,106 @@ export class BoardComponentComponent implements OnInit {
     }
 
     keyPressed(event, __this) {
-        if(!this.solved) {
-            if(event.code == "ShiftLeft") {
-                __this.shift = true;
-            }
+        if(!this.pause) {
+            if(!this.solved) {
+                if(event.code == "ShiftLeft") {
+                    __this.shift = true;
+                }
 
-            if(event.key == "w") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.bridgeUp();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
+                if(event.key == "w") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.bridgeUp();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "W") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.specialBridgeUp();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "s") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.bridgeDown();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "S") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.specialBridgeDown();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "a") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.bridgeLeft();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "A") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.specialBridgeLeft();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "d") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.bridgeRight();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "D") {
+                    var pointX = Math.round(((this.mouseX - 225))/this.factor);
+                    var pointY = Math.round(((this.mouseY - 0))/this.factor);
+                    
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.specialBridgeRight();
+                        this.done();
+                        this.draw();
+                        this.coloredNode = undefined;
+                    }
+                } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
+                    this.pauseGame();
                 }
-            } else if(event.key == "W") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.specialBridgeUp();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
-                }
-            } else if(event.key == "s") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.bridgeDown();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
-                }
-            } else if(event.key == "S") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.specialBridgeDown();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
-                }
-            } else if(event.key == "a") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.bridgeLeft();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
-                }
-            } else if(event.key == "A") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.specialBridgeLeft();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
-                }
-            } else if(event.key == "d") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.bridgeRight();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
-                }
-            } else if(event.key == "D") {
-                var pointX = Math.round(((this.mouseX - 225))/this.factor);
-                var pointY = Math.round(((this.mouseY - 0))/this.factor);
-                
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.specialBridgeRight();
-                    this.done();
-                    this.draw();
-                    this.coloredNode = undefined;
-                }
-            } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
+            }
+        } else {
+            if(event.key == "p" || event.key == "P" || event.key == "Escape") {
                 this.pauseGame();
             }
         }
