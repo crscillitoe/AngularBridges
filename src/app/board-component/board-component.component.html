@@ -4,7 +4,8 @@
     <div class="container" id="gameScreen" onresize="fixSizes()" (contextmenu)="contextMenu()">
             <img id="mouseImage" src="assets/mouse.png" style="display: none;">
             <img id="mouseHoverImage" src="assets/mouseHover.png" style="display: none;">
-            <canvas  id="myCanvas" width="1500" height="800"></canvas>
+
+            <canvas id="myCanvas" width="1500" height="800"></canvas>
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
@@ -26,6 +27,9 @@
             <button class="btn btn-outline" (click)="toggleGrid()">Toggle Grid</button>
             <br>
             <br>
+            <button class="btn btn-outline" (click)="pauseGame()">Pause (p)</button>
+            <br>
+            <br>
             <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>
             <br>
             <br>
@@ -40,7 +44,7 @@
             <button class="btn btn-outline-back" (click)="back()">Back to Main Menu</button>
         </div>
         <div id="memes">
-            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.4.4</p>
+            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.4.8</p>
         </div>
     </div>
 </html>

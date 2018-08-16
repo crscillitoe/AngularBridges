@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardComponentComponent implements OnInit {
 
+    pause: boolean;
     factor: number;
     squareSize: number;
     width: number;
@@ -61,6 +62,7 @@ export class BoardComponentComponent implements OnInit {
     private userDetails: firebase.User = null;
 
     constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private _firebaseAuth: AngularFireAuth) { 
+        this.pause = false;
         this.user = _firebaseAuth.authState;
         this.mouseX = -1;
         this.mouseY = -1;
@@ -178,22 +180,33 @@ export class BoardComponentComponent implements OnInit {
         }
     }
 
+    pauseGame() {
+        this.pause = !this.pause;
+        if(this.pause == true) {
+            this.drawBackground();
+        } else { 
+            this.draw();
+        }
+    }
+
     add(___this) {
         var h1 = document.getElementsByTagName("h1")[0];
-        ___this.millis++;
-        if(___this.millis >= 100) {
-            ___this.millis = 0
-            ___this.seconds++;
-            if (___this.seconds >= 60) {
-                ___this.seconds = 0;
-                ___this.minutes++;
-                if (___this.minutes >= 60) {
-                    ___this.minutes = 0;
-                    ___this.hours++;
+        if(!this.pause) {
+            ___this.millis++;
+            if(___this.millis >= 100) {
+                ___this.millis = 0
+                ___this.seconds++;
+                if (___this.seconds >= 60) {
+                    ___this.seconds = 0;
+                    ___this.minutes++;
+                    if (___this.minutes >= 60) {
+                        ___this.minutes = 0;
+                        ___this.hours++;
+                    }
                 }
             }
+            h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds) + "." + (___this.millis > 9 ? ___this.millis : "0"+___this.millis);
         }
-        h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds) + "." + (___this.millis > 9 ? ___this.millis : "0"+___this.millis);
         ___this.timer();
     }
 
@@ -1539,6 +1552,8 @@ export class BoardComponentComponent implements OnInit {
                     this.draw();
                     this.coloredNode = undefined;
                 }
+            } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
+                this.pauseGame();
             }
         }
     }
