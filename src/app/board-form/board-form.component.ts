@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from '../board';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -18,6 +19,8 @@ export class BoardFormComponent implements OnInit {
     difficulty: string;
     seed: any;
     hotkeys:boolean;
+    daily: any;
+    canPlayDaily: boolean;
 
     changeTheme(theme) {
         this.model.theme = theme;
@@ -84,6 +87,33 @@ export class BoardFormComponent implements OnInit {
             this.model.width = 100;
             this.model.height = 100;
         }
+    }
+
+    canPlayDailyFunc() {
+        if(this.daily && this.userDetails) {
+            this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores/'+this.userDetails.uid+'.json')
+                .subscribe((data) => {
+                    if(data == null) {
+                        return true;
+                    } else {
+                        this.canPlayDaily = false;
+                        return false;
+                    }
+                });
+        } else {
+            this.canPlayDaily = false;
+            return false;
+        }
+        return true;
+    }
+
+    playDaily() {
+        this.model.width = 25;
+        this.model.height = 25;
+        this.difficulty = 'hard';
+        this.model.daily = true;
+        this.seed = this.daily.seed;
+        this.onSubmit();
     }
 
     quickLaunch(m) {
@@ -255,7 +285,7 @@ export class BoardFormComponent implements OnInit {
         }
     }
 
-    model = new Board(null , null, null, null, null, null, null, null, null);
+    model = new Board(null , null, null, null, null, null, null, null, null, null);
 
     leaderboards()
     {
@@ -263,8 +293,53 @@ export class BoardFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.canPlayDaily = false;
         this.hotkeys = true;
         this.seed = 0;
+
+        this.updateDailyAsNeeded();
+    }
+
+    updateDailyAsNeeded() {
+        this.http.get('https://woohoojinbridges.firebaseio.com/daily.json')
+            .subscribe((data: any) => {
+                var date: any = new Date();
+                var date2: any = new Date(data.date);
+                var secondsPassed = (date - date2) / 1000;
+                console.log(data);
+                console.log(secondsPassed);
+                date2.setSeconds(3600 * 24);
+
+                if(secondsPassed > 3600 * 24) {
+                    var dailySeed = this.randomIntReal(0, 2000000000);
+                    let m = {
+                        date: date2,
+                        seed: dailySeed
+                    }
+
+                    this.daily = m;
+                    this.canPlayDaily = true;
+
+                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="$key"')
+                        .subscribe((keys: any) => {
+                            keys.forEach(key => {
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+key.key+'.json').subscribe((data) => {});
+                            });
+                        });
+
+                    this.http.put('https://woohoojinbridges.firebaseio.com/daily.json' , m)
+                        .subscribe((d) => {
+                            console.log("updated");
+                        });
+                } else {
+                    this.daily = data;
+                    this.canPlayDaily = this.canPlayDailyFunc();
+                }
+            });
+    }
+
+    private randomIntReal(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     login() {
@@ -275,20 +350,22 @@ export class BoardFormComponent implements OnInit {
 
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
-    constructor(private _firebaseAuth: AngularFireAuth, private router: Router) { 
-    this.difficulty = 'medium'; 
-    this.model.width = 25;
-    this.model.height = 25;
-    this.model.extreme = false;
-    this.model.theme = 'night';
-    this.model.hotkeys = true;
-    this.model.grid = true;
-    this.model.numbers = true;
+    constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private http: HttpClient) { 
+        this.canPlayDaily = false;
+        this.difficulty = 'medium'; 
+        this.model.width = 25;
+        this.model.height = 25;
+        this.model.extreme = false;
+        this.model.theme = 'night';
+        this.model.hotkeys = true;
+        this.model.grid = true;
+        this.model.numbers = true;
       this.user = _firebaseAuth.authState;
         this.user.subscribe(
         (user) => {
           if (user) {
             this.userDetails = user;
+            this.canPlayDaily = this.canPlayDailyFunc();
           }
           else {
             this.userDetails = null;

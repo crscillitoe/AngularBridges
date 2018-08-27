@@ -57,6 +57,7 @@ export class BoardComponentComponent implements OnInit {
     hours: any;
     millis: any;
     t: any;
+    daily: boolean;
 
     private user: Observable<firebase.User>;
     private userDetails: firebase.User = null;
@@ -102,7 +103,7 @@ export class BoardComponentComponent implements OnInit {
             numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
         }
         this.solved = false;
-        this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null);
+        this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null);
         this.seed = 0;
         this.board.generateBoard();
         this.draw();
@@ -118,6 +119,7 @@ export class BoardComponentComponent implements OnInit {
         this.width = Number(this.route.snapshot.paramMap.get('width'));
         this.height = Number(this.route.snapshot.paramMap.get('height'));
         this.extreme = "true" == this.route.snapshot.paramMap.get('extreme');
+        this.daily = "true" == this.route.snapshot.paramMap.get('daily');
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
         this.drawLetters = this.route.snapshot.paramMap.get('numbers') == "true";
         this.drawGridBool = this.route.snapshot.paramMap.get('grid') == "true";
@@ -127,7 +129,7 @@ export class BoardComponentComponent implements OnInit {
         if(numNodes === 0) {
             numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
         }
-        this.board = new Board(this.width, this.height, numNodes, this.extreme, this.seed, null, null, null, null);
+        this.board = new Board(this.width, this.height, numNodes, this.extreme, this.seed, null, null, null, null, null);
         this.board.generateBoard();
 
 
@@ -1006,6 +1008,7 @@ export class BoardComponentComponent implements OnInit {
 
     submit() {
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
+        if(!this.daily) {
         if(this.width == 40 && this.height == 40 && numNodes == 500000 && !this.extreme && this.name != "") {
             let m = {
                 name: this.name,
@@ -1458,6 +1461,20 @@ export class BoardComponentComponent implements OnInit {
                 seed: this.board.initialSeed
             };
             this.http.put('https://woohoojinbridges.firebaseio.com/25x25hard/'+this.userDetails.uid+'.json', m)
+                .subscribe((data) => {
+                this.router.navigate(['leaderboards']);
+            });
+        } 
+        } else if(this.daily && this.name != "" && this.width==25 && this.height==25 && numNodes == 500000) {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            this.http.put('https://woohoojinbridges.firebaseio.com/dailyScores/'+this.userDetails.uid+'.json', m)
                 .subscribe((data) => {
                 this.router.navigate(['leaderboards']);
             });

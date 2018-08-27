@@ -41,10 +41,36 @@ export class LeaderboardsComponent implements OnInit {
   public _60x60scoresMedium: any;
   public _60x60scoresHard: any;
   public _60x60scoresExtreme: any;
+  public _dailyScores: any;
 
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="$key"')
+      .subscribe((data) => {
+        this._dailyScores = [];
+        for(const key of Object.keys(data)) {
+          var temp = data[key];
+          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['key'] = key;
+          this._dailyScores.push(data[key]);
+        }
+        this._dailyScores.sort(function(a, b) {
+          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
+          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          if(aTime < bTime) return -1;
+          if(aTime > bTime) return 1;
+          return 0;
+        });
+        var index = 10;
+        for(index = 10; index < this._dailyScores.length; index++) {
+          this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+this._40x40scoresHard[index].key+'.json')
+            .subscribe((data) => {
+            });
+        }
+        this._dailyScores = this._dailyScores.slice(0, 10);
+      });
+
     this.http.get('https://woohoojinbridges.firebaseio.com/40x40hard.json?orderBy="$key"')
       .subscribe((data) => {
         this._40x40scoresHard = [];

@@ -16,10 +16,10 @@
         </div>
 
         <div class="container" id="buttons">
-            <label *ngIf="solved && seed == 0" id="label">Enter your name
-                <input class="form-control" *ngIf="solved && seed == 0 && isLoggedIn()" type="text" [(ngModel)]="name" maxlength="10">
+            <label *ngIf="solved && ((seed == 0 && !daily) || (daily))" id="label">Enter your name
+                <input class="form-control" *ngIf="solved && ((seed == 0 && !daily) || (daily)) && isLoggedIn()" type="text" [(ngModel)]="name" maxlength="10">
             </label>
-            <button *ngIf="solved && seed == 0" class="btn btn-outline-done" (click)="submit()">Submit</button>
+            <button *ngIf="solved && ((seed == 0 && !daily) || (daily))" class="btn btn-outline-done" (click)="submit()">Submit</button>
             <hr *ngIf="solved && seed == 0">
             <button class="btn btn-outline" (click)="toggleLetters()">Toggle Numbers</button>
             <br>
@@ -38,7 +38,7 @@
             <br>
             <button class="btn btn-outline" (click)="bigBoard()">Big Board</button>
             <hr>
-            <button class="btn btn-outline-newboard" (click)="newBoard()">New Board</button>
+            <button *ngIf="!daily" class="btn btn-outline-newboard" (click)="newBoard()">New Board</button>
             <br>
             <br>
             <button class="btn btn-outline-back" (click)="back()">Back to Main Menu</button>

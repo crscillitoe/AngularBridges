@@ -7,49 +7,18 @@
     
     <div class="container" id="form">
         <form (ngSubmit)="onSubmit()" #boardForm="ngForm">
-                <div id="logo">
-                        <img width="150" src="assets/LogicBridges2.0._v2.png" id="logoClass">
-                    </div>
+            <div id="logo">
+                <img width="150" src="assets/LogicBridges2.0._v2.png" id="logoClass">
+            </div>
 
-
-        <div class="form-group" id="numInput2">
-
-            
+            <div class="form-group" id="numInput2">
                 <label>Theme</label>
                 <select id="buttons2" (change)="changeTheme($event.target.value)">
                     <option value="light" class="togglebutton">Light Theme  </option>
                     <option value="night" class="togglebutton" selected="selected">Night Theme</option>
                     <option value="colorblind" class="togglebutton">Colorblind Theme</option>
                 </select>
-                <!--<input type="checkbox" (click)="onClick1('hotkeys')">Disable Hotkeys-->
-                
             </div>
-            <!--<div class="form-group" id="sizeInput">
-                <label>Board Size</label>
-                <select (change)="onClick1($event.target.value)" id="buttons2">
-                    <option value="7x7" class="togglebutton" (click)="onClick1('7x7')">7x7</option>
-                    <option value="10x10" class="togglebutton" (click)="onClick1('10x10')">10x10</option>
-                    <option value="15x15" class="togglebutton" (click)="onClick1('15x15')">15x15</option>
-                    <option value="25x25" class="togglebutton" (click)="onClick1('25x25')" selected="selected">25x25</option>
-                    <option value="40x40" class="togglebutton" (click)="onClick1('40x40')">40x40</option>
-                    <option value="60x60" class="togglebutton" (click)="onClick1('60x60')">60x60</option>
-                    <option value="80x80" class="togglebutton" (click)="onClick1('80x80')">80x80</option>
-                    <option value="100x100" class="togglebutton" (click)="onClick1('100x100')">100x100</option>
-                </select>
-            </div>
-            <div class="form-group" id="numInput">
-                <label>Difficulty</label>
-                <select (change)="changeDifficulty($event.target.value)" id="buttons2">
-                    <option value="easy" class="togglebutton" (click)="onClick1('easy')">Easy</option>
-                    <option value="medium" class="togglebutton" (click)="onClick1('medium')" selected="selected">Medium</option>
-                    <option value="hard" class="togglebutton" (click)="onClick1('hard')">Hard</option>
-                    <option value="extreme" class="togglebutton" (click)="onClick1('extreme')">Extreme</option>
-                </select>
-            </div>-->
-
-            
-            
-              
 
             <div class="form-group" id="sizeInput">
                 <label>Numbers</label>
@@ -60,12 +29,12 @@
             </div>
 
             <div class="form-group" id="numInput">
-                    <label>Grid</label>
-                    <select (change)="changeGrid($event.target.value)" id="buttons2">
-                        <option value="true" class="togglebutton" (click)="onClick1('medium')" selected="selected">On</option>
-                        <option value="false" class="togglebutton" (click)="onClick1('easy')">Off</option>
-                    </select>
-                </div>
+                <label>Grid</label>
+                <select (change)="changeGrid($event.target.value)" id="buttons2">
+                    <option value="true" class="togglebutton" (click)="onClick1('medium')" selected="selected">On</option>
+                    <option value="false" class="togglebutton" (click)="onClick1('easy')">Off</option>
+                </select>
+            </div>
 
             <div id="quickLaunchersEasy">
                 <label>Easy</label>
@@ -113,6 +82,7 @@
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60extreme')" value="60x60">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80extreme')" value="80x80">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100extreme')" value="100x100">
+                <input *ngIf="canPlayDaily" type="button" class="btn btn-quick" (click)="playDaily()" value="Daily">
             </div>
 
             <label id="label">Patch Notes</label>

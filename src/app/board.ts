@@ -10,8 +10,9 @@ export class Board {
     nodes: Array<MyNode>;
     numbers: boolean;
     grid: boolean;
+    daily: boolean;
 
-    constructor(width: number, height: number, numNodes: number, extreme: boolean, seed: number, theme: string, hotkeys: boolean, numbers: boolean, grid: boolean) {
+    constructor(width: number, height: number, numNodes: number, extreme: boolean, seed: number, theme: string, hotkeys: boolean, numbers: boolean, grid: boolean, daily: boolean) {
         this.width = width;
         this.height = height;
         this.numNodes = numNodes;
@@ -22,6 +23,7 @@ export class Board {
         this.hotkeys = hotkeys;
         this.numbers = numbers;
         this.grid = grid;
+        this.daily = daily;
         this.nodes = new Array<MyNode>();
     }
 

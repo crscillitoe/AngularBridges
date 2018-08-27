@@ -137,9 +137,8 @@
       <tbody>
     </table>
     </div>
-    
     <div id="leaderboardEntry">
-      <h5>7x7 Extreme</h5>
+      <h5>Daily</h5>
     <table>
       <thead>
         <tr>
@@ -149,7 +148,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let entry of _7x7scoresExtreme;
+        <ng-container *ngFor="let entry of _dailyScores;
         let i=index">
           <ng-container *ngIf="i == 0">
             <tr id="first">
@@ -1478,6 +1477,7 @@
   <tbody>
 </table>
 </div>
+
 </div>
 </div>
 </html>
