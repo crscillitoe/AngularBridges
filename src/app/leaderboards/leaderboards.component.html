@@ -1,7 +1,7 @@
 <html>
-<div id="gridContainer">
-<div id="columnContainer">
-    <div id="leaderboardEntry">
+<div class="gridContainer">
+<div class="columnContainer">
+    <div class="leaderboardEntry">
       <h5>7x7 Easy</h5>
     <table>
       <thead>
@@ -15,28 +15,28 @@
         <ng-container *ngFor="let entry of _7x7scoresEasy;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -47,7 +47,7 @@
     </table>
     </div>
     
-    <div id="leaderboardEntry">
+    <div class="leaderboardEntry">
       <h5>7x7 Medium</h5>
     <table>
       <thead>
@@ -61,28 +61,28 @@
         <ng-container *ngFor="let entry of _7x7scoresMedium;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -92,7 +92,7 @@
       <tbody>
     </table>
     </div>
-    <div id="leaderboardEntry">
+    <div class="leaderboardEntry">
       <h5>7x7 Hard</h5>
     <table>
       <thead>
@@ -106,28 +106,28 @@
         <ng-container *ngFor="let entry of _7x7scoresHard;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -137,7 +137,7 @@
       <tbody>
     </table>
     </div>
-    <div id="leaderboardEntry">
+    <div class="leaderboardEntry">
       <h5>7x7 Extreme</h5>
     <table>
       <thead>
@@ -151,28 +151,28 @@
         <ng-container *ngFor="let entry of _7x7scoresExtreme;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -184,8 +184,8 @@
     </div>
 </div>
 
-<div id="columnContainer">
-<div id="leaderboardEntry">
+<div class="columnContainer">
+<div class="leaderboardEntry easyDaily">
   <h5>10x10 Easy</h5>
 <table>
   <thead>
@@ -199,28 +199,28 @@
     <ng-container *ngFor="let entry of _10x10scoresEasy;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -231,7 +231,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>10x10 Medium</h5>
 <table>
   <thead>
@@ -245,28 +245,28 @@
     <ng-container *ngFor="let entry of _10x10scoresMedium;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -276,7 +276,7 @@
   <tbody>
 </table>
 </div>
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>10x10 Hard</h5>
 <table>
   <thead>
@@ -290,28 +290,28 @@
     <ng-container *ngFor="let entry of _10x10scoresHard;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -322,7 +322,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>10x10 Extreme</h5>
 <table>
   <thead>
@@ -336,28 +336,28 @@
     <ng-container *ngFor="let entry of _10x10scoresExtreme;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -369,8 +369,8 @@
 </div>
 </div>
 
-<div id="columnContainer">
-<div id="leaderboardEntry">
+<div class="columnContainer">
+<div class="leaderboardEntry">
   <h5>15x15 Easy</h5>
 <table>
   <thead>
@@ -384,28 +384,28 @@
     <ng-container *ngFor="let entry of _15x15scoresEasy;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -416,7 +416,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry mediumDaily">
   <h5>15x15 Medium</h5>
 <table>
   <thead>
@@ -430,28 +430,28 @@
     <ng-container *ngFor="let entry of _15x15scoresMedium;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -461,7 +461,7 @@
   <tbody>
 </table>
 </div>
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>15x15 Hard</h5>
 <table>
   <thead>
@@ -475,28 +475,28 @@
     <ng-container *ngFor="let entry of _15x15scoresHard;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -507,7 +507,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>15x15 Extreme</h5>
 <table>
   <thead>
@@ -521,28 +521,28 @@
     <ng-container *ngFor="let entry of _15x15scoresExtreme;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -554,8 +554,8 @@
 </div>
 </div>
 
-<div id="columnContainer">
-<div id="leaderboardEntry">
+<div class="columnContainer">
+<div class="leaderboardEntry">
   <h5>25x25 Easy</h5>
 <table>
   <thead>
@@ -569,28 +569,28 @@
     <ng-container *ngFor="let entry of _25x25scoresEasy;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -601,7 +601,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>25x25 Medium</h5>
 <table>
   <thead>
@@ -615,28 +615,28 @@
     <ng-container *ngFor="let entry of _25x25scoresMedium;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -646,7 +646,7 @@
   <tbody>
 </table>
 </div>
-<div id="leaderboardEntry">
+<div class="leaderboardEntry hardDaily">
   <h5>25x25 Hard</h5>
 <table>
   <thead>
@@ -660,28 +660,28 @@
     <ng-container *ngFor="let entry of _25x25scoresHard;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -692,7 +692,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>25x25 Extreme</h5>
 <table>
   <thead>
@@ -706,28 +706,28 @@
     <ng-container *ngFor="let entry of _25x25scoresExtreme;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -739,8 +739,8 @@
 </div>
 </div>
 
-<div id="columnContainer">
-<div id="leaderboardEntry">
+<div class="columnContainer">
+<div class="leaderboardEntry">
   <h5>40x40 Easy</h5>
 <table>
   <thead>
@@ -754,28 +754,28 @@
     <ng-container *ngFor="let entry of _40x40scoresEasy;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -786,7 +786,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>40x40 Medium</h5>
 <table>
   <thead>
@@ -800,28 +800,28 @@
     <ng-container *ngFor="let entry of _40x40scoresMedium;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -831,7 +831,7 @@
   <tbody>
 </table>
 </div>
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>40x40 Hard</h5>
 <table>
   <thead>
@@ -845,28 +845,28 @@
     <ng-container *ngFor="let entry of _40x40scoresHard;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -877,7 +877,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry extremeDaily">
   <h5>40x40 Extreme</h5>
 <table>
   <thead>
@@ -891,28 +891,28 @@
     <ng-container *ngFor="let entry of _40x40scoresExtreme;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -924,8 +924,8 @@
 </div>
 </div>
 
-<div id="columnContainer">
-<div id="leaderboardEntry">
+<div class="columnContainer">
+<div class="leaderboardEntry">
   <h5>60x60 Easy</h5>
 <table>
   <thead>
@@ -939,28 +939,28 @@
     <ng-container *ngFor="let entry of _60x60scoresEasy;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -971,7 +971,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>60x60 Medium</h5>
 <table>
   <thead>
@@ -985,28 +985,28 @@
     <ng-container *ngFor="let entry of _60x60scoresMedium;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -1016,7 +1016,7 @@
   <tbody>
 </table>
 </div>
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>60x60 Hard</h5>
 <table>
   <thead>
@@ -1030,28 +1030,28 @@
     <ng-container *ngFor="let entry of _60x60scoresHard;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -1062,7 +1062,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>60x60 Extreme</h5>
 <table>
   <thead>
@@ -1076,28 +1076,28 @@
     <ng-container *ngFor="let entry of _60x60scoresExtreme;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -1109,8 +1109,8 @@
 </div>
 </div>
 
-<div id="columnContainer">
-    <div id="leaderboardEntry">
+<div class="columnContainer">
+    <div class="leaderboardEntry easyDaily">
       <h5>Easy Daily</h5>
     <table>
       <thead>
@@ -1124,28 +1124,28 @@
         <ng-container *ngFor="let entry of _dailyScoresEasy;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -1155,7 +1155,7 @@
       <tbody>
     </table>
     </div>
-    <div id="leaderboardEntry">
+    <div class="leaderboardEntry mediumDaily">
       <h5>Medium Daily</h5>
     <table>
       <thead>
@@ -1169,28 +1169,28 @@
         <ng-container *ngFor="let entry of _dailyScoresMedium;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -1200,7 +1200,7 @@
       <tbody>
     </table>
     </div>
-    <div id="leaderboardEntry">
+    <div class="leaderboardEntry hardDaily">
       <h5>Hard Daily</h5>
     <table>
       <thead>
@@ -1214,28 +1214,28 @@
         <ng-container *ngFor="let entry of _dailyScores;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -1245,7 +1245,7 @@
       <tbody>
     </table>
     </div>
-    <div id="leaderboardEntry">
+    <div class="leaderboardEntry extremeDaily">
       <h5>Extreme Daily</h5>
     <table>
       <thead>
@@ -1259,28 +1259,28 @@
         <ng-container *ngFor="let entry of _dailyScoresExtreme;
         let i=index">
           <ng-container *ngIf="i == 0">
-            <tr id="first">
+            <tr class="first">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 1">
-            <tr id="second">
+            <tr class="second">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 2">
-            <tr id="third">
+            <tr class="third">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i >=3">
-            <tr id="others">
+            <tr class="others">
               <td>{{entry.name}}</td> 
               <td>{{entry.time}}</td>
               <td>{{entry.seed}}</td>
@@ -1292,8 +1292,8 @@
     </div>
 </div>
 
-<div id="columnContainer">
-<div id="leaderboardEntry">
+<div class="columnContainer">
+<div class="leaderboardEntry">
   <h5>100x100 Easy</h5>
 <table>
   <thead>
@@ -1307,28 +1307,28 @@
     <ng-container *ngFor="let entry of _100x100scoresEasy;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -1339,7 +1339,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>100x100 Medium</h5>
 <table>
   <thead>
@@ -1353,28 +1353,28 @@
     <ng-container *ngFor="let entry of _100x100scoresMedium;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -1384,7 +1384,7 @@
   <tbody>
 </table>
 </div>
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>100x100 Hard</h5>
 <table>
   <thead>
@@ -1398,28 +1398,28 @@
     <ng-container *ngFor="let entry of _100x100scoresHard;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -1430,7 +1430,7 @@
 </table>
 </div>
 
-<div id="leaderboardEntry">
+<div class="leaderboardEntry">
   <h5>100x100 Extreme</h5>
 <table>
   <thead>
@@ -1444,28 +1444,28 @@
     <ng-container *ngFor="let entry of _100x100scoresExtreme;
     let i=index">
       <ng-container *ngIf="i == 0">
-        <tr id="first">
+        <tr class="first">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 1">
-        <tr id="second">
+        <tr class="second">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i == 2">
-        <tr id="third">
+        <tr class="third">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="i >=3">
-        <tr id="others">
+        <tr class="others">
           <td>{{entry.name}}</td> 
           <td>{{entry.time}}</td>
           <td>{{entry.seed}}</td>
@@ -1481,6 +1481,6 @@
 </html>
 
 
-<div id="back">
+<div class="back">
   <button class="btn btn-outline-back" (click)="mainMenu()">Back to Main Menu</button>
 </div>

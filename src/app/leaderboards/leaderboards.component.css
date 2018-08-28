@@ -12,26 +12,26 @@ html {
     margin:auto;
 }
 
-#gridContainer {
+.gridContainer {
     height:100%;
     display:flex;
     justify-content:space-around;
 }
 
-#columnContainer {
+.columnContainer {
     display:flex;
     height:100%;
     flex-direction:column;
     justify-content:space-around;
 }
 
-#back {
+.back {
     position: absolute;
     bottom:5px;
     left:calc(50% - 100px);
 }
 
-#leaderboardEntry {
+.leaderboardEntry {
     color: white;   
     border: white solid;
     flex:1;
@@ -44,20 +44,36 @@ html {
     text-align: center;
 }
 
+.easyDaily {
+    border: lightcoral solid;
+}
 
-#first {
+.mediumDaily {
+    border: cyan solid;
+}
+
+.hardDaily {
+    border: lightgreen solid;
+}
+
+.extremeDaily {
+    border: lightskyblue solid;
+}
+
+
+.first {
     color:yellow;
 }
 
-#second {
+.second {
     color:white;
 }
 
-#third {
+.third {
     color:#CD7F32;
 }
 
-#others {
+.others {
     color:#C0C0C0;
 }
 
