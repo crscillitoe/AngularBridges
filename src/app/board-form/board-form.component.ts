@@ -444,27 +444,33 @@ export class BoardFormComponent implements OnInit {
 
                     this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="$key"')
                         .subscribe((keys: any) => {
-                            keys.forEach(key => {
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+key.key+'.json').subscribe((data) => {});
-                            });
+                            for(const key of Object.keys(keys)) { 
+                                console.log(keys);
+                                console.log(key);
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+key+'.json')
+                                    .subscribe((data) => {});
+                            }
                         });
                     this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?orderBy="$key"')
                         .subscribe((keys: any) => {
-                            keys.forEach(key => {
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+key.key+'.json').subscribe((data) => {});
-                            });
+                            for(const key of Object.keys(keys)) { 
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+key+'.json')
+                                    .subscribe((data) => {});
+                            }
                         });
                     this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?orderBy="$key"')
                         .subscribe((keys: any) => {
-                            keys.forEach(key => {
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+key.key+'.json').subscribe((data) => {});
-                            });
+                            for(const key of Object.keys(keys)) { 
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+key+'.json')
+                                    .subscribe((data) => {});
+                            }
                         });
                     this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?orderBy="$key"')
                         .subscribe((keys: any) => {
-                            keys.forEach(key => {
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+key.key+'.json').subscribe((data) => {});
-                            });
+                            for(const key of Object.keys(keys)) { 
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+key+'.json')
+                                    .subscribe((data) => {});
+                            }
                         });
 
                     this.http.put('https://woohoojinbridges.firebaseio.com/daily.json' , m)
