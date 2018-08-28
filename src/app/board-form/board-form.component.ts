@@ -18,9 +18,12 @@ export class BoardFormComponent implements OnInit {
 
     difficulty: string;
     seed: any;
-    hotkeys:boolean;
+    hotkeys: boolean;
     daily: any;
-    canPlayDaily: boolean;
+    canPlayDailyEasy: boolean;
+    canPlayDailyMedium: boolean;
+    canPlayDailyHard: boolean;
+    canPlayDailyExtreme: boolean;
 
     changeTheme(theme) {
         this.model.theme = theme;
@@ -90,30 +93,143 @@ export class BoardFormComponent implements OnInit {
     }
 
     canPlayDailyFunc() {
+        this.canPlayDailyFuncEasy();
+        this.canPlayDailyFuncMedium();
+        this.canPlayDailyFuncHard();
+        this.canPlayDailyFuncExtreme();
+    }
+
+    canPlayDailyFuncEasy() {
         if(this.daily && this.userDetails) {
-            this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores/'+this.userDetails.uid+'.json')
+            this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+this.userDetails.uid+'.json')
                 .subscribe((data) => {
                     if(data == null) {
+                        this.canPlayDailyEasy = true;
                         return true;
                     } else {
-                        this.canPlayDaily = false;
+
+                        this.canPlayDailyEasy = false;
                         return false;
                     }
                 });
         } else {
-            this.canPlayDaily = false;
+
+            this.canPlayDailyEasy = false;
             return false;
         }
+
+        this.canPlayDailyEasy = true;
         return true;
     }
 
-    playDaily() {
-        this.model.width = 25;
-        this.model.height = 25;
-        this.difficulty = 'hard';
-        this.model.daily = true;
-        this.seed = this.daily.seed;
-        this.onSubmit();
+    canPlayDailyFuncMedium() {
+        if(this.daily && this.userDetails) {
+            this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+this.userDetails.uid+'.json')
+                .subscribe((data) => {
+                    if(data == null) {
+
+                        this.canPlayDailyMedium = true;
+                        return true;
+                    } else {
+
+                        this.canPlayDailyMedium = false;
+                        return false;
+                    }
+                });
+        } else {
+
+            this.canPlayDailyMedium = false;
+            return false;
+        }
+
+        this.canPlayDailyMedium = true;
+        return true;
+    }
+
+    canPlayDailyFuncHard() {
+        if(this.daily && this.userDetails) {
+            this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores/'+this.userDetails.uid+'.json')
+                .subscribe((data) => {
+                    if(data == null) {
+
+                        this.canPlayDailyHard = true;
+                        return true;
+                    } else {
+
+                        this.canPlayDailyHard = false;
+                        return false;
+                    }
+                });
+        } else {
+
+            this.canPlayDailyHard = false;
+            return false;
+        }
+
+        this.canPlayDailyHard = true;
+        return true;
+    }
+
+    canPlayDailyFuncExtreme() {
+        if(this.daily && this.userDetails) {
+            this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+this.userDetails.uid+'.json')
+                .subscribe((data) => {
+                    if(data == null) {
+
+                        this.canPlayDailyExtreme = true;
+                        return true;
+                    } else {
+
+                        this.canPlayDailyExtreme = false;
+                        return false;
+                    }
+                });
+        } else {
+
+            this.canPlayDailyExtreme = false;
+            return false;
+        }
+
+        this.canPlayDailyExtreme = true;
+        return true;
+    }
+
+    playDaily(diff) {
+        if(diff == 'hard') {
+            this.model.width = 25;
+            this.model.height = 25;
+            this.difficulty = 'hard';
+            this.model.daily = true;
+            this.seed = this.daily.seed;
+            this.onSubmit();
+        }
+
+        if(diff == 'easy') {
+            this.model.width = 10;
+            this.model.height = 10;
+            this.difficulty = 'medium';
+            this.model.daily = true;
+            this.seed = this.daily.seed;
+            this.onSubmit();
+        }
+
+        if(diff == 'medium') {
+            this.model.width = 15;
+            this.model.height = 15;
+            this.difficulty = 'hard';
+            this.model.daily = true;
+            this.seed = this.daily.seed;
+            this.onSubmit();
+        }
+
+        if(diff == 'extreme') {
+            this.model.width = 40;
+            this.model.height = 40;
+            this.difficulty = 'extreme';
+            this.model.daily = true;
+            this.seed = this.daily.seed;
+            this.onSubmit();
+        }
     }
 
     quickLaunch(m) {
@@ -293,7 +409,10 @@ export class BoardFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.canPlayDaily = false;
+        this.canPlayDailyEasy = true;
+        this.canPlayDailyMedium = true;
+        this.canPlayDailyHard = true;
+        this.canPlayDailyExtreme = true;
         this.hotkeys = true;
         this.seed = 0;
 
@@ -318,12 +437,33 @@ export class BoardFormComponent implements OnInit {
                     }
 
                     this.daily = m;
-                    this.canPlayDaily = true;
+                    this.canPlayDailyEasy = true;
+                    this.canPlayDailyMedium = true;
+                    this.canPlayDailyHard = true;
+                    this.canPlayDailyExtreme = true;
 
                     this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="$key"')
                         .subscribe((keys: any) => {
                             keys.forEach(key => {
                                 this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+key.key+'.json').subscribe((data) => {});
+                            });
+                        });
+                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?orderBy="$key"')
+                        .subscribe((keys: any) => {
+                            keys.forEach(key => {
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+key.key+'.json').subscribe((data) => {});
+                            });
+                        });
+                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?orderBy="$key"')
+                        .subscribe((keys: any) => {
+                            keys.forEach(key => {
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+key.key+'.json').subscribe((data) => {});
+                            });
+                        });
+                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?orderBy="$key"')
+                        .subscribe((keys: any) => {
+                            keys.forEach(key => {
+                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+key.key+'.json').subscribe((data) => {});
                             });
                         });
 
@@ -333,7 +473,7 @@ export class BoardFormComponent implements OnInit {
                         });
                 } else {
                     this.daily = data;
-                    this.canPlayDaily = this.canPlayDailyFunc();
+                    this.canPlayDailyFunc();
                 }
             });
     }
@@ -351,7 +491,10 @@ export class BoardFormComponent implements OnInit {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
     constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private http: HttpClient) { 
-        this.canPlayDaily = false;
+        this.canPlayDailyEasy = false;
+        this.canPlayDailyMedium = false;
+        this.canPlayDailyHard = false;
+        this.canPlayDailyExtreme = false;
         this.difficulty = 'medium'; 
         this.model.width = 25;
         this.model.height = 25;
@@ -365,7 +508,7 @@ export class BoardFormComponent implements OnInit {
         (user) => {
           if (user) {
             this.userDetails = user;
-            this.canPlayDaily = this.canPlayDailyFunc();
+            this.canPlayDailyFunc();
           }
           else {
             this.userDetails = null;

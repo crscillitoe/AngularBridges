@@ -46,6 +46,7 @@
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60easy')" value="60x60">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80easy')" value="80x80">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100easy')" value="100x100">
+                <input *ngIf="canPlayDailyEasy" type="button" class="btn btn-quick" (click)="playDaily('easy')" value="Daily">
             </div>
 
             <div id="quickLaunchersMedium">
@@ -58,6 +59,7 @@
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60medium')" value="60x60">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80medium')" value="80x80">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100medium')" value="100x100">
+                <input *ngIf="canPlayDailyMedium" type="button" class="btn btn-quick" (click)="playDaily('medium')" value="Daily">
             </div>
 
             <div id="quickLaunchersHard">
@@ -70,6 +72,7 @@
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60hard')" value="60x60">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80hard')" value="80x80">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100hard')" value="100x100">
+                <input *ngIf="canPlayDailyHard" type="button" class="btn btn-quick" (click)="playDaily('hard')" value="Daily">
             </div>
 
             <div id="quickLaunchersExtreme">
@@ -82,7 +85,7 @@
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60extreme')" value="60x60">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80extreme')" value="80x80">
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100extreme')" value="100x100">
-                <input *ngIf="canPlayDaily" type="button" class="btn btn-quick" (click)="playDaily()" value="Daily">
+                <input *ngIf="canPlayDailyExtreme" type="button" class="btn btn-quick" (click)="playDaily('extreme')" value="Daily">
             </div>
 
             <label id="label">Patch Notes</label>
@@ -90,10 +93,9 @@
                 
                 <div id="pathNotesBody">
                     <p>
-                        <b>PATCH 8.4.8</b><br>
-                        1. You can now pause the game.<br><br>
-                        <b>PATCH 8.4.9.1</b><br>
-                        1. p -> P.<br><br>
+                        <b>PATCH 8.5.0</b><br>
+                        1. Daily boards for each difficulty have been added.<br>
+                        2. These boards will reset every day at noon EST.<br><br>
                     </p>
                 </div>
             </div>
@@ -131,7 +133,7 @@
     <div id="memes">
         <span id="span"><p>Copyright © 420 BC <br>Woohoojin Incorporated<br>Death to Arco<br>Lisa is Good<br>
             <a href="https://discord.gg/PtysEsh" style="color:#a89984">Click me to join our Discord server!</a>
-            <br>Release Version: 8.4.9.1
+            <br>Release Version: 8.5.0
         </p></span>
     </div>
 

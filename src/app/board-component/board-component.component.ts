@@ -1464,20 +1464,65 @@ export class BoardComponentComponent implements OnInit {
                 .subscribe((data) => {
                 this.router.navigate(['leaderboards']);
             });
-        } 
-        } else if(this.daily && this.name != "" && this.width==25 && this.height==25 && numNodes == 500000) {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/dailyScores/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
+        }} else {
+            if(this.daily && this.name != "" && this.width==25 && this.height==25 && numNodes == 500000) {
+                let m = {
+                    name: this.name,
+                    hours: this.hours,
+                    minutes: this.minutes,
+                    seconds: this.seconds,
+                    millis: this.millis,
+                    seed: this.board.initialSeed
+                };
+                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScores/'+this.userDetails.uid+'.json', m)
+                    .subscribe((data) => {
+                    this.router.navigate(['leaderboards']);
+                });
+            } else if(this.daily && this.name != "" && this.width==10 && this.height == 10 && numNodes == 30) {
+                //easy
+
+                let m = {
+                    name: this.name,
+                    hours: this.hours,
+                    minutes: this.minutes,
+                    seconds: this.seconds,
+                    millis: this.millis,
+                    seed: this.board.initialSeed
+                };
+                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+this.userDetails.uid+'.json', m)
+                    .subscribe((data) => {
+                    this.router.navigate(['leaderboards']);
+                });
+            } else if(this.daily && this.name != "" && this.width==15 && this.height == 15 && numNodes == 500000) {
+                //medium
+
+                let m = {
+                    name: this.name,
+                    hours: this.hours,
+                    minutes: this.minutes,
+                    seconds: this.seconds,
+                    millis: this.millis,
+                    seed: this.board.initialSeed
+                };
+                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+this.userDetails.uid+'.json', m)
+                    .subscribe((data) => {
+                    this.router.navigate(['leaderboards']);
+                });
+            } else if(this.daily && this.name != "" && this.width==40 && this.height==40 && numNodes == 500000 && this.extreme) {
+
+                let m = {
+                    name: this.name,
+                    hours: this.hours,
+                    minutes: this.minutes,
+                    seconds: this.seconds,
+                    millis: this.millis,
+                    seed: this.board.initialSeed
+                };
+                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+this.userDetails.uid+'.json', m)
+                    .subscribe((data) => {
+                    this.router.navigate(['leaderboards']);
+                });
+            }
         }
     }
 

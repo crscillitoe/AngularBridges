@@ -42,6 +42,9 @@ export class LeaderboardsComponent implements OnInit {
   public _60x60scoresHard: any;
   public _60x60scoresExtreme: any;
   public _dailyScores: any;
+  public _dailyScoresMedium: any;
+  public _dailyScoresEasy: any;
+  public _dailyScoresExtreme: any;
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -64,11 +67,86 @@ export class LeaderboardsComponent implements OnInit {
         });
         var index = 10;
         for(index = 10; index < this._dailyScores.length; index++) {
-          this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+this._40x40scoresHard[index].key+'.json')
+          this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+this._dailyScores[index].key+'.json')
             .subscribe((data) => {
             });
         }
         this._dailyScores = this._dailyScores.slice(0, 10);
+      });
+
+          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?orderBy="$key"')
+      .subscribe((data) => {
+        this._dailyScoresEasy = [];
+        for(const key of Object.keys(data)) {
+          var temp = data[key];
+          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['key'] = key;
+          this._dailyScoresEasy.push(data[key]);
+        }
+        this._dailyScoresEasy.sort(function(a, b) {
+          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
+          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          if(aTime < bTime) return -1;
+          if(aTime > bTime) return 1;
+          return 0;
+        });
+        var index = 10;
+        for(index = 10; index < this._dailyScoresEasy.length; index++) {
+          this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+this._dailyScoresEasy[index].key+'.json')
+            .subscribe((data) => {
+            });
+        }
+        this._dailyScoresEasy = this._dailyScoresEasy.slice(0, 10);
+      });
+
+          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?orderBy="$key"')
+      .subscribe((data) => {
+        this._dailyScoresMedium = [];
+        for(const key of Object.keys(data)) {
+          var temp = data[key];
+          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['key'] = key;
+          this._dailyScoresMedium.push(data[key]);
+        }
+        this._dailyScoresMedium.sort(function(a, b) {
+          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
+          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          if(aTime < bTime) return -1;
+          if(aTime > bTime) return 1;
+          return 0;
+        });
+        var index = 10;
+        for(index = 10; index < this._dailyScoresMedium.length; index++) {
+          this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+this._dailyScoresMedium[index].key+'.json')
+            .subscribe((data) => {
+            });
+        }
+        this._dailyScoresMedium = this._dailyScoresMedium.slice(0, 10);
+      });
+
+          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?orderBy="$key"')
+      .subscribe((data) => {
+        this._dailyScoresExtreme = [];
+        for(const key of Object.keys(data)) {
+          var temp = data[key];
+          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['key'] = key;
+          this._dailyScoresExtreme.push(data[key]);
+        }
+        this._dailyScoresExtreme.sort(function(a, b) {
+          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
+          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          if(aTime < bTime) return -1;
+          if(aTime > bTime) return 1;
+          return 0;
+        });
+        var index = 10;
+        for(index = 10; index < this._dailyScoresExtreme.length; index++) {
+          this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+this._dailyScoresExtreme[index].key+'.json')
+            .subscribe((data) => {
+            });
+        }
+        this._dailyScoresExtreme = this._dailyScoresExtreme.slice(0, 10);
       });
 
     this.http.get('https://woohoojinbridges.firebaseio.com/40x40hard.json?orderBy="$key"')
