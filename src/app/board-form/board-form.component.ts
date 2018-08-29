@@ -472,6 +472,9 @@ export class BoardFormComponent implements OnInit {
                                     .subscribe((data) => {});
                             }
                         });
+                    
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily.json')
+                        .subscribe((data) => {});
 
                     this.http.put('https://woohoojinbridges.firebaseio.com/daily.json' , m)
                         .subscribe((d) => {

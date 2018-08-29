@@ -69,12 +69,12 @@ export class BoardComponentComponent implements OnInit {
         this.mouseY = -1;
         this.user.subscribe(
             (user) => {
-            if (user) {
-                this.userDetails = user;
-            }
-            else {
-                this.userDetails = null;
-            }
+                if (user) {
+                    this.userDetails = user;
+                }
+                else {
+                    this.userDetails = null;
+                }
             });
     }
 
@@ -120,6 +120,25 @@ export class BoardComponentComponent implements OnInit {
         this.height = Number(this.route.snapshot.paramMap.get('height'));
         this.extreme = "true" == this.route.snapshot.paramMap.get('extreme');
         this.daily = "true" == this.route.snapshot.paramMap.get('daily');
+
+
+        if(this.daily) {
+            // This is a daily, so we should indicate that we're playing.
+            this.http.get('https://woohoojinbridges.firebaseio.com/playingDaily/' + this.width + '/' + this.userDetails.uid + '.json')
+                .subscribe((data) => {
+                    if(data == null) {
+                        var date: any = new Date()
+                        let model = {
+                            start: date.toUTCString()
+                        }
+                        this.http.put('https://woohoojinbridges.firebaseio.com/playingDaily/' + this.width + '/' + this.userDetails.uid + '.json', model)
+                            .subscribe((data) => {});
+                    } else {
+                        this.daily = false;
+                    }
+                })
+        }
+
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
         this.drawLetters = this.route.snapshot.paramMap.get('numbers') == "true";
         this.drawGridBool = this.route.snapshot.paramMap.get('grid') == "true";
