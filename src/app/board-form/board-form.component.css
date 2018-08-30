@@ -290,3 +290,7 @@ select { width: 400px; text-align-last:center; }
     bottom:0px;
     right:250px;
 }
+
+.dailyTime {
+    color: #FFBA53;
+}

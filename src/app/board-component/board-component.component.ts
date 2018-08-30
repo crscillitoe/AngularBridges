@@ -275,7 +275,6 @@ export class BoardComponentComponent implements OnInit {
         }
 
         try {
-            console.log('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json');
             this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
                 .subscribe((data: any) => {
                     if(data != null) {
@@ -335,7 +334,10 @@ export class BoardComponentComponent implements OnInit {
                     }
                 }
             }
-            h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds) + "." + (___this.millis > 9 ? ___this.millis : "0"+___this.millis);
+            try {
+                h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds) + "." + (___this.millis > 9 ? ___this.millis : "0"+___this.millis);
+            } catch {
+            }
         }
         ___this.timer();
     }

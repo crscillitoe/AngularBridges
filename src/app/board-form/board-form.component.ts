@@ -25,6 +25,11 @@ export class BoardFormComponent implements OnInit {
     canPlayDailyHard: boolean;
     canPlayDailyExtreme: boolean;
 
+    dailyEasy: any;
+    dailyMedium: any;
+    dailyHard: any;
+    dailyExtreme: any;
+
     changeTheme(theme) {
         this.model.theme = theme;
     }
@@ -107,8 +112,8 @@ export class BoardFormComponent implements OnInit {
                         this.canPlayDailyEasy = true;
                         return true;
                     } else {
-
                         this.canPlayDailyEasy = false;
+                        this.dailyEasy = this.convertToTimeString(data);
                         return false;
                     }
                 });
@@ -122,6 +127,10 @@ export class BoardFormComponent implements OnInit {
         return true;
     }
 
+    convertToTimeString(data) {
+        return (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+    }
+
     canPlayDailyFuncMedium() {
         if(this.daily && this.userDetails) {
             this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+this.userDetails.uid+'.json')
@@ -133,6 +142,7 @@ export class BoardFormComponent implements OnInit {
                     } else {
 
                         this.canPlayDailyMedium = false;
+                        this.dailyMedium = this.convertToTimeString(data);
                         return false;
                     }
                 });
@@ -157,6 +167,7 @@ export class BoardFormComponent implements OnInit {
                     } else {
 
                         this.canPlayDailyHard = false;
+                        this.dailyHard = this.convertToTimeString(data);
                         return false;
                     }
                 });
@@ -181,6 +192,7 @@ export class BoardFormComponent implements OnInit {
                     } else {
 
                         this.canPlayDailyExtreme = false;
+                        this.dailyExtreme = this.convertToTimeString(data);
                         return false;
                     }
                 });
