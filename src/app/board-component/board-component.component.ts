@@ -755,6 +755,63 @@ export class BoardComponentComponent implements OnInit {
         }
     }
 
+    getBridgeArray() {
+        var toReturn = [];
+        for(let node of this.board.getNodes()) {
+            for(let bridge of node.getBridges()) {
+                if(bridge.getNum() > 0) toReturn.push(bridge);
+            }
+        }
+        return toReturn;
+    }
+
+    isCrossing(startX, startY, direction) {
+        if(direction == 'u') {
+            while(true) {
+                if(this.isBridgeHere(startX, startY, 'h')) return true;
+                if(this.isCircleHere(startX, startY)) return false;
+                if(startY <= 0) return true;
+
+                startY--;
+            }
+        } else if(direction == 'd') {
+            while(true) {
+                if(this.isBridgeHere(startX, startY, 'h')) return true;
+                if(this.isCircleHere(startX, startY)) return false;
+                if(startY >= this.height) return true;
+
+                startY++;
+            }
+        } else if(direction == 'r') {
+            while(true) {
+                if(this.isBridgeHere(startX, startY, 'v')) return true;
+                if(this.isCircleHere(startX, startY)) return false;
+                if(startX >= this.width) return true;
+
+                startX++;
+            }
+        } else if(direction == 'l') {
+            while(true) {
+                if(this.isBridgeHere(startX, startY, 'v')) return true;
+                if(this.isCircleHere(startX, startY)) return false;
+                if(startX <= 0) return true;
+
+                startX--;
+            }
+        }
+    }
+
+    isBridgeHere(x, y, direction) {
+        var bridges = this.getBridgeArray();
+        if(direction == 'v') {
+            bridges = bridges.filter(b => b.n1.x == b.n2.x && b.n1.x == x && ((b.n1.y > y && b.n2.y < y) || (b.n1.y < y && b.n2.y > y)));
+        } else if(direction == 'h') {
+            bridges = bridges.filter(b => b.n1.y == b.n2.y && b.n1.y == y && ((b.n1.x > x && b.n2.x < x) || (b.n1.x < x && b.n2.x > x)));
+        }
+
+        return bridges.length > 0;
+    }
+
     drawBridges() {
         for(let node of this.board.getNodes()) {
             for(let bridge of node.getBridges()) {
@@ -803,6 +860,11 @@ export class BoardComponentComponent implements OnInit {
         if(this.isCircleHere(this.coloredNode.getX() , this.coloredNode.getY() - 1)) {
             return;
         }
+
+        if(this.isCrossing(this.coloredNode.getX() , this.coloredNode.getY() - 1, 'u')) {
+            return;
+        }
+
         for(counter = this.coloredNode.getY() - 1; counter > 0; counter--) {
             if(this.isCircleHere(this.coloredNode.getX(), counter)) {
                 var toBridgeTo = this.getCircleHere(this.coloredNode.getX(), counter);
@@ -837,6 +899,9 @@ export class BoardComponentComponent implements OnInit {
         if(this.isCircleHere(this.coloredNode.getX() , this.coloredNode.getY() - 1)) {
             return;
         }
+        if(this.isCrossing(this.coloredNode.getX() , this.coloredNode.getY() - 1, 'u')) {
+            return;
+        }
         for(counter = this.coloredNode.getY() - 1; counter > 0; counter--) {
             if(this.isCircleHere(this.coloredNode.getX(), counter)) {
                 var toBridgeTo = this.getCircleHere(this.coloredNode.getX(), counter);
@@ -868,6 +933,9 @@ export class BoardComponentComponent implements OnInit {
     specialBridgeDown() {
         var counter;
         if(this.isCircleHere(this.coloredNode.getX() , this.coloredNode.getY() + 1)) {
+            return;
+        }
+        if(this.isCrossing(this.coloredNode.getX() , this.coloredNode.getY() + 1, 'd')) {
             return;
         }
         for(counter = this.coloredNode.getY() + 1; counter < this.height + 1; counter++) {
@@ -904,6 +972,9 @@ export class BoardComponentComponent implements OnInit {
         if(this.isCircleHere(this.coloredNode.getX() , this.coloredNode.getY() + 1)) {
             return;
         }
+        if(this.isCrossing(this.coloredNode.getX() , this.coloredNode.getY() + 1, 'd')) {
+            return;
+        }
         for(counter = this.coloredNode.getY() + 1; counter < this.height + 1; counter++) {
             if(this.isCircleHere(this.coloredNode.getX(), counter)) {
                 var toBridgeTo = this.getCircleHere(this.coloredNode.getX(), counter);
@@ -936,6 +1007,9 @@ export class BoardComponentComponent implements OnInit {
     specialBridgeLeft() {
         var counter;
         if(this.isCircleHere(this.coloredNode.getX() - 1, this.coloredNode.getY())) {
+            return;
+        }
+        if(this.isCrossing(this.coloredNode.getX() - 1, this.coloredNode.getY(), 'l')) {
             return;
         }
         for(counter = this.coloredNode.getX() - 1; counter > 0; counter--) {
@@ -972,6 +1046,9 @@ export class BoardComponentComponent implements OnInit {
         if(this.isCircleHere(this.coloredNode.getX() - 1, this.coloredNode.getY())) {
             return;
         }
+        if(this.isCrossing(this.coloredNode.getX() - 1, this.coloredNode.getY(), 'l')) {
+            return;
+        }
         for(counter = this.coloredNode.getX() - 1; counter > 0; counter--) {
             if(this.isCircleHere(counter, this.coloredNode.getY())) {
                 var toBridgeTo = this.getCircleHere(counter, this.coloredNode.getY());
@@ -1006,6 +1083,9 @@ export class BoardComponentComponent implements OnInit {
         if(this.isCircleHere(this.coloredNode.getX() + 1, this.coloredNode.getY())) {
             return;
         }
+        if(this.isCrossing(this.coloredNode.getX() + 1, this.coloredNode.getY(), 'r')) {
+            return;
+        }
         for(counter = this.coloredNode.getX() + 1; counter < this.width + 1; counter++) {
             if(this.isCircleHere(counter, this.coloredNode.getY())) {
                 var toBridgeTo = this.getCircleHere(counter, this.coloredNode.getY());
@@ -1038,6 +1118,9 @@ export class BoardComponentComponent implements OnInit {
     bridgeRight() {
         var counter;
         if(this.isCircleHere(this.coloredNode.getX() + 1, this.coloredNode.getY())) {
+            return;
+        }
+        if(this.isCrossing(this.coloredNode.getX() + 1, this.coloredNode.getY(), 'r')) {
             return;
         }
         for(counter = this.coloredNode.getX() + 1; counter < this.width + 1; counter++) {
