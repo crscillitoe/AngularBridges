@@ -124,15 +124,18 @@ export class BoardComponentComponent implements OnInit {
 
         if(this.daily) {
             // This is a daily, so we should indicate that we're playing.
-            this.http.get('https://woohoojinbridges.firebaseio.com/playingDaily/' + this.width + '/' + this.userDetails.uid + '.json')
+            this.http.get('https://woohoojinbridges.firebaseio.com/playingDaily' + this.width + '/' + this.userDetails.uid + '.json')
                 .subscribe((data) => {
                     if(data == null) {
                         var date: any = new Date()
                         let model = {
                             start: date.toUTCString()
                         }
-                        this.http.put('https://woohoojinbridges.firebaseio.com/playingDaily/' + this.width + '/' + this.userDetails.uid + '.json', model)
-                            .subscribe((data) => {});
+                        this._firebaseAuth.auth.currentUser.getIdToken(true)
+                            .then((token) => {
+                                this.http.put('https://woohoojinbridges.firebaseio.com/playingDaily' + this.width + '/' + this.userDetails.uid + '.json?auth=' + token, model)
+                                    .subscribe((data) => {});
+                            })
                     } else {
                         this.daily = false;
                     }
@@ -1023,12 +1026,10 @@ export class BoardComponentComponent implements OnInit {
             }
         }
     }
-    
 
     submit() {
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
         if(!this.daily) {
-        if(this.width == 40 && this.height == 40 && numNodes == 500000 && !this.extreme && this.name != "") {
             let m = {
                 name: this.name,
                 hours: this.hours,
@@ -1037,511 +1038,100 @@ export class BoardComponentComponent implements OnInit {
                 millis: this.millis,
                 seed: this.board.initialSeed
             };
-            this.http.put('https://woohoojinbridges.firebaseio.com/40x40hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width == 7 && this.height == 7 && numNodes == 14 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/7x7easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }  else if(this.width == 7 && this.height == 7 && numNodes == 21 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/7x7medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-        else if(this.width == 15 && this.height == 15 && numNodes == 30 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/15x15easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }  else if(this.width == 15 && this.height == 15 && numNodes == 45 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/15x15medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-
-        else if(this.width == 25 && this.height == 25 && numNodes == 50 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/25x25easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }  
-        
-        else if(this.width == 40 && this.height == 40 && numNodes == 80 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/40x40easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }  else if(this.width == 40 && this.height == 40 && numNodes == 120 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/40x40medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-
-        else if(this.width == 100 && this.height == 100 && numNodes == 200 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/100x100easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }  else if(this.width == 100 && this.height == 100 && numNodes == 300 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/100x100medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-        else if(this.width == 25 && this.height == 25 && numNodes == 75 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/25x25medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-        else if(this.width == 7 && this.height == 7 && numNodes == 500000 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/7x7hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/7x7extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-
-
-        else if(this.width == 10 && this.height == 10 && numNodes == 20 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/10x10easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-
-        else if(this.width == 10 && this.height == 10 && numNodes == 30 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/10x10medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-
-        else if(this.width == 10 && this.height == 10 && numNodes == 500000 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/10x10hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-        
-        else if(this.width == 10 && this.height == 10 && numNodes == 500000 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/10x10extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-
-        
-        else if(this.width == 60 && this.height == 60 && numNodes == 120 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/60x60easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-
-        else if(this.width == 60 && this.height == 60 && numNodes == 180 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/60x60medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-
-        else if(this.width == 60 && this.height == 60 && numNodes == 500000 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/60x60hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-        
-        else if(this.width == 60 && this.height == 60 && numNodes == 500000 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/60x60extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-
-        
-        else if(this.width == 80 && this.height == 80 && numNodes == 160 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/80x80easy/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-
-        else if(this.width == 80 && this.height == 80 && numNodes == 240 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/80x80medium/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } 
-
-        else if(this.width == 80 && this.height == 80 && numNodes == 500000 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/80x80hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-        
-        else if(this.width == 80 && this.height == 80 && numNodes == 500000 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/80x80extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }
-        
-        
-        else if(this.width == 25 && this.height == 25 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/25x25extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width == 15 && this.height == 15 && numNodes == 500000 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/15x15hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width == 100 && this.height == 100 && numNodes == 500000 && !this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/100x100hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width == 100 && this.height == 100 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/100x100extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width==15 && this.height == 15 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/15x15extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width==40 && this.height == 40 && this.extreme && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/40x40extreme/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        } else if(this.width==25 && this.height==25 && !this.extreme && numNodes == 500000 && this.name != "") {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                seed: this.board.initialSeed
-            };
-            this.http.put('https://woohoojinbridges.firebaseio.com/25x25hard/'+this.userDetails.uid+'.json', m)
-                .subscribe((data) => {
-                this.router.navigate(['leaderboards']);
-            });
-        }} else {
-            if(this.daily && this.name != "" && this.width==25 && this.height==25 && numNodes == 500000) {
-                let m = {
-                    name: this.name,
-                    hours: this.hours,
-                    minutes: this.minutes,
-                    seconds: this.seconds,
-                    millis: this.millis,
-                    seed: this.board.initialSeed
-                };
-                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScores/'+this.userDetails.uid+'.json', m)
-                    .subscribe((data) => {
-                    this.router.navigate(['leaderboards']);
-                });
-            } else if(this.daily && this.name != "" && this.width==10 && this.height == 10 && numNodes == 30) {
-                //easy
-
-                let m = {
-                    name: this.name,
-                    hours: this.hours,
-                    minutes: this.minutes,
-                    seconds: this.seconds,
-                    millis: this.millis,
-                    seed: this.board.initialSeed
-                };
-                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+this.userDetails.uid+'.json', m)
-                    .subscribe((data) => {
-                    this.router.navigate(['leaderboards']);
-                });
-            } else if(this.daily && this.name != "" && this.width==15 && this.height == 15 && numNodes == 500000) {
-                //medium
-
-                let m = {
-                    name: this.name,
-                    hours: this.hours,
-                    minutes: this.minutes,
-                    seconds: this.seconds,
-                    millis: this.millis,
-                    seed: this.board.initialSeed
-                };
-                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+this.userDetails.uid+'.json', m)
-                    .subscribe((data) => {
-                    this.router.navigate(['leaderboards']);
-                });
-            } else if(this.daily && this.name != "" && this.width==40 && this.height==40 && numNodes == 500000 && this.extreme) {
-
-                let m = {
-                    name: this.name,
-                    hours: this.hours,
-                    minutes: this.minutes,
-                    seconds: this.seconds,
-                    millis: this.millis,
-                    seed: this.board.initialSeed
-                };
-                this.http.put('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+this.userDetails.uid+'.json', m)
-                    .subscribe((data) => {
-                    this.router.navigate(['leaderboards']);
-                });
+            var board = "";
+            if(this.width == 40 && this.height == 40 && numNodes == 500000 && !this.extreme && this.name != "") {
+                board = "40x40hard";
+            } else if(this.width == 7 && this.height == 7 && numNodes == 14 && this.name != "") {
+                board = "7x7easy";
+            }  else if(this.width == 7 && this.height == 7 && numNodes == 21 && this.name != "") {
+                board = "7x7medium";
+            } else if(this.width == 15 && this.height == 15 && numNodes == 30 && this.name != "") {
+                board = "15x15easy";
+            } else if(this.width == 15 && this.height == 15 && numNodes == 45 && this.name != "") {
+                board = "15x15medium";
+            } else if(this.width == 25 && this.height == 25 && numNodes == 50 && this.name != "") {
+                board = "25x25easy";
+            } else if(this.width == 40 && this.height == 40 && numNodes == 80 && this.name != "") {
+                board = "40x40easy";
+            } else if(this.width == 40 && this.height == 40 && numNodes == 120 && this.name != "") {
+                board = "40x40medium";
+            } else if(this.width == 100 && this.height == 100 && numNodes == 200 && this.name != "") {
+                board = "100x100easy";
+            } else if(this.width == 100 && this.height == 100 && numNodes == 300 && this.name != "") {
+                board = "100x100medium";
+            } else if(this.width == 25 && this.height == 25 && numNodes == 75 && this.name != "") {
+                board = "25x25medium";
+            } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && !this.extreme && this.name != "") {
+                board = "7x7hard";
+            } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && this.extreme && this.name != "") {
+                board = "7x7extreme";
+            } else if(this.width == 10 && this.height == 10 && numNodes == 20 && !this.extreme && this.name != "") {
+                board = "10x10easy";
+            } else if(this.width == 10 && this.height == 10 && numNodes == 30 && !this.extreme && this.name != "") {
+                board = "10x10medium";
+            } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && !this.extreme && this.name != "") {
+                board = "10x10hard";
+            } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && this.extreme && this.name != "") {
+                board = "10x10extreme";
+            } else if(this.width == 60 && this.height == 60 && numNodes == 120 && !this.extreme && this.name != "") {
+                board = "60x60easy";
+            } else if(this.width == 60 && this.height == 60 && numNodes == 180 && !this.extreme && this.name != "") {
+                board = "60x60medium";
+            } else if(this.width == 60 && this.height == 60 && numNodes == 500000 && !this.extreme && this.name != "") {
+                board = "60x60hard";
+            } else if(this.width == 60 && this.height == 60 && numNodes == 500000 && this.extreme && this.name != "") {
+                board = "60x60extreme";
+            } else if(this.width == 25 && this.height == 25 && this.extreme && this.name != "") {
+                board = "25x25extreme";
+            } else if(this.width == 15 && this.height == 15 && numNodes == 500000 && !this.extreme && this.name != "") {
+                board = "15x15hard";
+            } else if(this.width == 100 && this.height == 100 && numNodes == 500000 && !this.extreme && this.name != "") {
+                board = "100x100hard";
+            } else if(this.width == 100 && this.height == 100 && this.extreme && this.name != "") {
+                board = "100x100extreme";
+            } else if(this.width==15 && this.height == 15 && this.extreme && this.name != "") {
+                board = "15x15extreme";
+            } else if(this.width==40 && this.height == 40 && this.extreme && this.name != "") {
+                board = "40x40extreme";
+            } else if(this.width==25 && this.height==25 && !this.extreme && numNodes == 500000 && this.name != "") {
+                board = "25x25hard";
             }
+
+            this._firebaseAuth.auth.currentUser.getIdToken(true)
+                .then((token) => {
+                    this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
+                        .subscribe((data) => {
+                        this.router.navigate(['leaderboards']);
+                    });
+                })
+        } else {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                seed: this.board.initialSeed
+            };
+            var board = "";
+
+            if(this.daily && this.name != "" && this.width==25 && this.height==25 && numNodes == 500000) {
+                board = "dailyScores";
+            } else if(this.daily && this.name != "" && this.width==10 && this.height == 10 && numNodes == 30) {
+                board = "dailyScoresEasy";
+            } else if(this.daily && this.name != "" && this.width==15 && this.height == 15 && numNodes == 500000) {
+                board = "dailyScoresMedium";
+            } else if(this.daily && this.name != "" && this.width==40 && this.height==40 && numNodes == 500000 && this.extreme) {
+                board = "dailyScoresExtreme";
+            }
+
+            this._firebaseAuth.auth.currentUser.getIdToken(true)
+                .then((token) => {
+                    this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
+                        .subscribe((data) => {
+                        this.router.navigate(['leaderboards']);
+                    });
+                })
         }
     }
 

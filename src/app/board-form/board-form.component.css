@@ -101,7 +101,7 @@ select { width: 400px; text-align-last:center; }
 #patchNotes {
     width:40%;
     height:300px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     position: absolute;
     top:180px;
     left:20px;

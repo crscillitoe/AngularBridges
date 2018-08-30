@@ -422,68 +422,8 @@ export class BoardFormComponent implements OnInit {
     updateDailyAsNeeded() {
         this.http.get('https://woohoojinbridges.firebaseio.com/daily.json')
             .subscribe((data: any) => {
-                var date: any = new Date();
-                var date2: any = new Date(data.date);
-                var secondsPassed = (date - date2) / 1000;
-                console.log(data);
-                console.log(secondsPassed);
-                date2.setSeconds(3600 * 24);
-
-                if(secondsPassed > 3600 * 24) {
-                    var dailySeed = this.randomIntReal(0, 2000000000);
-                    let m = {
-                        date: date2,
-                        seed: dailySeed
-                    }
-
-                    this.daily = m;
-                    this.canPlayDailyEasy = true;
-                    this.canPlayDailyMedium = true;
-                    this.canPlayDailyHard = true;
-                    this.canPlayDailyExtreme = true;
-
-                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="$key"')
-                        .subscribe((keys: any) => {
-                            for(const key of Object.keys(keys)) { 
-                                console.log(keys);
-                                console.log(key);
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores/'+key+'.json')
-                                    .subscribe((data) => {});
-                            }
-                        });
-                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?orderBy="$key"')
-                        .subscribe((keys: any) => {
-                            for(const key of Object.keys(keys)) { 
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresEasy/'+key+'.json')
-                                    .subscribe((data) => {});
-                            }
-                        });
-                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?orderBy="$key"')
-                        .subscribe((keys: any) => {
-                            for(const key of Object.keys(keys)) { 
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresMedium/'+key+'.json')
-                                    .subscribe((data) => {});
-                            }
-                        });
-                    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?orderBy="$key"')
-                        .subscribe((keys: any) => {
-                            for(const key of Object.keys(keys)) { 
-                                this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme/'+key+'.json')
-                                    .subscribe((data) => {});
-                            }
-                        });
-                    
-                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily.json')
-                        .subscribe((data) => {});
-
-                    this.http.put('https://woohoojinbridges.firebaseio.com/daily.json' , m)
-                        .subscribe((d) => {
-                            console.log("updated");
-                        });
-                } else {
-                    this.daily = data;
-                    this.canPlayDailyFunc();
-                }
+                this.daily = data;
+                this.canPlayDailyFunc();
             });
     }
 
