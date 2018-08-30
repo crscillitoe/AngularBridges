@@ -49,7 +49,7 @@ export class LeaderboardsComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="$key"')
+    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._dailyScores = [];
         for(const key of Object.keys(data)) {
@@ -68,7 +68,7 @@ export class LeaderboardsComponent implements OnInit {
         this._dailyScores = this._dailyScores.slice(0, 10);
       });
 
-          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?orderBy="$key"')
+          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._dailyScoresEasy = [];
         for(const key of Object.keys(data)) {
@@ -87,7 +87,7 @@ export class LeaderboardsComponent implements OnInit {
         this._dailyScoresEasy = this._dailyScoresEasy.slice(0, 10);
       });
 
-          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?orderBy="$key"')
+          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._dailyScoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -106,7 +106,7 @@ export class LeaderboardsComponent implements OnInit {
         this._dailyScoresMedium = this._dailyScoresMedium.slice(0, 10);
       });
 
-          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?orderBy="$key"')
+          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._dailyScoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -125,7 +125,7 @@ export class LeaderboardsComponent implements OnInit {
         this._dailyScoresExtreme = this._dailyScoresExtreme.slice(0, 10);
       });
 
-    this.http.get('https://woohoojinbridges.firebaseio.com/40x40hard.json?orderBy="$key"')
+    this.http.get('https://woohoojinbridges.firebaseio.com/40x40hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._40x40scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -144,10 +144,8 @@ export class LeaderboardsComponent implements OnInit {
         this._40x40scoresHard = this._40x40scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7easy.json?orderBy="$key"')
-      .subscribe((data) => {
-        this._7x7scoresEasy = [];
-        for(const key of Object.keys(data)) {
+      this.http.get('https://woohoojinbridges.firebaseio.com/7x7easy.json?orderBy="totalTime"&limitToFirst=10') .subscribe((data) => { this._7x7scoresEasy = [];
+               for(const key of Object.keys(data)) {
           var temp = data[key];
           (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
           (data[key])['key'] = key;
@@ -163,7 +161,7 @@ export class LeaderboardsComponent implements OnInit {
         this._7x7scoresEasy = this._7x7scoresEasy.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7hard.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/7x7hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._7x7scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -182,7 +180,7 @@ export class LeaderboardsComponent implements OnInit {
         this._7x7scoresHard = this._7x7scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/7x7medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._7x7scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -201,7 +199,7 @@ export class LeaderboardsComponent implements OnInit {
         this._7x7scoresMedium = this._7x7scoresMedium.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/7x7extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._7x7scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -220,7 +218,7 @@ export class LeaderboardsComponent implements OnInit {
         this._7x7scoresExtreme = this._7x7scoresExtreme.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/25x25extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._25x25scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -239,7 +237,7 @@ export class LeaderboardsComponent implements OnInit {
         this._25x25scoresExtreme = this._25x25scoresExtreme.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15hard.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/15x15hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._15x15scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -258,7 +256,7 @@ export class LeaderboardsComponent implements OnInit {
         this._15x15scoresHard = this._15x15scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100hard.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/100x100hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._100x100scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -277,7 +275,7 @@ export class LeaderboardsComponent implements OnInit {
         this._100x100scoresHard = this._100x100scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/100x100extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._100x100scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -296,7 +294,7 @@ export class LeaderboardsComponent implements OnInit {
         this._100x100scoresExtreme = this._100x100scoresExtreme.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/15x15extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._15x15scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -315,7 +313,7 @@ export class LeaderboardsComponent implements OnInit {
         this._15x15scoresExtreme = this._15x15scoresExtreme.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25hard.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/25x25hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._25x25scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -334,7 +332,7 @@ export class LeaderboardsComponent implements OnInit {
         this._25x25scoresHard = this._25x25scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/40x40extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/40x40extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._40x40scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -353,7 +351,7 @@ export class LeaderboardsComponent implements OnInit {
         this._40x40scoresExtreme = this._40x40scoresExtreme.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/10x10extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._10x10scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -371,7 +369,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._10x10scoresExtreme = this._10x10scoresExtreme.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10hard.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/10x10hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._10x10scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -390,7 +388,7 @@ export class LeaderboardsComponent implements OnInit {
         this._10x10scoresHard = this._10x10scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/10x10medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._10x10scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -408,7 +406,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._10x10scoresMedium = this._10x10scoresMedium.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10easy.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/10x10easy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._10x10scoresEasy = [];
         for(const key of Object.keys(data)) {
@@ -427,7 +425,7 @@ export class LeaderboardsComponent implements OnInit {
         this._10x10scoresEasy = this._10x10scoresEasy.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/15x15medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._15x15scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -445,7 +443,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._15x15scoresMedium = this._15x15scoresMedium.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15easy.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/15x15easy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._15x15scoresEasy = [];
         for(const key of Object.keys(data)) {
@@ -464,7 +462,7 @@ export class LeaderboardsComponent implements OnInit {
         this._15x15scoresEasy = this._15x15scoresEasy.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/25x25medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._25x25scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -482,7 +480,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._25x25scoresMedium = this._25x25scoresMedium.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25easy.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/25x25easy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._25x25scoresEasy = [];
         for(const key of Object.keys(data)) {
@@ -501,7 +499,7 @@ export class LeaderboardsComponent implements OnInit {
         this._25x25scoresEasy = this._25x25scoresEasy.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/40x40medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/40x40medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._40x40scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -519,7 +517,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._40x40scoresMedium = this._40x40scoresMedium.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/40x40easy.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/40x40easy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._40x40scoresEasy = [];
         for(const key of Object.keys(data)) {
@@ -538,7 +536,7 @@ export class LeaderboardsComponent implements OnInit {
         this._40x40scoresEasy = this._40x40scoresEasy.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/100x100medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._100x100scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -556,7 +554,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._100x100scoresMedium = this._100x100scoresMedium.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100easy.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/100x100easy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._100x100scoresEasy = [];
         for(const key of Object.keys(data)) {
@@ -575,7 +573,7 @@ export class LeaderboardsComponent implements OnInit {
         this._100x100scoresEasy = this._100x100scoresEasy.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/80x80extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._80x80scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -593,7 +591,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._80x80scoresExtreme = this._80x80scoresExtreme.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80hard.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/80x80hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._80x80scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -612,7 +610,7 @@ export class LeaderboardsComponent implements OnInit {
         this._80x80scoresHard = this._80x80scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/80x80medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._80x80scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -630,7 +628,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._80x80scoresMedium = this._80x80scoresMedium.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80easy.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/80x80easy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._80x80scoresEasy = [];
         for(const key of Object.keys(data)) {
@@ -649,7 +647,7 @@ export class LeaderboardsComponent implements OnInit {
         this._80x80scoresEasy = this._80x80scoresEasy.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60extreme.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/60x60extreme.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._60x60scoresExtreme = [];
         for(const key of Object.keys(data)) {
@@ -667,7 +665,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._60x60scoresExtreme = this._60x60scoresExtreme.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60hard.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/60x60hard.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._60x60scoresHard = [];
         for(const key of Object.keys(data)) {
@@ -686,7 +684,7 @@ export class LeaderboardsComponent implements OnInit {
         this._60x60scoresHard = this._60x60scoresHard.slice(0, 10);
       });
 
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60medium.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/60x60medium.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._60x60scoresMedium = [];
         for(const key of Object.keys(data)) {
@@ -704,7 +702,7 @@ export class LeaderboardsComponent implements OnInit {
         });
         this._60x60scoresMedium = this._60x60scoresMedium.slice(0, 10);
       });
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60easy.json?orderBy="$key"')
+      this.http.get('https://woohoojinbridges.firebaseio.com/60x60easy.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._60x60scoresEasy = [];
         for(const key of Object.keys(data)) {

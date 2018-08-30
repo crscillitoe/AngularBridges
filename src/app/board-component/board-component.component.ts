@@ -43,6 +43,9 @@ export class BoardComponentComponent implements OnInit {
     drawMouseX: number;
     drawMouseY: number;
 
+    previousTime: string;
+    difficulty: string;
+
     circleColor: string[];
     circleTextColor: string;
     circleTextColors: string[];
@@ -183,6 +186,107 @@ export class BoardComponentComponent implements OnInit {
         } else if(theme == 'colorblind') {
             this.colorblindMode();
         }
+
+        var board = "";
+        if(this.width == 40 && this.height == 40 && numNodes == 500000 && !this.extreme) {
+            board = "40x40hard";
+            this.difficulty = "Hard";
+        } else if(this.width == 7 && this.height == 7 && numNodes == 14) {
+            board = "7x7easy";
+            this.difficulty = "Easy";
+        }  else if(this.width == 7 && this.height == 7 && numNodes == 21) {
+            board = "7x7medium";
+            this.difficulty = "Medium";
+        } else if(this.width == 15 && this.height == 15 && numNodes == 30) {
+            board = "15x15easy";
+            this.difficulty = "Easy";
+        } else if(this.width == 15 && this.height == 15 && numNodes == 45) {
+            board = "15x15medium";
+            this.difficulty = "Medium";
+        } else if(this.width == 25 && this.height == 25 && numNodes == 50) {
+            board = "25x25easy";
+            this.difficulty = "Easy";
+        } else if(this.width == 40 && this.height == 40 && numNodes == 80) {
+            board = "40x40easy";
+            this.difficulty = "Easy";
+        } else if(this.width == 40 && this.height == 40 && numNodes == 120) {
+            board = "40x40medium";
+            this.difficulty = "Medium";
+        } else if(this.width == 100 && this.height == 100 && numNodes == 200) {
+            board = "100x100easy";
+            this.difficulty = "Easy";
+        } else if(this.width == 100 && this.height == 100 && numNodes == 300) {
+            board = "100x100medium";
+            this.difficulty = "Medium";
+        } else if(this.width == 25 && this.height == 25 && numNodes == 75) {
+            board = "25x25medium";
+            this.difficulty = "Medium";
+        } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && !this.extreme) {
+            board = "7x7hard";
+            this.difficulty = "Hard";
+        } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && this.extreme) {
+            board = "7x7extreme";
+            this.difficulty = "Extreme";
+        } else if(this.width == 10 && this.height == 10 && numNodes == 20 && !this.extreme) {
+            board = "10x10easy";
+            this.difficulty = "Easy";
+        } else if(this.width == 10 && this.height == 10 && numNodes == 30 && !this.extreme) {
+            board = "10x10medium";
+            this.difficulty = "Medium";
+        } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && !this.extreme) {
+            board = "10x10hard";
+            this.difficulty = "Hard";
+        } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && this.extreme) {
+            board = "10x10extreme";
+            this.difficulty = "Extreme";
+        } else if(this.width == 60 && this.height == 60 && numNodes == 120 && !this.extreme) {
+            board = "60x60easy";
+            this.difficulty = "Easy";
+        } else if(this.width == 60 && this.height == 60 && numNodes == 180 && !this.extreme) {
+            board = "60x60medium";
+            this.difficulty = "Medium";
+        } else if(this.width == 60 && this.height == 60 && numNodes == 500000 && !this.extreme) {
+            board = "60x60hard";
+            this.difficulty = "Hard";
+        } else if(this.width == 60 && this.height == 60 && numNodes == 500000 && this.extreme) {
+            board = "60x60extreme";
+            this.difficulty = "Extreme";
+        } else if(this.width == 25 && this.height == 25 && this.extreme) {
+            board = "25x25extreme";
+            this.difficulty = "Extreme";
+        } else if(this.width == 15 && this.height == 15 && numNodes == 500000 && !this.extreme) {
+            board = "15x15hard";
+            this.difficulty = "Hard";
+        } else if(this.width == 100 && this.height == 100 && numNodes == 500000 && !this.extreme) {
+            board = "100x100hard";
+            this.difficulty = "Hard";
+        } else if(this.width == 100 && this.height == 100 && this.extreme) {
+            board = "100x100extreme";
+            this.difficulty = "Extreme";
+        } else if(this.width==15 && this.height == 15 && this.extreme) {
+            board = "15x15extreme";
+            this.difficulty = "Extreme";
+        } else if(this.width==40 && this.height == 40 && this.extreme) {
+            board = "40x40extreme";
+            this.difficulty = "Extreme";
+        } else if(this.width==25 && this.height==25 && !this.extreme && numNodes == 500000) {
+            board = "25x25hard";
+            this.difficulty = "Hard";
+        }
+
+        try {
+            console.log('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json');
+            this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
+                .subscribe((data: any) => {
+                    if(data != null) {
+                        this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+                    } else {
+
+                    }
+                });
+        } catch {
+        }
+
         this.fixSizes();
     }
 
@@ -1036,6 +1140,7 @@ export class BoardComponentComponent implements OnInit {
                 minutes: this.minutes,
                 seconds: this.seconds,
                 millis: this.millis,
+                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
                 seed: this.board.initialSeed
             };
             var board = "";
@@ -1111,6 +1216,7 @@ export class BoardComponentComponent implements OnInit {
                 minutes: this.minutes,
                 seconds: this.seconds,
                 millis: this.millis,
+                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
                 seed: this.board.initialSeed
             };
             var board = "";

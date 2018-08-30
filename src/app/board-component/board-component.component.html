@@ -12,8 +12,12 @@
 
         <div class="container" id="timerContainer">
             <h1 id="timer"><time>00:00:00</time></h1>
-            
         </div>
+
+        <ng-container *ngIf="!daily">
+            <h1 class="difficulty">{{difficulty}}</h1>
+            <h1 class="previousTime">{{previousTime}}</h1>
+        </ng-container>
 
         <div class="container" id="buttons">
             <label *ngIf="solved && ((seed == 0 && !daily) || (daily))" id="label">Enter your name
@@ -44,7 +48,7 @@
             <button class="btn btn-outline-back" (click)="back()">Back to Main Menu</button>
         </div>
         <div *ngIf="!daily" id="memes">
-            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.5.1</p>
+            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.6.0</p>
         </div>
     </div>
 </html>
