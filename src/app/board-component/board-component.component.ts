@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardComponentComponent implements OnInit {
 
+    worseTime: boolean;
     pause: boolean;
     factor: number;
     squareSize: number;
@@ -43,6 +44,7 @@ export class BoardComponentComponent implements OnInit {
     drawMouseX: number;
     drawMouseY: number;
 
+    previousTotalMillis: number;
     previousTime: string;
     difficulty: string;
 
@@ -114,6 +116,7 @@ export class BoardComponentComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        this.worseTime = true;
         this.name = "";
         this.drawLetters = true;
         this.drawGridBool = true;
@@ -278,6 +281,7 @@ export class BoardComponentComponent implements OnInit {
             this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
                 .subscribe((data: any) => {
                     if(data != null) {
+                        this.previousTotalMillis = data.totalTime;
                         this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
                     } else {
 
@@ -1447,7 +1451,10 @@ export class BoardComponentComponent implements OnInit {
         }
 
         this.solved = true;
-        if(this.width == 40 && this.height == 40) {
+        if((this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100)) >= this.previousTotalMillis) {
+            this.worseTime = true;
+        } else { 
+            this.worseTime = false;
         }
     }
 
