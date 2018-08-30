@@ -420,6 +420,11 @@ export class BoardFormComponent implements OnInit {
         this.router.navigate(['leaderboards']);
     }
 
+    rules()
+    {
+        this.router.navigate(['rules']);
+    }
+
     ngOnInit() {
         this.canPlayDailyEasy = true;
         this.canPlayDailyMedium = true;

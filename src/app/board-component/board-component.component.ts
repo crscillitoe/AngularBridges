@@ -334,10 +334,7 @@ export class BoardComponentComponent implements OnInit {
                     }
                 }
             }
-            try {
                 h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds) + "." + (___this.millis > 9 ? ___this.millis : "0"+___this.millis);
-            } catch {
-            }
         }
         ___this.timer();
     }
