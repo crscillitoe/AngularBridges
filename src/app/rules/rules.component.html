@@ -1,0 +1,57 @@
+<div id="title">
+    <h1>How to play Woohoojin Bridges</h1>
+</div>
+
+<div id="body">
+    <div id="flex-container">
+        <div class="flex-element">
+            <img src="assets/unsolved.png">
+        </div>
+        <div class="flex-element">
+            <div class="centered">
+                <h2>Woohoojin Bridges is a web implementation of <i>Hashiwokakero.</i></h2><br>
+            </div>
+            <h2>Rules</h2>
+            The goal is to connect all of the islands by drawing a series of bridges between the islands.
+            <div class="indented">
+                <b>1.</b> Bridges must not cross any other bridges or islands.<br>
+                <b>2.</b> The number of bridges connected to each island must match the number on that island.<br>
+                <b>3.</b> The bridges must connect the islands into a single connected group.<br><br>
+            </div>
+
+            <h2>Controls</h2>
+            Bridges can be built using a few different methods.
+            <div class="indented">
+                <b>1.</b> Place your mouse over an island and press 'wasd/WASD'.<br>
+                <div class="indented">
+                    <b>-</b> Lowercase 'wasd' will build one bridge.<br>
+                    <b>-</b> Uppercase 'WASD' will build two bridges.<br>
+                </div>
+                <b>2.</b> Click and drag your mouse from one island towards another island.<br>
+                <div class="indented">
+                    <b>-</b> A left click will build one bridge.<br>
+                    <b>-</b> A right click will build two bridges.<br>
+                </div>
+                <b>3.</b> Shift click on an island to build bridges in all possible directions.<br>
+            </div>
+
+            <div class="labels">
+                <div class="left">
+                    <h2>⬅ Unsolved</h2>
+                </div>
+                <div class="right">
+                    <h2>Solved ➡</h2>
+                </div>
+            </div>
+        </div>
+        <div class="flex-element">
+            <img src="assets/solved.png">
+        </div>
+    </div>
+</div>
+
+<div id="foot">
+    <div id="buttons">
+        <button type="submit" class="btn btn-outline-main-menu" (click)="mainMenu()">Main Menu</button>
+    </div>
+</div>

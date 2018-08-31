@@ -488,6 +488,7 @@ signInWithGoogle() {
     )
   }
 isLoggedIn() {
+    console.log(this.userDetails);
   if (this.userDetails == null ) {
       return false;
     } else {
