@@ -455,7 +455,7 @@ export class BoardFormComponent implements OnInit {
     
 
   private user: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
+  public userDetails: firebase.User = null;
     constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private http: HttpClient) { 
         this.canPlayDailyEasy = false;
         this.canPlayDailyMedium = false;
