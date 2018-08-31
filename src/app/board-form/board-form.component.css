@@ -98,6 +98,13 @@ select { width: 400px; text-align-last:center; }
     font-size: 25px;
     left:20px;
 }
+
+#premium-members-only {
+    position:absolute;
+    top:50px;
+    left:calc(50% - 250px);
+}
+
 #patchNotes {
     width:40%;
     height:300px;
