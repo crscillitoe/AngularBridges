@@ -9,7 +9,7 @@
         <form (ngSubmit)="onSubmit()" #boardForm="ngForm">
             <div id="premium-members-only">
                 <!-- Arco's image -->
-                <img *ngIf="userDetails.uid=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" width="500" src="assets/singed.png">
+                <img *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" width="500" src="assets/singed.png">
 
 
             </div>
@@ -135,7 +135,7 @@
     </div>
 
     <div id="signup">
-        <button type="submit" class="btn btn-outline-leaderboards" (click)="signInWithGoogle()">Log in</button>
+        <button *ngIf="!isLoggedIn()" type="submit" class="btn btn-outline-leaderboards" (click)="signInWithGoogle()">Log in</button>
     </div>
 
     <div id="memes">

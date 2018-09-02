@@ -478,24 +478,34 @@ export class BoardFormComponent implements OnInit {
           }
           else {
             this.userDetails = null;
+            console.log("NOT LOGGED IN");
           }
         }
       );
   }
-signInWithGoogle() {
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()
-    )
-  }
-isLoggedIn() {
-    console.log(this.userDetails);
-  if (this.userDetails == null ) {
-      return false;
-    } else {
-      return true;
+    signInWithGoogle() {
+        return this._firebaseAuth.auth.signInWithPopup(
+          new firebase.auth.GoogleAuthProvider()
+        )
     }
-  }
-  getUser() {
-    return this.userDetails;
-  }
+
+    isLoggedIn() {
+        if (this.userDetails == null ) {
+          return false;
+        } else {
+          return true;
+        }
+    }
+
+    getUid() {
+        if(this.userDetails == null) {
+            return '';
+        } else {
+            return this.userDetails.uid;
+        }
+    }
+
+    getUser() {
+        return this.userDetails;
+    }
 }
