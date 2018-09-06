@@ -97,6 +97,7 @@
                 <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100extreme')" value="100x100">
                 <input *ngIf="canPlayDailyExtreme" type="button" class="btn btn-quick" (click)="playDaily('extreme')" value="Daily">
                 <input *ngIf="!canPlayDailyExtreme && dailyExtreme" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyExtreme}}">
+                <input *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" type="button" class="btn btn-quick dailyTime" (click)="resetDailies()" value="Reset">
             </div>
 
             <label id="label">Patch Notes</label>

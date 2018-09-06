@@ -452,6 +452,36 @@ export class BoardFormComponent implements OnInit {
 
     }
 
+    resetDailies() {
+        this._firebaseAuth.auth.currentUser.getIdToken(true)
+                .then((token) => {
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?auth=' + token)
+                        .subscribe((data) => {});
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?auth=' + token)
+                        .subscribe((data) => {});
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?auth=' + token)
+                        .subscribe((data) => {});
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores.json?auth=' + token)
+                        .subscribe((data) => {});
+
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily10.json?auth=' + token)
+                        .subscribe((data) => {});
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily15.json?auth=' + token)
+                        .subscribe((data) => {});
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily25.json?auth=' + token)
+                        .subscribe((data) => {});
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily40.json?auth=' + token)
+                        .subscribe((data) => {});
+                    
+                    let m = {
+                        seed: this.randomIntReal(0, 2000000000)
+                    }
+
+                    this.http.put('https://woohoojinbridges.firebaseio.com/daily.json?auth=' + token, m)
+                        .subscribe((data) => {});
+                })
+    }
+
     
 
   private user: Observable<firebase.User>;
