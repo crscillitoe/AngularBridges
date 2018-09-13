@@ -33,7 +33,6 @@ export class Board {
         var difficulty = '';
         var difficultyDistance;
         
-
         if(this.seed == 0) {
             this.seed = this.randomIntReal(0, 2000000000);
             this.initialSeed = this.seed;

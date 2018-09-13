@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardComponentComponent implements OnInit {
 
+    timesPaused: number;
     worseTime: boolean;
     pause: boolean;
     factor: number;
@@ -116,6 +117,7 @@ export class BoardComponentComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        this.timesPaused = 0;
         this.worseTime = true;
         this.name = "";
         this.drawLetters = true;
@@ -316,6 +318,7 @@ export class BoardComponentComponent implements OnInit {
     pauseGame() {
         this.pause = !this.pause;
         if(this.pause == true) {
+            this.timesPaused++;
             this.drawBackground();
         } else { 
             this.draw();
@@ -1361,7 +1364,8 @@ export class BoardComponentComponent implements OnInit {
                 seconds: this.seconds,
                 millis: this.millis,
                 totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
-                seed: this.board.initialSeed
+                seed: this.board.initialSeed,
+                pauses: this.timesPaused
             };
             var board = "";
             if(this.width == 40 && this.height == 40 && numNodes == 500000 && !this.extreme && this.name != "") {
@@ -1437,7 +1441,8 @@ export class BoardComponentComponent implements OnInit {
                 seconds: this.seconds,
                 millis: this.millis,
                 totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
-                seed: this.board.initialSeed
+                seed: this.board.initialSeed,
+                pauses: this.timesPaused
             };
             var board = "";
 
