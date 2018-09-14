@@ -33,7 +33,7 @@
             <button class="btn btn-outline" (click)="toggleGrid()">Toggle Grid</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="pauseGame()">Pause (P)</button>
+            <button class="btn btn-outline" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2'">Pause (P)</button>
             <br>
             <br>
             <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>

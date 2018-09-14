@@ -316,12 +316,14 @@ export class BoardComponentComponent implements OnInit {
     }
 
     pauseGame() {
-        this.pause = !this.pause;
-        if(this.pause == true) {
-            this.timesPaused++;
-            this.drawBackground();
-        } else { 
-            this.draw();
+        if(this.getUid() != '4UF1vLpR0eVL3Lor900jvE716mM2') {
+            this.pause = !this.pause;
+            if(this.pause == true) {
+                this.timesPaused++;
+                this.drawBackground();
+            } else { 
+                this.draw();
+            }
         }
     }
 
@@ -1463,6 +1465,14 @@ export class BoardComponentComponent implements OnInit {
                         this.router.navigate(['leaderboards']);
                     });
                 })
+        }
+    }
+
+    getUid() {
+        if(this.userDetails == null) {
+            return '';
+        } else {
+            return this.userDetails.uid;
         }
     }
 
