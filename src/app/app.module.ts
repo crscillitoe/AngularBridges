@@ -18,6 +18,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RulesComponent } from './rules/rules.component';
+import { StatsComponent } from './stats/stats.component';
 
 
 const appRoutes: Routes = [
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     { path: 'mainMenu', component: BoardFormComponent},
     { path: 'routedPage', component: BoardComponentComponent },
     { path: 'leaderboards', component: LeaderboardsComponent},
-    { path: 'rules', component: RulesComponent}
+    { path: 'rules', component: RulesComponent},
+    { path: 'stats', component: StatsComponent}
 ];
 
 @NgModule({
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
     BoardFormComponent,
     BoardComponentComponent,
     LeaderboardsComponent,
-    RulesComponent
+    RulesComponent,
+    StatsComponent
   ],
   imports: [
       BrowserModule,

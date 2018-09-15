@@ -884,8 +884,10 @@ export class BoardComponentComponent implements OnInit {
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
                         }
                         bridgeExists = true;
@@ -893,6 +895,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(1);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -921,8 +924,10 @@ export class BoardComponentComponent implements OnInit {
                         (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
                         }
                         bridgeExists = true;
@@ -930,6 +935,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(2);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -957,12 +963,16 @@ export class BoardComponentComponent implements OnInit {
                         bridge.getN1().getY() === this.coloredNode.getY())||
                         (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
+                        if(bridge.getNum() != num) {
+                            this.addConstructedBridges(2 - bridge.getNum());
+                        }
                         bridge.setNum(num);
                         bridgeExists = true;
                     }
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(num);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -990,12 +1000,16 @@ export class BoardComponentComponent implements OnInit {
                         bridge.getN1().getY() === this.coloredNode.getY())||
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
+                        if(bridge.getNum() != num) {
+                            this.addConstructedBridges(2 - bridge.getNum());
+                        }
                         bridge.setNum(num);
                         bridgeExists = true;
                     }
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(num);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1024,8 +1038,10 @@ export class BoardComponentComponent implements OnInit {
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
                         }
                         bridgeExists = true;
@@ -1033,6 +1049,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(2);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1061,8 +1078,10 @@ export class BoardComponentComponent implements OnInit {
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
                         }
                         bridgeExists = true;
@@ -1070,6 +1089,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(1);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1098,8 +1118,10 @@ export class BoardComponentComponent implements OnInit {
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
                         }
                         bridgeExists = true;
@@ -1107,6 +1129,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(2);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1116,6 +1139,24 @@ export class BoardComponentComponent implements OnInit {
             }
         }
     }
+
+    addConstructedBridges(num) {
+        var previousValue = parseInt(localStorage.getItem("build"));
+        if("" + previousValue == "NaN") {
+            localStorage.setItem("build", "" + num);
+        } else {
+            localStorage.setItem("build", "" + (previousValue + num));
+        }
+    } 
+
+    addDestroyedBridges(num) {
+        var previousValue = parseInt(localStorage.getItem("destroy"));
+        if("" + previousValue == "NaN") {
+            localStorage.setItem("destroy", "" + num);
+        } else {
+            localStorage.setItem("destroy", "" + (previousValue + num));
+        }
+    } 
 
     numBridgeLeft(num) {
         var counter;
@@ -1134,12 +1175,16 @@ export class BoardComponentComponent implements OnInit {
                         bridge.getN1().getY() === this.coloredNode.getY())||
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
+                        if(bridge.getNum() != num) {
+                            this.addConstructedBridges(2 - bridge.getNum());
+                        }
                         bridge.setNum(num);
                         bridgeExists = true;
                     }
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(num);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1168,8 +1213,10 @@ export class BoardComponentComponent implements OnInit {
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
                         }
                         bridgeExists = true;
@@ -1177,6 +1224,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(1);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1204,12 +1252,16 @@ export class BoardComponentComponent implements OnInit {
                         bridge.getN1().getY() === this.coloredNode.getY())||
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
+                        if(bridge.getNum() != num) {
+                            this.addConstructedBridges(2 - bridge.getNum());
+                        }
                         bridge.setNum(num);
                         bridgeExists = true;
                     }
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(num);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1238,8 +1290,10 @@ export class BoardComponentComponent implements OnInit {
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
                         }
                         bridgeExists = true;
@@ -1247,6 +1301,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(2);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1275,8 +1330,10 @@ export class BoardComponentComponent implements OnInit {
                        (bridge.getN2().getX() === this.coloredNode.getX() &&
                         bridge.getN2().getY() === this.coloredNode.getY())) {
                         if(bridge.getNum() === 2) {
+                            this.addDestroyedBridges(2);
                             bridge.setNum(0);
                         } else {
+                            this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
                         }
                         bridgeExists = true;
@@ -1284,6 +1341,7 @@ export class BoardComponentComponent implements OnInit {
                 }
 
                 if(!bridgeExists) {
+                    this.addConstructedBridges(1);
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
@@ -1483,6 +1541,17 @@ export class BoardComponentComponent implements OnInit {
                     __this.shift = true;
                 }
 
+                // Key tracking
+                if(event.key == "w" || event.key == "W" || event.key == "s" || event.key == "S"
+                || event.key == "d" || event.key == "D" || event.key == "a" || event.key == "A") {
+                    var previousValue = parseInt(localStorage.getItem(event.key));
+                    if("" + previousValue == "NaN") {
+                        localStorage.setItem(event.key, "1");
+                    } else {
+                        localStorage.setItem(event.key, "" + (previousValue + 1));
+                    }
+                }
+
                 if(event.key == "w") {
                     var pointX = Math.round(((this.mouseX - 225))/this.factor);
                     var pointY = Math.round(((this.mouseY - 0))/this.factor);
@@ -1597,6 +1666,13 @@ export class BoardComponentComponent implements OnInit {
             if(total != n.val) {
                 return;
             }
+        }
+
+        var previousValue = parseInt(localStorage.getItem("win"));
+        if("" + previousValue == "NaN") {
+            localStorage.setItem("win", "1");
+        } else {
+            localStorage.setItem("win", "" + (previousValue + 1));
         }
 
         this.solved = true;
