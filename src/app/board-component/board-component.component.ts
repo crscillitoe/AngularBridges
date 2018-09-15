@@ -64,6 +64,9 @@ export class BoardComponentComponent implements OnInit {
     millis: any;
     t: any;
     daily: boolean;
+    numNodes: number;
+
+    gauntlet: number;
 
     private user: Observable<firebase.User>;
     private userDetails: firebase.User = null;
@@ -95,6 +98,13 @@ export class BoardComponentComponent implements OnInit {
     }
 
     newBoard() {
+        var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
+        if(numNodes === 0) {
+            numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
+        }
+        this.seed = 0;
+
+        this.generateFairBoard(numNodes);
         this.name = "";
         this.millis = 0;
         this.seconds = 0;
@@ -104,15 +114,114 @@ export class BoardComponentComponent implements OnInit {
             this.solved = false;
             this.timer();
         }
-        var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
-        if(numNodes === 0) {
-            numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
-        }
+
         this.solved = false;
-        this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null);
-        this.seed = 0;
-        this.board.generateBoard();
         this.draw();
+    }
+
+    generateFairBoard(numNodes) {
+        var min = 0;
+        var max = 0;
+        if(this.width == 40 && this.height == 40 && numNodes == 500000 && !this.extreme) {
+            //board = "40x40hard";
+            min = 190;
+            max = 220;
+        } else if(this.width == 7 && this.height == 7 && numNodes == 14) {
+            //board = "7x7easy";
+            min = 7;
+            max = 7;
+        }  else if(this.width == 7 && this.height == 7 && numNodes == 21) {
+            //board = "7x7medium";
+            min = 7;
+            max = 7;
+        } else if(this.width == 15 && this.height == 15 && numNodes == 30) {
+            //board = "15x15easy";
+            min = 30;
+            max = 30;
+        } else if(this.width == 15 && this.height == 15 && numNodes == 45) {
+            //board = "15x15medium";
+            min = 32;
+            max = 36;
+        } else if(this.width == 25 && this.height == 25 && numNodes == 50) {
+            //board = "25x25easy";
+            min = 50;
+            max = 50;
+        } else if(this.width == 40 && this.height == 40 && numNodes == 80) {
+            //board = "40x40easy";
+            min = 80;
+            max = 80;
+        } else if(this.width == 40 && this.height == 40 && numNodes == 120) {
+            //board = "40x40medium";
+            min = 110;
+            max = 130;
+        } else if(this.width == 100 && this.height == 100 && numNodes == 200) {
+            //board = "100x100easy";
+        } else if(this.width == 100 && this.height == 100 && numNodes == 300) {
+            //board = "100x100medium";
+        } else if(this.width == 25 && this.height == 25 && numNodes == 75) {
+            //board = "25x25medium";
+            min = 68;
+            max = 80;
+        } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && !this.extreme) {
+            //board = "7x7hard";
+        } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && this.extreme) {
+            //board = "7x7extreme";
+            min = 8;
+            max = 8;
+        } else if(this.width == 10 && this.height == 10 && numNodes == 20 && !this.extreme) {
+            //board = "10x10easy";
+            min = 13;
+            max = 15;
+        } else if(this.width == 10 && this.height == 10 && numNodes == 30 && !this.extreme) {
+            //board = "10x10medium";
+            min = 15;
+            max = 17;
+        } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && !this.extreme) {
+            //board = "10x10hard";
+        } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && this.extreme) {
+            //board = "10x10extreme";
+            min = 19;
+            max = 21;
+        } else if(this.width == 60 && this.height == 60 && numNodes == 120 && !this.extreme) {
+            //board = "60x60easy";
+        } else if(this.width == 60 && this.height == 60 && numNodes == 180 && !this.extreme) {
+            //board = "60x60medium";
+        } else if(this.width == 60 && this.height == 60 && numNodes == 500000 && !this.extreme) {
+            //board = "60x60hard";
+        } else if(this.width == 60 && this.height == 60 && numNodes == 500000 && this.extreme) {
+            //board = "60x60extreme";
+        } else if(this.width == 25 && this.height == 25 && this.extreme) {
+            //board = "25x25extreme";
+        } else if(this.width == 15 && this.height == 15 && numNodes == 500000 && !this.extreme) {
+            //board = "15x15hard";
+            min = 38;
+            max = 42;
+        } else if(this.width == 100 && this.height == 100 && numNodes == 500000 && !this.extreme) {
+            //board = "100x100hard";
+        } else if(this.width == 100 && this.height == 100 && this.extreme) {
+            //board = "100x100extreme";
+        } else if(this.width==15 && this.height == 15 && this.extreme) {
+            //board = "15x15extreme";
+        } else if(this.width==40 && this.height == 40 && this.extreme) {
+            //board = "40x40extreme";
+        } else if(this.width==25 && this.height==25 && !this.extreme && numNodes == 500000) {
+            //board = "25x25hard";
+            min = 82;
+            max = 94;
+        }
+
+        if(min != 0 && max != 0) {
+            this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
+            this.board.generateBoard();
+            while(this.board.nodes.length < min || this.board.nodes.length > max) {
+                console.log(this.board.nodes.length);
+                this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
+                this.board.generateBoard();
+            }
+        } else {
+            this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
+            this.board.generateBoard();
+        }
     }
 
     // Initializes data
@@ -153,15 +262,22 @@ export class BoardComponentComponent implements OnInit {
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
         this.drawLetters = this.route.snapshot.paramMap.get('numbers') == "true";
         this.drawGridBool = this.route.snapshot.paramMap.get('grid') == "true";
+        this.gauntlet = Number(this.route.snapshot.paramMap.get('gauntlet'));
         
         var theme = this.route.snapshot.paramMap.get('theme');
         this.seed = Number(this.route.snapshot.paramMap.get('seed'));
         if(numNodes === 0) {
             numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
         }
-        this.board = new Board(this.width, this.height, numNodes, this.extreme, this.seed, null, null, null, null, null);
-        this.board.generateBoard();
 
+        this.numNodes = numNodes;
+
+        if(this.seed == 0) {
+            this.generateFairBoard(numNodes);
+        } else {
+            this.board = new Board(this.width, this.height, numNodes, this.extreme, this.seed, null, null, null, null, null, this.gauntlet);
+            this.board.generateBoard();
+        }
 
         this.canvas = document.getElementById('myCanvas');
         this.context = this.canvas.getContext('2d');
@@ -316,7 +432,7 @@ export class BoardComponentComponent implements OnInit {
     }
 
     pauseGame() {
-        if(this.getUid() != '4UF1vLpR0eVL3Lor900jvE716mM2') {
+        if(this.getUid() != '4UF1vLpR0eVL3Lor900jvE716mM2' && this.gauntlet == 0) {
             this.pause = !this.pause;
             if(this.pause == true) {
                 this.timesPaused++;
@@ -1668,27 +1784,130 @@ export class BoardComponentComponent implements OnInit {
             }
         }
 
-        var previousValue = parseInt(localStorage.getItem("win"));
-        if("" + previousValue == "NaN") {
-            localStorage.setItem("win", "1");
-        } else {
-            localStorage.setItem("win", "" + (previousValue + 1));
-        }
-
-        for(let n of this.board.getNodes()) {
-            var previousValue = parseInt(localStorage.getItem("" + n.val));
+        if(this.gauntlet == 0) {
+            var previousValue = parseInt(localStorage.getItem("win"));
             if("" + previousValue == "NaN") {
-                localStorage.setItem("" + n.val, "1");
+                localStorage.setItem("win", "1");
             } else {
-                localStorage.setItem("" + n.val, "" + (previousValue + 1));
+                localStorage.setItem("win", "" + (previousValue + 1));
             }
-        }
 
-        this.solved = true;
-        if((this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100)) >= this.previousTotalMillis) {
-            this.worseTime = true;
-        } else { 
-            this.worseTime = false;
+            for(let n of this.board.getNodes()) {
+                var previousValue = parseInt(localStorage.getItem("" + n.val));
+                if("" + previousValue == "NaN") {
+                    localStorage.setItem("" + n.val, "1");
+                } else {
+                    localStorage.setItem("" + n.val, "" + (previousValue + 1));
+                }
+            }
+
+            this.solved = true;
+            if((this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100)) >= this.previousTotalMillis) {
+                this.worseTime = true;
+            } else { 
+                this.worseTime = false;
+            }
+        } else {
+            if(this.gauntlet < 29) {
+                this.gauntlet++;
+                if(this.width == 40 && this.height == 40 && this.numNodes == 500000 && !this.extreme) {
+                    this.extreme = true;
+                } else if(this.width == 7 && this.height == 7 && this.numNodes == 14) {
+                    this.numNodes = 21;
+                    this.extreme = false;
+                }  else if(this.width == 7 && this.height == 7 && this.numNodes == 21) {
+                    this.numNodes = 500000;
+                    this.extreme = false;
+                } else if(this.width == 15 && this.height == 15 && this.numNodes == 30) {
+                    this.numNodes = 45;
+                    this.extreme = false;
+                } else if(this.width == 15 && this.height == 15 && this.numNodes == 45) {
+                    this.numNodes = 500000;
+                    this.extreme = false;
+                } else if(this.width == 25 && this.height == 25 && this.numNodes == 50) {
+                    this.numNodes = 75;
+                    this.extreme = false;
+                } else if(this.width == 40 && this.height == 40 && this.numNodes == 80) {
+                    this.numNodes = 120;
+                    this.extreme = false;
+                } else if(this.width == 40 && this.height == 40 && this.numNodes == 120) {
+                    this.numNodes = 500000;
+                    this.extreme = false;
+                } else if(this.width == 100 && this.height == 100 && this.numNodes == 200) {
+                    this.numNodes = 200;
+                    this.extreme = false;
+                } else if(this.width == 100 && this.height == 100 && this.numNodes == 300) {
+                    this.numNodes = 500000;
+                    this.extreme = false;
+                } else if(this.width == 25 && this.height == 25 && this.numNodes == 75) {
+                    this.numNodes = 500000;
+                    this.extreme = false;
+                } else if(this.width == 7 && this.height == 7 && this.numNodes == 500000 && !this.extreme) {
+                    this.extreme = true;
+                } else if(this.width == 7 && this.height == 7 && this.numNodes == 500000 && this.extreme) {
+                    this.width = 10;
+                    this.height = 10;
+                    this.numNodes = 20;
+                    this.extreme = false;
+                } else if(this.width == 10 && this.height == 10 && this.numNodes == 20 && !this.extreme) {
+                    this.numNodes = 30;
+                    this.extreme = false;
+                } else if(this.width == 10 && this.height == 10 && this.numNodes == 30 && !this.extreme) {
+                    this.numNodes = 500000;
+                    this.extreme = false;
+                } else if(this.width == 10 && this.height == 10 && this.numNodes == 500000 && !this.extreme) {
+                    this.extreme = true;
+                } else if(this.width == 10 && this.height == 10 && this.numNodes == 500000 && this.extreme) {
+                    this.width = 15;
+                    this.height = 15;
+                    this.numNodes = 30;
+                    this.extreme = false;
+                } else if(this.width == 60 && this.height == 60 && this.numNodes == 120 && !this.extreme) {
+                    this.numNodes = 180;
+                    this.extreme = false;
+                } else if(this.width == 60 && this.height == 60 && this.numNodes == 180 && !this.extreme) {
+                    this.numNodes = 500000;
+                    this.extreme = false;
+                } else if(this.width == 60 && this.height == 60 && this.numNodes == 500000 && !this.extreme) {
+                    this.extreme = true;
+                } else if(this.width == 60 && this.height == 60 && this.numNodes == 500000 && this.extreme) {
+                    this.width = 100;
+                    this.height = 100;
+                    this.numNodes = 200;
+                    this.extreme = false;
+                } else if(this.width == 25 && this.height == 25 && this.extreme) {
+                    this.extreme = false;
+                    this.numNodes = 80;
+                    this.width = 40;
+                    this.height = 40;
+                } else if(this.width == 15 && this.height == 15 && this.numNodes == 500000 && !this.extreme) {
+                    this.extreme = true;
+                } else if(this.width == 100 && this.height == 100 && this.numNodes == 500000 && !this.extreme) {
+                    this.extreme = true;
+                } else if(this.width == 100 && this.height == 100 && this.extreme) {
+                    // MAX POWER
+                    this.width = 120;
+                    this.height = 120;
+                } else if(this.width==15 && this.height == 15 && this.extreme) {
+                    this.width = 25;
+                    this.height = 25;
+                    this.numNodes = 50;
+                    this.extreme = false;
+                } else if(this.width==40 && this.height == 40 && this.extreme) {
+                    this.width = 60;
+                    this.height = 60;
+                    this.numNodes = 120;
+                    this.extreme = false;
+                } else if(this.width==25 && this.height==25 && !this.extreme && this.numNodes == 500000) {
+                    this.extreme = true;
+                }
+
+                this.generateFairBoard(this.numNodes);
+                this.fixSizes();
+
+            } else {
+                this.solved = true;
+            }
         }
     }
 

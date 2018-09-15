@@ -100,6 +100,7 @@
                 <input *ngIf="canPlayDailyExtreme" type="button" class="btn btn-quick" (click)="playDaily('extreme')" value="Daily">
                 <input *ngIf="!canPlayDailyExtreme && dailyExtreme" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyExtreme}}">
                 <input *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" type="button" class="btn btn-quick dailyTime" (click)="resetDailies()" value="Reset">
+                <input type="button" class="btn btn-quick warning" (click)="startGauntlet()" value="Gauntlet">
             </div>
 
             <label id="label">Patch Notes</label>
@@ -107,9 +108,8 @@
                 
                 <div id="pathNotesBody">
                     <p>
-                        1. bam bam can no longer pause the game.<br>
-                        2. bam bam's times have all been reset.<br>
-                        3. If bam bam is caught cheating again, they will be banned.
+                        1. Board generation algorithm has been adjusted.<br>
+                        2. Some leaderboards have been cleared.
                     </p>
                 </div>
             </div>
@@ -147,7 +147,7 @@
     <div id="memes">
         <span id="span"><p>Copyright © 420 BC <br>Woohoojin Incorporated<br>
             <a href="https://discord.gg/PtysEsh" style="color:#a89984">Click me to join our Discord server!</a>
-            <br>Release Version: 8.6.2
+            <br>Release Version: 8.7.3
         </p></span>
     </div>
 

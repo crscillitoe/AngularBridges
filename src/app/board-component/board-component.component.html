@@ -15,8 +15,14 @@
         </div>
 
         <ng-container *ngIf="!daily">
-            <h1 class="difficulty">{{difficulty}}</h1>
-            <h1 class="previousTime">{{previousTime}}</h1>
+            <ng-container *ngIf="gauntlet == 0">
+                <h1 class="difficulty">{{difficulty}}</h1>
+                <h1 class="previousTime">{{previousTime}}</h1>
+            </ng-container>
+            <ng-container *ngIf="gauntlet > 0">
+                <h1 class="difficulty">GAUNTLET</h1>
+                <h1 class="previousTime">{{gauntlet}}/29 .. ?</h1>
+            </ng-container>
         </ng-container>
 
         <div class="container" id="buttons">
@@ -33,7 +39,7 @@
             <button class="btn btn-outline" (click)="toggleGrid()">Toggle Grid</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2'">Pause (P)</button>
+            <button class="btn btn-outline" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2' || gauntlet > 0">Pause (P)</button>
             <br>
             <br>
             <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>
@@ -44,13 +50,13 @@
             <br>
             <button class="btn btn-outline" (click)="bigBoard()">Big Board</button>
             <hr>
-            <button *ngIf="!daily" class="btn btn-outline-newboard" (click)="newBoard()">New Board</button>
+            <button *ngIf="!daily" class="btn btn-outline-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
             <br>
             <br>
             <button class="btn btn-outline-back" (click)="back()">Back to Main Menu</button>
         </div>
         <div *ngIf="!daily" id="memes">
-            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.6.2</p>
+            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.7.3</p>
         </div>
     </div>
 </html>

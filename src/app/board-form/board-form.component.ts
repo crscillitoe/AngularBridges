@@ -38,6 +38,16 @@ export class BoardFormComponent implements OnInit {
         this.difficulty = diff;
     }
 
+    startGauntlet() {
+        this.model.width = 7;
+        this.model.height = 7;
+        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;
+        this.model.extreme = false;
+        this.model.seed = 0;
+        this.model.gauntlet = 1;
+        this.router.navigate(['routedPage', this.model]);
+    }
+
     onSubmit() { 
         if(this.model.getWidth() < 7 || this.model.getHeight() < 7
         || this.model.getWidth() > 100 || this.model.getHeight() > 100) {
@@ -57,6 +67,7 @@ export class BoardFormComponent implements OnInit {
                 this.model.extreme = true;
             }
             this.model.seed = this.seed;
+            this.model.gauntlet = 0;
             this.router.navigate(['routedPage', this.model]);
         }
     }
@@ -413,7 +424,7 @@ export class BoardFormComponent implements OnInit {
         }
     }
 
-    model = new Board(null , null, null, null, null, null, null, null, null, null);
+    model = new Board(null , null, null, null, null, null, null, null, null, null, null);
 
     leaderboards()
     {

@@ -312,3 +312,7 @@ select { width: 400px; text-align-last:center; }
 .dailyTime {
     color: #FFBA53;
 }
+
+.warning{
+    color: #FF0000;
+}
