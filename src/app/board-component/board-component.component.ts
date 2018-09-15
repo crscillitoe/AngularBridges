@@ -1675,6 +1675,15 @@ export class BoardComponentComponent implements OnInit {
             localStorage.setItem("win", "" + (previousValue + 1));
         }
 
+        for(let n of this.board.getNodes()) {
+            var previousValue = parseInt(localStorage.getItem("" + n.val));
+            if("" + previousValue == "NaN") {
+                localStorage.setItem("" + n.val, "1");
+            } else {
+                localStorage.setItem("" + n.val, "" + (previousValue + 1));
+            }
+        }
+
         this.solved = true;
         if((this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100)) >= this.previousTotalMillis) {
             this.worseTime = true;
