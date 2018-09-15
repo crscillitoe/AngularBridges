@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-stats',
@@ -29,7 +32,21 @@ export class StatsComponent implements OnInit {
   _7: any;
   _8: any;
 
-  constructor(private router: Router) { }
+  private user: Observable<firebase.User>;
+  private userDetails: firebase.User = null;
+
+  constructor(private router: Router, private _firebaseAuth: AngularFireAuth, private http: HttpClient) { 
+    this.user = _firebaseAuth.authState;
+    this.user.subscribe(
+      (user) => {
+          if (user) {
+              this.userDetails = user;
+          }
+          else {
+              this.userDetails = null;
+          }
+      });
+  }
 
   mainMenu() {
       this.router.navigate(['mainMenu']);
@@ -56,6 +73,36 @@ export class StatsComponent implements OnInit {
     this._6 = localStorage.getItem("6");
     this._7 = localStorage.getItem("7");
     this._8 = localStorage.getItem("8");
+
+    let m = {
+      totalWins: this.totalWins,
+      totalBuilt: this.totalBuilt,
+      totalDestroyed: this.totalDestroyed,
+      w: this.w,
+      W: this.W,
+      a: this.a,
+      A: this.A,
+      s: this.s,
+      S: this.S,
+      d: this.d,
+      D: this.D,
+      _1: this._1,
+      _2: this._2,
+      _3: this._3,
+      _4: this._4,
+      _5: this._5,
+      _6: this._6,
+      _7: this._7,
+      _8: this._8
+    }
+
+    if(this.userDetails != null) {
+      this._firebaseAuth.auth.currentUser.getIdToken(true)
+          .then((token) => {
+              this.http.put('https://woohoojinbridges.firebaseio.com/stats/' + this.userDetails.uid + '.json?auth=' + token, m)
+                  .subscribe((data) => {});
+          })
+    }
   }
 
 }
