@@ -1834,7 +1834,7 @@ export class BoardComponentComponent implements OnInit {
                     this.numNodes = 500000;
                     this.extreme = false;
                 } else if(this.width == 100 && this.height == 100 && this.numNodes == 200) {
-                    this.numNodes = 200;
+                    this.numNodes = 300;
                     this.extreme = false;
                 } else if(this.width == 100 && this.height == 100 && this.numNodes == 300) {
                     this.numNodes = 500000;

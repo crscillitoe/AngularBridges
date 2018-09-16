@@ -9,19 +9,15 @@
         <form (ngSubmit)="onSubmit()" #boardForm="ngForm">
             <div id="premium-members-only">
                 <!-- Arco's image -->
-                <img *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" width="500" src="assets/singed.png">
+                <img *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" width="250" src="assets/singed.png">
+                <img *ngIf="getUid()!='1nDPOP9KWCfDXjwgtB4REoAQKRB2' && getUid()!='4UF1vLpR0eVL3Lor900jvE716mM2'" width="250" src="assets/LogicBridges2.0._v2.png">
                 
                 <!-- Bam Bam -->
-                <img *ngIf="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2'" width="500" src="assets/bambam.png">
+                <img *ngIf="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2'" width="250" src="assets/bambam.png">
 
-            </div>
-
-            <div id="logo">
-                <img width="150" src="assets/LogicBridges2.0._v2.png" id="logoClass">
             </div>
 
             <div class="form-group" id="numInput2">
-                <label>Theme</label>
                 <select id="buttons2" (change)="changeTheme($event.target.value)">
                     <option value="light" class="togglebutton">Light Theme  </option>
                     <option value="night" class="togglebutton" selected="selected">Night Theme</option>
@@ -29,95 +25,67 @@
                 </select>
             </div>
 
-            <div class="form-group" id="sizeInput">
-                <label>Numbers</label>
-                <select (change)="changeNumbering($event.target.value)" id="buttons2">
-                    <option value="true" class="togglebutton" (click)="onClick1('medium')" selected="selected">On</option>
-                    <option value="false" class="togglebutton" (click)="onClick1('easy')">Off</option>
-                </select>
+            <div id="launchers">
+                <div class="quickLaunchers">
+                    <label>Easy</label>
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7easy')" value="7x7">               
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10easy')" value="10x10">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15easy')" value="15x15">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25easy')" value="25x25">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40easy')" value="40x40">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60easy')" value="60x60">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80easy')" value="80x80">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100easy')" value="100x100">
+                    <input *ngIf="canPlayDailyEasy" type="button" class="btn btn-quick" (click)="playDaily('easy')" value="Daily">
+                    <input *ngIf="!canPlayDailyEasy && dailyEasy" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyEasy}}">
+                </div>
+
+                <div class="quickLaunchers">
+                    <label>Medium</label>
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7medium')" value="7x7">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10medium')" value="10x10">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15medium')" value="15x15">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25medium')" value="25x25">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40medium')" value="40x40">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60medium')" value="60x60">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80medium')" value="80x80">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100medium')" value="100x100">
+                    <input *ngIf="canPlayDailyMedium" type="button" class="btn btn-quick" (click)="playDaily('medium')" value="Daily">
+                    <input *ngIf="!canPlayDailyMedium && dailyMedium" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyMedium}}">
+                </div>
+
+                <div class="quickLaunchers">
+                    <label>Hard</label>
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7hard')" value="7x7">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10hard')" value="10x10">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15hard')" value="15x15">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25hard')" value="25x25">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40hard')" value="40x40">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60hard')" value="60x60">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80hard')" value="80x80">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100hard')" value="100x100">
+                    <input *ngIf="canPlayDailyHard" type="button" class="btn btn-quick" (click)="playDaily('hard')" value="Daily">
+                    <input *ngIf="!canPlayDailyHard && dailyHard" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyHard}}">
+                </div>
+
+                <div class="quickLaunchers">
+                    <label>Extreme</label>
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7extreme')" value="7x7">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10extreme')" value="10x10">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15extreme')" value="15x15">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25extreme')" value="25x25">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40extreme')" value="40x40">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60extreme')" value="60x60">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80extreme')" value="80x80">
+                    <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100extreme')" value="100x100">
+                    <input *ngIf="canPlayDailyExtreme" type="button" class="btn btn-quick" (click)="playDaily('extreme')" value="Daily">
+                    <input *ngIf="!canPlayDailyExtreme && dailyExtreme" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyExtreme}}">
+                    <input *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" type="button" class="btn btn-quick dailyTime" (click)="resetDailies()" value="Reset">
+                </div>
             </div>
 
-            <div class="form-group" id="numInput">
-                <label>Grid</label>
-                <select (change)="changeGrid($event.target.value)" id="buttons2">
-                    <option value="true" class="togglebutton" (click)="onClick1('medium')" selected="selected">On</option>
-                    <option value="false" class="togglebutton" (click)="onClick1('easy')">Off</option>
-                </select>
-            </div>
-
-            <div id="quickLaunchersEasy">
-                <label>Easy</label>
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7easy')" value="7x7">               
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10easy')" value="10x10">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15easy')" value="15x15">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25easy')" value="25x25">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40easy')" value="40x40">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60easy')" value="60x60">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80easy')" value="80x80">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100easy')" value="100x100">
-                <input *ngIf="canPlayDailyEasy" type="button" class="btn btn-quick" (click)="playDaily('easy')" value="Daily">
-                <input *ngIf="!canPlayDailyEasy && dailyEasy" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyEasy}}">
-            </div>
-
-            <div id="quickLaunchersMedium">
-                <label>Medium</label>
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7medium')" value="7x7">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10medium')" value="10x10">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15medium')" value="15x15">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25medium')" value="25x25">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40medium')" value="40x40">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60medium')" value="60x60">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80medium')" value="80x80">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100medium')" value="100x100">
-                <input *ngIf="canPlayDailyMedium" type="button" class="btn btn-quick" (click)="playDaily('medium')" value="Daily">
-                <input *ngIf="!canPlayDailyMedium && dailyMedium" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyMedium}}">
-            </div>
-
-            <div id="quickLaunchersHard">
-                <label>Hard</label>
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7hard')" value="7x7">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10hard')" value="10x10">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15hard')" value="15x15">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25hard')" value="25x25">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40hard')" value="40x40">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60hard')" value="60x60">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80hard')" value="80x80">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100hard')" value="100x100">
-                <input *ngIf="canPlayDailyHard" type="button" class="btn btn-quick" (click)="playDaily('hard')" value="Daily">
-                <input *ngIf="!canPlayDailyHard && dailyHard" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyHard}}">
-            </div>
-
-            <div id="quickLaunchersExtreme">
-                <label>Extreme</label>
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('7x7extreme')" value="7x7">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('10x10extreme')" value="10x10">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('15x15extreme')" value="15x15">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('25x25extreme')" value="25x25">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('40x40extreme')" value="40x40">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('60x60extreme')" value="60x60">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('80x80extreme')" value="80x80">
-                <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100extreme')" value="100x100">
-                <input *ngIf="canPlayDailyExtreme" type="button" class="btn btn-quick" (click)="playDaily('extreme')" value="Daily">
-                <input *ngIf="!canPlayDailyExtreme && dailyExtreme" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyExtreme}}">
-                <input *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" type="button" class="btn btn-quick dailyTime" (click)="resetDailies()" value="Reset">
+            <div id="gauntlet">
                 <input type="button" class="btn btn-quick warning" (click)="startGauntlet()" value="Gauntlet">
-            </div>
-
-            <label id="label">Patch Notes</label>
-            <div id="patchNotes">
-                
-                <div id="pathNotesBody">
-                    <p>
-                        1. Board generation algorithm has been adjusted.<br>
-                        2. Some leaderboards have been cleared.
-                    </p>
-                </div>
-            </div>
-
-            <div class="form-grou" id="input">
-                <div id="buttons3">
-            
-                </div>
             </div>
            
             
@@ -134,14 +102,19 @@
             </label>
     </div>
 
-    <div id="leaderboards">
-        <button type="submit" class="btn btn-outline-rules" (click)="stats()">Stats</button><br><br>
-        <button type="submit" class="btn btn-outline-rules" (click)="rules()">Rules</button><br><br>
-        <button type="submit" class="btn btn-outline-leaderboards" (click)="leaderboards()">Leaderboards</button>
-    </div>
-
-    <div id="signup">
-        <button *ngIf="!isLoggedIn()" type="submit" class="btn btn-outline-leaderboards" (click)="signInWithGoogle()">Log in</button>
+    <div id="extraButtons">
+        <div class="col">
+            <button *ngIf="!isLoggedIn()" type="submit" class="btn btn-outline-invert" (click)="signInWithGoogle()">Log in to save times</button>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-outline-invert" (click)="rules()">Rules</button>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-outline-invert" (click)="stats()">Stats</button>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-outline-invert" (click)="leaderboards()">Leaderboards</button>
+        </div>
     </div>
 
     <div id="memes">
