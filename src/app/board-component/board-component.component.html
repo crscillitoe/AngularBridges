@@ -49,6 +49,11 @@
             <br>
             <br>
             <button class="btn btn-quick" (click)="bigBoard()">Big Board</button>
+            <ng-container *ngIf="gauntlet > 0">
+                <br>
+                <br>
+                <button class="btn btn-quick" (click)="veryBigBoard()">Very Big Board</button>
+            </ng-container>
             <hr>
             <button *ngIf="!daily" class="btn btn-quick-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
             <br>

@@ -644,6 +644,27 @@ export class BoardComponentComponent implements OnInit {
         this.draw();  
     }
 
+    veryBigBoard() {
+        this.context.beginPath();
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.canvas.width = 8000;
+        this.canvas.height = 8000;
+        this.context.translate(0.5, 0.5)
+
+       
+        
+        var larger = Math.max(this.width, this.height) + 1;
+        var size = Math.min(this.canvas.offsetWidth, this.canvas.offsetHeight);
+
+        this.factor = Math.floor(size/larger);
+        this.squareSize = this.factor;
+        this.context.font = 'bold '+Math.round(this.factor)+'px Arial';
+        this.xAdd = 0;
+        this.yAdd = 0;
+
+        this.draw();  
+    }
+
     fixSizes() {
         this.context.beginPath();
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -1972,15 +1993,15 @@ export class BoardComponentComponent implements OnInit {
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 18) {
-                    this.width = 7;
-                    this.height = 10;
+                    this.width = 13;
+                    this.height = 400;
                     this.numNodes = 500000;
-                    this.extreme = true;
+                    this.extreme =true;
                 } else if(this.gauntlet == 19) {
-                    this.width = 200;
-                    this.height = 200;
-                    this.numNodes = 600;
-                    this.extreme = false;
+                    this.width = 26;
+                    this.height = 400;
+                    this.numNodes = 500000;
+                    this.extreme =true;
                 } else if(this.gauntlet == 20) {
                     this.width = 102;
                     this.height = 102;
