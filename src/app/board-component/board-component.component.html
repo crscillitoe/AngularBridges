@@ -20,8 +20,8 @@
                 <h1 class="previousTime">{{previousTime}}</h1>
             </ng-container>
             <ng-container *ngIf="gauntlet > 0">
-                <h1 class="difficulty">GAUNTLET</h1>
-                <h1 class="previousTime">{{gauntlet}}/20</h1>
+                <h1 class="difficulty">{{gauntlet}}/20</h1>
+                <h1 class="previousTime">{{width}}x{{height}}</h1>
             </ng-container>
         </ng-container>
 
@@ -57,7 +57,7 @@
             <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
         </div>
         <div *ngIf="!daily" id="memes">
-            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.7.3</p>
+            <p>Seed: {{board.initialSeed}}<br>Release Version: 8.7.4</p>
         </div>
     </div>
 </html>

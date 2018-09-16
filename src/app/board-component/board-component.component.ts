@@ -1622,7 +1622,28 @@ export class BoardComponentComponent implements OnInit {
                 .then((token) => {
                     this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
                         .subscribe((data) => {
-                        this.router.navigate(['leaderboards']);
+
+                        let n = board.split('x')[0];
+                        let p = 0;
+                        if(n == '7') {
+                            p = 1;
+                        } else if(n == '10') {
+                            p = 2;
+                        } else if(n == '15') {
+                            p = 3;
+                        } else if(n == '25') {
+                            p = 4;
+                        } else if(n == '40') {
+                            p = 5;
+                        } else if(n == '60') {
+                            p = 6;
+                        } else if(n == '100') {
+                            p = 8;
+                        }
+                        let mod = {
+                            page: p
+                        }
+                        this.router.navigate(['leaderboards', mod]);
                     });
                 })
         } else if(this.daily && this.gauntlet == 0) {
@@ -1652,7 +1673,11 @@ export class BoardComponentComponent implements OnInit {
                 .then((token) => {
                     this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
                         .subscribe((data) => {
-                        this.router.navigate(['leaderboards']);
+
+                        let mod = {
+                            page: 7
+                        }
+                        this.router.navigate(['leaderboards', mod]);
                     });
                 })
         } else if(this.gauntlet > 0) {
@@ -1670,7 +1695,10 @@ export class BoardComponentComponent implements OnInit {
                 .then((token) => {
                     this.http.put('https://woohoojinbridges.firebaseio.com/gauntlet/'+this.userDetails.uid+'.json?auth=' + token, m)
                         .subscribe((data) => {
-                        this.router.navigate(['leaderboards']);
+                        let mod = {
+                            page: 9
+                        }
+                        this.router.navigate(['leaderboards', mod]);
                     });
                 })
         }
@@ -1846,6 +1874,7 @@ export class BoardComponentComponent implements OnInit {
         } else {
             if(this.gauntlet < 20) {
 
+                var previousValue = parseInt(localStorage.getItem("win"));
                 if("" + previousValue == "NaN") {
                     localStorage.setItem("win", "1");
                 } else {
@@ -1963,6 +1992,7 @@ export class BoardComponentComponent implements OnInit {
                 this.generateFairBoard(this.numNodes);
                 this.fixSizes();
             } else {
+                var previousValue = parseInt(localStorage.getItem("win"));
                 if("" + previousValue == "NaN") {
                     localStorage.setItem("win", "1");
                 } else {

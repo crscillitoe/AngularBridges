@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -49,8 +50,11 @@ export class LeaderboardsComponent implements OnInit {
 
   public s: any;
 
-    constructor(private router: Router, private http: HttpClient) { 
-        this.s = 1;
+    constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { 
+        this.s = Number(this.route.snapshot.paramMap.get('page'));
+        if(this.s == 0) {
+            this.s = 1;
+        }
     }
 
   ngOnInit() {
