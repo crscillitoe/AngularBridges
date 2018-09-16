@@ -29,6 +29,12 @@ hr{
     color: var(--grid-color);
 }
 
+.btn-quick, .btn-quick-newboard, .btn-quick-warning, .btn-quick-submit {
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
 .btn-outline-back {
     width: 100%;
     background-color: var(--background-color);

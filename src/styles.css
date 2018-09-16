@@ -73,9 +73,50 @@ body {
     margin-bottom:10px;
 }
 
+.btn-quick-submit:hover, .btn-quick-submit:focus {
+    background-color: var(--done-color);
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: var(--done-color);
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-submit {
+    background-color: #2c2c2c;
+    color: var(--done-color);
+    border-radius: 50px;
+    border-color: var(--done-color);
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-newboard:hover, .btn-quick-newboard:focus {
+    background-color: var(--newboard-color);
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: var(--newboard-color);
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-newboard {
+    background-color: #2c2c2c;
+    color: var(--newboard-color);
+    border-radius: 50px;
+    border-color: var(--newboard-color);
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
 .btn-quick, .btn-quick:hover, .btn-quick:focus,
 .btn-quick-daily, .btn-quick-daily:hover, .btn-quick-daily:focus,
-.btn-quick-warning, .btn-quick-warning:hover, .btn-quick-warning:focus {
+.btn-quick-warning, .btn-quick-warning:hover, .btn-quick-warning:focus,
+.btn-quick-newboard, .btn-quick-newboard:hover, .btn-quick-newboard:focus {
     transition: background-color 0.6s ease;
     width: 150px;
     font-size: 25px;

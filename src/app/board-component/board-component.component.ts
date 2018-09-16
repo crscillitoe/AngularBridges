@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardComponentComponent implements OnInit {
 
+    skip: boolean;
     timesPaused: number;
     worseTime: boolean;
     pause: boolean;
@@ -214,7 +215,6 @@ export class BoardComponentComponent implements OnInit {
             this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
             this.board.generateBoard();
             while(this.board.nodes.length < min || this.board.nodes.length > max) {
-                console.log(this.board.nodes.length);
                 this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
                 this.board.generateBoard();
             }
@@ -226,6 +226,7 @@ export class BoardComponentComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        this.skip = false;
         this.timesPaused = 0;
         this.worseTime = true;
         this.name = "";
@@ -395,17 +396,32 @@ export class BoardComponentComponent implements OnInit {
             this.difficulty = "Hard";
         }
 
-        try {
-            this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
-                .subscribe((data: any) => {
-                    if(data != null) {
-                        this.previousTotalMillis = data.totalTime;
-                        this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
-                    } else {
+        if(this.gauntlet == 0) {
+            try {
+                this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
+                    .subscribe((data: any) => {
+                        if(data != null) {
+                            this.previousTotalMillis = data.totalTime;
+                            this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+                        } else {
 
-                    }
-                });
-        } catch {
+                        }
+                    });
+            } catch {
+            }
+        } else {
+            try {
+                this.http.get('https://woohoojinbridges.firebaseio.com/gauntlet/' + this.userDetails.uid + '.json')
+                    .subscribe((data: any) => {
+                        if(data != null) {
+                            this.previousTotalMillis = data.totalTime;
+                            this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+                        } else {
+
+                        }
+                    });
+            } catch {
+            }
         }
 
         this.fixSizes();
@@ -1532,7 +1548,7 @@ export class BoardComponentComponent implements OnInit {
 
     submit() {
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
-        if(!this.daily) {
+        if(!this.daily && this.gauntlet == 0) {
             let m = {
                 name: this.name,
                 hours: this.hours,
@@ -1609,7 +1625,7 @@ export class BoardComponentComponent implements OnInit {
                         this.router.navigate(['leaderboards']);
                     });
                 })
-        } else {
+        } else if(this.daily && this.gauntlet == 0) {
             let m = {
                 name: this.name,
                 hours: this.hours,
@@ -1635,6 +1651,24 @@ export class BoardComponentComponent implements OnInit {
             this._firebaseAuth.auth.currentUser.getIdToken(true)
                 .then((token) => {
                     this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
+                        .subscribe((data) => {
+                        this.router.navigate(['leaderboards']);
+                    });
+                })
+        } else if(this.gauntlet > 0) {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                seed: this.board.initialSeed,
+                pauses: this.timesPaused
+            };
+            this._firebaseAuth.auth.currentUser.getIdToken(true)
+                .then((token) => {
+                    this.http.put('https://woohoojinbridges.firebaseio.com/gauntlet/'+this.userDetails.uid+'.json?auth=' + token, m)
                         .subscribe((data) => {
                         this.router.navigate(['leaderboards']);
                     });
@@ -1774,13 +1808,15 @@ export class BoardComponentComponent implements OnInit {
     }
 
     done() {
-        for(let n of this.board.getNodes()) {
-            var total = 0;
-            for(let b of n.bridges) {
-                total += b.num;
-            }
-            if(total != n.val) {
-                return;
+        if(!this.skip) {
+            for(let n of this.board.getNodes()) {
+                var total = 0;
+                for(let b of n.bridges) {
+                    total += b.num;
+                }
+                if(total != n.val) {
+                    return;
+                }
             }
         }
 
@@ -1808,104 +1844,115 @@ export class BoardComponentComponent implements OnInit {
                 this.worseTime = false;
             }
         } else {
-            if(this.gauntlet < 29) {
+            if(this.gauntlet < 20) {
+
                 this.gauntlet++;
-                if(this.width == 40 && this.height == 40 && this.numNodes == 500000 && !this.extreme) {
-                    this.extreme = true;
-                } else if(this.width == 7 && this.height == 7 && this.numNodes == 14) {
-                    this.numNodes = 21;
-                    this.extreme = false;
-                }  else if(this.width == 7 && this.height == 7 && this.numNodes == 21) {
-                    this.numNodes = 500000;
-                    this.extreme = false;
-                } else if(this.width == 15 && this.height == 15 && this.numNodes == 30) {
-                    this.numNodes = 45;
-                    this.extreme = false;
-                } else if(this.width == 15 && this.height == 15 && this.numNodes == 45) {
-                    this.numNodes = 500000;
-                    this.extreme = false;
-                } else if(this.width == 25 && this.height == 25 && this.numNodes == 50) {
-                    this.numNodes = 75;
-                    this.extreme = false;
-                } else if(this.width == 40 && this.height == 40 && this.numNodes == 80) {
-                    this.numNodes = 120;
-                    this.extreme = false;
-                } else if(this.width == 40 && this.height == 40 && this.numNodes == 120) {
-                    this.numNodes = 500000;
-                    this.extreme = false;
-                } else if(this.width == 100 && this.height == 100 && this.numNodes == 200) {
-                    this.numNodes = 300;
-                    this.extreme = false;
-                } else if(this.width == 100 && this.height == 100 && this.numNodes == 300) {
-                    this.numNodes = 500000;
-                    this.extreme = false;
-                } else if(this.width == 25 && this.height == 25 && this.numNodes == 75) {
-                    this.numNodes = 500000;
-                    this.extreme = false;
-                } else if(this.width == 7 && this.height == 7 && this.numNodes == 500000 && !this.extreme) {
-                    this.extreme = true;
-                } else if(this.width == 7 && this.height == 7 && this.numNodes == 500000 && this.extreme) {
-                    this.width = 10;
-                    this.height = 10;
-                    this.numNodes = 20;
-                    this.extreme = false;
-                } else if(this.width == 10 && this.height == 10 && this.numNodes == 20 && !this.extreme) {
+                if(this.gauntlet == 2) {
+                    this.width = 13;
+                    this.height = 21;
                     this.numNodes = 30;
                     this.extreme = false;
-                } else if(this.width == 10 && this.height == 10 && this.numNodes == 30 && !this.extreme) {
-                    this.numNodes = 500000;
-                    this.extreme = false;
-                } else if(this.width == 10 && this.height == 10 && this.numNodes == 500000 && !this.extreme) {
-                    this.extreme = true;
-                } else if(this.width == 10 && this.height == 10 && this.numNodes == 500000 && this.extreme) {
+                } else if(this.gauntlet == 3) {
                     this.width = 15;
+                    this.height = 24;
+                    this.numNodes = 50;
+                    this.extreme = false;
+                } else if(this.gauntlet == 4) {
+                    this.width = 40;
                     this.height = 15;
-                    this.numNodes = 30;
-                    this.extreme = false;
-                } else if(this.width == 60 && this.height == 60 && this.numNodes == 120 && !this.extreme) {
-                    this.numNodes = 180;
-                    this.extreme = false;
-                } else if(this.width == 60 && this.height == 60 && this.numNodes == 180 && !this.extreme) {
                     this.numNodes = 500000;
-                    this.extreme = false;
-                } else if(this.width == 60 && this.height == 60 && this.numNodes == 500000 && !this.extreme) {
                     this.extreme = true;
-                } else if(this.width == 60 && this.height == 60 && this.numNodes == 500000 && this.extreme) {
+                } else if(this.gauntlet == 5) {
+                    this.width = 40;
+                    this.height = 32;
+                    this.numNodes = 5000;
+                    this.extreme = false;
+                } else if(this.gauntlet == 6) {
+                    this.width = 40;
+                    this.height = 32;
+                    this.numNodes = 5000;
+                    this.extreme = false;
+                } else if(this.gauntlet == 7) {
+                    this.width = 200;
+                    this.height = 32;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 8) {
                     this.width = 100;
                     this.height = 100;
                     this.numNodes = 200;
                     this.extreme = false;
-                } else if(this.width == 25 && this.height == 25 && this.extreme) {
+                } else if(this.gauntlet == 9) {
+                    this.width = 80;
+                    this.height = 32;
+                    this.numNodes = 50000;
                     this.extreme = false;
-                    this.numNodes = 80;
-                    this.width = 40;
-                    this.height = 40;
-                } else if(this.width == 15 && this.height == 15 && this.numNodes == 500000 && !this.extreme) {
+                } else if(this.gauntlet == 10) {
+                    this.width = 7;
+                    this.height = 7;
+                    this.numNodes = 500000;
                     this.extreme = true;
-                } else if(this.width == 100 && this.height == 100 && this.numNodes == 500000 && !this.extreme) {
+                } else if(this.gauntlet == 11) {
+                    this.width = 7;
+                    this.height = 7;
+                    this.numNodes = 500000;
                     this.extreme = true;
-                } else if(this.width == 100 && this.height == 100 && this.extreme) {
-                    // MAX POWER
-                    this.width = 120;
-                    this.height = 120;
-                } else if(this.width==15 && this.height == 15 && this.extreme) {
+                } else if(this.gauntlet == 12) {
+                    this.width = 7;
+                    this.height = 7;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 13) {
                     this.width = 25;
                     this.height = 25;
-                    this.numNodes = 50;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 14) {
+                    this.width = 50;
+                    this.height = 25;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 15) {
+                    this.width = 25;
+                    this.height = 50;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 16) {
+                    this.width = 50;
+                    this.height = 50;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 17) {
+                    this.width = 7;
+                    this.height = 7;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 18) {
+                    this.width = 7;
+                    this.height = 7;
+                    this.numNodes = 500000;
+                    this.extreme = true;
+                } else if(this.gauntlet == 19) {
+                    this.width = 200;
+                    this.height = 200;
+                    this.numNodes = 600;
                     this.extreme = false;
-                } else if(this.width==40 && this.height == 40 && this.extreme) {
-                    this.width = 60;
-                    this.height = 60;
-                    this.numNodes = 120;
-                    this.extreme = false;
-                } else if(this.width==25 && this.height==25 && !this.extreme && this.numNodes == 500000) {
+                } else if(this.gauntlet == 20) {
+                    this.width = 102;
+                    this.height = 102;
+                    this.numNodes = 500000;
                     this.extreme = true;
                 }
 
+
                 this.generateFairBoard(this.numNodes);
                 this.fixSizes();
-
             } else {
+                if((this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100)) >= this.previousTotalMillis) {
+                    this.worseTime = true;
+                } else { 
+                    this.worseTime = false;
+                }
                 this.solved = true;
             }
         }

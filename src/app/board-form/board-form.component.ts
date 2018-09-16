@@ -39,8 +39,8 @@ export class BoardFormComponent implements OnInit {
     }
 
     startGauntlet() {
-        this.model.width = 7;
-        this.model.height = 7;
+        this.model.width = 12;
+        this.model.height = 15;
         this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;
         this.model.extreme = false;
         this.model.seed = 0;

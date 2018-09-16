@@ -21,7 +21,7 @@
             </ng-container>
             <ng-container *ngIf="gauntlet > 0">
                 <h1 class="difficulty">GAUNTLET</h1>
-                <h1 class="previousTime">{{gauntlet}}/29 .. ?</h1>
+                <h1 class="previousTime">{{gauntlet}}/20</h1>
             </ng-container>
         </ng-container>
 
@@ -31,29 +31,30 @@
                                                             on the main menu.</p>
                 <input class="form-control" *ngIf="solved && ((seed == 0 && !daily) || (daily)) && isLoggedIn()" type="text" [(ngModel)]="name" maxlength="10">
             </label>
-            <button *ngIf="solved && ((seed == 0 && !daily) || (daily))" class="btn btn-outline-done" [disabled]="worseTime && !daily" (click)="submit()">Submit</button>
+            <button *ngIf="solved && ((seed == 0 && !daily) || (daily))" class="btn btn-quick-submit" [disabled]="worseTime && !daily" (click)="submit()">Submit</button>
             <hr *ngIf="solved && seed == 0">
-            <button class="btn btn-outline" (click)="toggleLetters()">Toggle Numbers</button>
+            <button class="btn btn-quick" (click)="toggleLetters()">Toggle Numbers</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="toggleGrid()">Toggle Grid</button>
+            <button class="btn btn-quick" (click)="toggleGrid()">Toggle Grid</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2' || gauntlet > 0">Pause (P)</button>
+            <button class="btn btn-quick" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2' || gauntlet > 0">Pause (P)</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="clearBoard()">Clear Board</button>
+            <button class="btn btn-quick" (click)="clearBoard()">Clear Board</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="fixSizes()">Resize</button>
+            <button class="btn btn-quick" (click)="fixSizes()">Resize</button>
             <br>
             <br>
-            <button class="btn btn-outline" (click)="bigBoard()">Big Board</button>
+            <button class="btn btn-quick" (click)="bigBoard()">Big Board</button>
             <hr>
-            <button *ngIf="!daily" class="btn btn-outline-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
+            <button *ngIf="!daily" class="btn btn-quick-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
             <br>
             <br>
-            <button class="btn btn-outline-back" (click)="back()">Back to Main Menu</button>
+            <button class="btn btn-quick-warning" (click)="back()">Back to Main Menu</button>
+            <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
         </div>
         <div *ngIf="!daily" id="memes">
             <p>Seed: {{board.initialSeed}}<br>Release Version: 8.7.3</p>
