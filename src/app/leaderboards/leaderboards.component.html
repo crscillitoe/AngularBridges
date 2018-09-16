@@ -1,14 +1,14 @@
 <html>
 <div class="gridContainer">
-<div class="columnContainer">
+<div class="columnContainer" *ngIf="s==1">
     <div class="leaderboardEntry">
-      <h5>7x7 Easy</h5>
+      <h2>7x7 Easy</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
-            <td style="width:100px"><b>Seed</b></td>
+          <td style="width:120px"><b>Name</b></td>
+            <td style="width:120px"><b>Time</b></td>
+            <td style="width:120px"><b>Seed</b></td>
         </tr>
       </thead>
       <tbody>
@@ -48,13 +48,13 @@
     </div>
     
     <div class="leaderboardEntry">
-      <h5>7x7 Medium</h5>
+      <h2>7x7 Medium</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
-            <td style="width:100px"><b>Seed</b></td>
+          <td style="width:120px"><b>Name</b></td>
+            <td style="width:120px"><b>Time</b></td>
+            <td style="width:120px"><b>Seed</b></td>
         </tr>
       </thead>
       <tbody>
@@ -93,13 +93,13 @@
     </table>
     </div>
     <div class="leaderboardEntry">
-      <h5>7x7 Hard</h5>
+      <h2>7x7 Hard</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
-            <td style="width:100px"><b>Seed</b></td>
+          <td style="width:120px"><b>Name</b></td>
+            <td style="width:120px"><b>Time</b></td>
+            <td style="width:120px"><b>Seed</b></td>
         </tr>
       </thead>
       <tbody>
@@ -138,13 +138,13 @@
     </table>
     </div>
     <div class="leaderboardEntry">
-      <h5>7x7 Extreme</h5>
+      <h2>7x7 Extreme</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
-            <td style="width:100px"><b>Seed</b></td>
+          <td style="width:120px"><b>Name</b></td>
+            <td style="width:120px"><b>Time</b></td>
+            <td style="width:120px"><b>Seed</b></td>
         </tr>
       </thead>
       <tbody>
@@ -184,15 +184,15 @@
     </div>
 </div>
 
-<div class="columnContainer">
-<div class="leaderboardEntry easyDaily">
-  <h5>10x10 Easy</h5>
+<div class="columnContainer" *ngIf="s==2">
+<div class="leaderboardEntry ">
+  <h2>10x10 Easy</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -232,13 +232,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>10x10 Medium</h5>
+  <h2>10x10 Medium</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -277,13 +277,13 @@
 </table>
 </div>
 <div class="leaderboardEntry">
-  <h5>10x10 Hard</h5>
+  <h2>10x10 Hard</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -323,13 +323,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>10x10 Extreme</h5>
+  <h2>10x10 Extreme</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -369,15 +369,15 @@
 </div>
 </div>
 
-<div class="columnContainer">
+<div class="columnContainer" *ngIf="s==3">
 <div class="leaderboardEntry">
-  <h5>15x15 Easy</h5>
+  <h2>15x15 Easy</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -416,14 +416,14 @@
 </table>
 </div>
 
-<div class="leaderboardEntry mediumDaily">
-  <h5>15x15 Medium</h5>
+<div class="leaderboardEntry ">
+  <h2>15x15 Medium</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -462,13 +462,13 @@
 </table>
 </div>
 <div class="leaderboardEntry">
-  <h5>15x15 Hard</h5>
+  <h2>15x15 Hard</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -508,13 +508,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>15x15 Extreme</h5>
+  <h2>15x15 Extreme</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -554,15 +554,15 @@
 </div>
 </div>
 
-<div class="columnContainer">
+<div class="columnContainer" *ngIf="s==4">
 <div class="leaderboardEntry">
-  <h5>25x25 Easy</h5>
+  <h2>25x25 Easy</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -602,13 +602,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>25x25 Medium</h5>
+  <h2>25x25 Medium</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -646,14 +646,14 @@
   <tbody>
 </table>
 </div>
-<div class="leaderboardEntry hardDaily">
-  <h5>25x25 Hard</h5>
+<div class="leaderboardEntry ">
+  <h2>25x25 Hard</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -693,13 +693,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>25x25 Extreme</h5>
+  <h2>25x25 Extreme</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -739,15 +739,15 @@
 </div>
 </div>
 
-<div class="columnContainer">
+<div class="columnContainer" *ngIf="s==5">
 <div class="leaderboardEntry">
-  <h5>40x40 Easy</h5>
+  <h2>40x40 Easy</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -787,13 +787,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>40x40 Medium</h5>
+  <h2>40x40 Medium</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -832,13 +832,13 @@
 </table>
 </div>
 <div class="leaderboardEntry">
-  <h5>40x40 Hard</h5>
+  <h2>40x40 Hard</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -877,14 +877,14 @@
 </table>
 </div>
 
-<div class="leaderboardEntry extremeDaily">
-  <h5>40x40 Extreme</h5>
+<div class="leaderboardEntry ">
+  <h2>40x40 Extreme</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -924,15 +924,15 @@
 </div>
 </div>
 
-<div class="columnContainer">
+<div class="columnContainer" *ngIf="s==6">
 <div class="leaderboardEntry">
-  <h5>60x60 Easy</h5>
+  <h2>60x60 Easy</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -972,13 +972,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>60x60 Medium</h5>
+  <h2>60x60 Medium</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -1017,13 +1017,13 @@
 </table>
 </div>
 <div class="leaderboardEntry">
-  <h5>60x60 Hard</h5>
+  <h2>60x60 Hard</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -1063,13 +1063,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>60x60 Extreme</h5>
+  <h2>60x60 Extreme</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -1109,14 +1109,14 @@
 </div>
 </div>
 
-<div class="columnContainer">
+<div class="columnContainer" *ngIf="s==7">
     <div class="leaderboardEntry easyDaily">
-      <h5>Easy Daily</h5>
+      <h2>Easy Daily</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
+          <td style="width:180px"><b>Name</b></td>
+          <td style="width:180px"><b>Time</b></td>
         </tr>
       </thead>
       <tbody>
@@ -1151,12 +1151,12 @@
     </table>
     </div>
     <div class="leaderboardEntry mediumDaily">
-      <h5>Medium Daily</h5>
+      <h2>Medium Daily</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
+          <td style="width:180px"><b>Name</b></td>
+            <td style="width:180px"><b>Time</b></td>
         </tr>
       </thead>
       <tbody>
@@ -1191,12 +1191,12 @@
     </table>
     </div>
     <div class="leaderboardEntry hardDaily">
-      <h5>Hard Daily</h5>
+      <h2>Hard Daily</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
+          <td style="width:180px"><b>Name</b></td>
+            <td style="width:180px"><b>Time</b></td>
         </tr>
       </thead>
       <tbody>
@@ -1231,12 +1231,12 @@
     </table>
     </div>
     <div class="leaderboardEntry extremeDaily">
-      <h5>Extreme Daily</h5>
+      <h2>Extreme Daily</h2>
     <table>
       <thead>
         <tr>
-          <td style="width:100px"><b>Name</b></td>
-            <td style="width:100px"><b>Time</b></td>
+          <td style="width:180px"><b>Name</b></td>
+            <td style="width:180px"><b>Time</b></td>
         </tr>
       </thead>
       <tbody>
@@ -1272,15 +1272,15 @@
     </div>
 </div>
 
-<div class="columnContainer">
+<div class="columnContainer" *ngIf="s==8">
 <div class="leaderboardEntry">
-  <h5>100x100 Easy</h5>
+  <h2>100x100 Easy</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -1320,13 +1320,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>100x100 Medium</h5>
+  <h2>100x100 Medium</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -1365,13 +1365,13 @@
 </table>
 </div>
 <div class="leaderboardEntry">
-  <h5>100x100 Hard</h5>
+  <h2>100x100 Hard</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -1411,13 +1411,13 @@
 </div>
 
 <div class="leaderboardEntry">
-  <h5>100x100 Extreme</h5>
+  <h2>100x100 Extreme</h2>
 <table>
   <thead>
     <tr>
-      <td style="width:100px"><b>Name</b></td>
-        <td style="width:100px"><b>Time</b></td>
-        <td style="width:100px"><b>Seed</b></td>
+      <td style="width:120px"><b>Name</b></td>
+        <td style="width:120px"><b>Time</b></td>
+        <td style="width:120px"><b>Seed</b></td>
     </tr>
   </thead>
   <tbody>
@@ -1460,6 +1460,32 @@
 </div>
 </html>
 
+<div id="controls">
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 1">7x7</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 2">10x10</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 3">15x15</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 4">25x25</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 5">40x40</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 6">60x60</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 8">100x100</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-quick" (click)="s = 7">Dailies</button>
+  </div>
+</div>
 
 <div class="back">
   <button class="btn btn-quick" (click)="mainMenu()">Main Menu</button>

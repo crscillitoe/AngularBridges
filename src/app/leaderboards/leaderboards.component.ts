@@ -46,7 +46,11 @@ export class LeaderboardsComponent implements OnInit {
   public _dailyScoresEasy: any;
   public _dailyScoresExtreme: any;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  public s: any;
+
+    constructor(private router: Router, private http: HttpClient) { 
+        this.s = 1;
+    }
 
   ngOnInit() {
     this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="totalTime"&limitToFirst=10')
