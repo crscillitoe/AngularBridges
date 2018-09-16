@@ -105,7 +105,7 @@ select { width: 400px; text-align-last:center; }
 
 #gauntlet {
     position: absolute;
-    top: 640px;
+    top: 590px;
     right: calc(50% - 75px);
 }
 
