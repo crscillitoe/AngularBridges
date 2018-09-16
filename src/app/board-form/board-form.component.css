@@ -96,11 +96,11 @@ select { width: 400px; text-align-last:center; }
 }
 
 #launchers {
-    width: 440px;
+    width: 520px;
     position: absolute;
     display: flex;
     top: 150px;
-    right: calc(50% - 220px);
+    right: calc(50% - 260px);
 }
 
 #gauntlet {
@@ -109,8 +109,18 @@ select { width: 400px; text-align-last:center; }
     right: calc(50% - 50px);
 }
 
+.title {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    color: #e8d9be;
+    font-size: 50px;
+    text-align: center;
+}
+
 .quickLaunchers {
-    width: 100px;
+    width: 120px;
     font-size: 25px;
     background-color: #2c2c2c;
     text-align:center;
@@ -131,11 +141,58 @@ select { width: 400px; text-align-last:center; }
     margin-bottom:10px;
 }
 
+
+.green {
+    color: #859900; 
+}
+
+.btn-quick:hover, .btn-quick:focus {
+    background-color: #e8d9be;
+    height: 30px;
+    padding-top: 3px;
+    width:120px;
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: #e8d9be;
+    border-style: solid;
+    outline: 1px;
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.btn-quick-daily:hover, .btn-quick-daily:focus {
+    background-color: #b58900;
+    height: 30px;
+    padding-top: 3px;
+    width:120px;
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: #b58900;
+    border-style: solid;
+    outline: 1px;
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.btn-quick-daily {
+    background-color: #859000;
+    height: 30px;
+    padding-top: 3px;
+    width:120px;
+    color: #e8d9be;
+    border-radius: 50px;
+    border-color: #859000;
+    border-style: solid;
+    outline: 1px;
+    font-size:18px;
+    margin-bottom:10px;
+}
+
 .btn-quick {
     background-color: #2c2c2c;
     height: 30px;
     padding-top: 3px;
-    width:100px;
+    width:120px;
     color: #e8d9be;
     border-radius: 50px;
     border-color: #e8d9be;
@@ -222,6 +279,17 @@ select { width: 400px; text-align-last:center; }
     outline: 5px;
     margin:auto;
     margin-left: 50px;
+}
+
+.btn-outline-invert:hover, .btn-outline-invert:focus {
+    border-radius: 500px;
+    width: 150px;
+    background-color: #2c2c2c;
+    border-color: #e8d9be;
+    border-style: solid;
+    color: #e8d9be;
+    outline: 5px;
+    margin:auto;
 }
 
 .btn-outline-invert {
