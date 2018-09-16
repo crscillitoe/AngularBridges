@@ -518,13 +518,6 @@ export class BoardComponentComponent implements OnInit {
         this.bridgeColor = "#fff1b1";
         this.wrongCircleColor = "#f7f7f7";
 
-
-        document.documentElement.style.setProperty('--done-color', this.circleColor[1]);      
-        document.documentElement.style.setProperty('--grid-color', this.gridColor);      
-        document.documentElement.style.setProperty('--background-color', this.backgroundColor);       
-        document.documentElement.style.setProperty('--back-color', this.circleColor[6]);
-        document.documentElement.style.setProperty('--timer-color', this.circleColor[4]);
-        document.documentElement.style.setProperty('--newboard-color', this.circleColor[3]);
         this.draw();
     }
 
@@ -558,14 +551,6 @@ export class BoardComponentComponent implements OnInit {
         this.gridColor = "#ff8460";
         this.bridgeColor = "#ff7e59";
         this.wrongCircleColor = "#68686b";
-
-        document.documentElement.style.setProperty('--done-color', this.backgroundColor);      
-        document.documentElement.style.setProperty('--grid-color', this.backgroundColor);      
-        document.documentElement.style.setProperty('--background-color', this.gridColor);       
-        document.documentElement.style.setProperty('--back-color', this.backgroundColor);
-        document.documentElement.style.setProperty('--timer-color', this.backgroundColor);
-        document.documentElement.style.setProperty('--newboard-color', this.backgroundColor);
-        
 
         this.draw();
     }
@@ -612,13 +597,6 @@ export class BoardComponentComponent implements OnInit {
         this.gridColor = "#a89984";
         this.bridgeColor = "#fff2ad";
         this.wrongCircleColor = "#FFFFFF";
-
-        document.documentElement.style.setProperty('--done-color', this.circleColor[1]);      
-        document.documentElement.style.setProperty('--grid-color', this.gridColor);      
-        document.documentElement.style.setProperty('--background-color', this.backgroundColor);       
-        document.documentElement.style.setProperty('--back-color', this.circleColor[6]);
-        document.documentElement.style.setProperty('--timer-color', this.circleColor[4]);
-        document.documentElement.style.setProperty('--newboard-color', this.circleColor[3]);
 
         this.draw();
     }

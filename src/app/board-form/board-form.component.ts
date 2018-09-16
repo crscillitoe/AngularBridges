@@ -32,6 +32,25 @@ export class BoardFormComponent implements OnInit {
 
     changeTheme(theme) {
         this.model.theme = theme;
+        if(theme == 'light') {
+            document.documentElement.style.setProperty('--done-color', '#FFFEF9');      
+            document.documentElement.style.setProperty('--grid-color', '#FFFEF9');      
+            document.documentElement.style.setProperty('--background-color', '#E8D9BE');       
+            document.documentElement.style.setProperty('--back-color', '#FFFEF9');
+            document.documentElement.style.setProperty('--timer-color', '#FFFEF9');
+            document.documentElement.style.setProperty('--newboard-color', '#FFFEF9');
+            document.documentElement.style.setProperty('--btn-color', '#2C2C2C');
+        } else if(theme == 'night' || 'colorblind') {
+            document.documentElement.style.setProperty('--done-color', '#FFFEF9');      
+            document.documentElement.style.setProperty('--grid-color', '#FFFEF9');      
+            document.documentElement.style.setProperty('--background-color', '#2C2C2C');       
+            document.documentElement.style.setProperty('--back-color', '#FFFEF9');
+            document.documentElement.style.setProperty('--timer-color', '#FFFEF9');
+            document.documentElement.style.setProperty('--newboard-color', '#FFFEF9');
+            document.documentElement.style.setProperty('--btn-color', '#E8D9Be');
+        }
+
+        localStorage.setItem("theme", theme);
     }
 
     changeDifficulty(diff) {
@@ -448,6 +467,13 @@ export class BoardFormComponent implements OnInit {
         this.canPlayDailyExtreme = true;
         this.hotkeys = true;
         this.seed = 0;
+
+        var theme = localStorage.getItem("theme");
+        if(theme == 'night' || theme == 'light' || theme == 'colorblind') {
+            this.changeTheme(theme);
+        } else {
+            localStorage.setItem("theme", 'night');
+        }
 
         this.updateDailyAsNeeded();
     }

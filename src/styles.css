@@ -11,13 +11,14 @@ body {
     --back-color: #f24b3e;
     --newboard-color: #4bb5ac;
     --timer-color: #ffba53;
+    --btn-color: #e8d9be;
 }
 
 .btn-quick:hover, .btn-quick:focus {
-    background-color: #e8d9be;
-    color: #2c2c2c;
+    background-color: var(--btn-color);
+    color: var(--background-color);
     border-radius: 50px;
-    border-color: #e8d9be;
+    border-color: var(--btn-color);
     border-style: solid;
     outline: 1px;
     margin-bottom:10px;
@@ -45,7 +46,7 @@ body {
 
 .btn-quick-warning:hover, .btn-quick-warning:focus {
     background-color: #b53131;
-    color: #2c2c2c;
+    color: var(--background-color);
     border-radius: 50px;
     border-color: #b53131;
     border-style: solid;
@@ -54,7 +55,7 @@ body {
 }
 
 .btn-quick-warning {
-    background-color: #2c2c2c;
+    background-color: var(--background-color);
     color: #b53131;
     border-radius: 50px;
     border-color: #b53131;
@@ -64,10 +65,10 @@ body {
 }
 
 .btn-quick {
-    background-color: #2c2c2c;
-    color: #e8d9be;
+    background-color: var(--background-color);
+    color: var(--btn-color);
     border-radius: 50px;
-    border-color: #e8d9be;
+    border-color: var(--btn-color);
     border-style: solid;
     outline: 1px;
     margin-bottom:10px;
@@ -75,7 +76,7 @@ body {
 
 .btn-quick-submit:hover, .btn-quick-submit:focus {
     background-color: var(--done-color);
-    color: #2c2c2c;
+    color: var(--background-color);
     border-radius: 50px;
     border-color: var(--done-color);
     border-style: solid;
@@ -84,7 +85,7 @@ body {
 }
 
 .btn-quick-submit {
-    background-color: #2c2c2c;
+    background-color: var(--background-color);
     color: var(--done-color);
     border-radius: 50px;
     border-color: var(--done-color);
@@ -95,7 +96,7 @@ body {
 
 .btn-quick-newboard:hover, .btn-quick-newboard:focus {
     background-color: var(--newboard-color);
-    color: #2c2c2c;
+    color: var(--background-color);
     border-radius: 50px;
     border-color: var(--newboard-color);
     border-style: solid;
@@ -104,7 +105,7 @@ body {
 }
 
 .btn-quick-newboard {
-    background-color: #2c2c2c;
+    background-color: var(--background-color);
     color: var(--newboard-color);
     border-radius: 50px;
     border-color: var(--newboard-color);

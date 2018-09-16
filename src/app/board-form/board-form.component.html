@@ -23,9 +23,9 @@
 
             <div class="form-group" id="numInput2">
                 <select id="buttons2" (change)="changeTheme($event.target.value)">
-                    <option value="light" class="togglebutton">Light Theme  </option>
-                    <option value="night" class="togglebutton" selected="selected">Night Theme</option>
-                    <option value="colorblind" class="togglebutton">Colorblind Theme</option>
+                    <option value="light" class="togglebutton" [selected]="model.theme=='light'">Light Theme</option>
+                    <option value="night" class="togglebutton" [selected]="model.theme=='night'">Night Theme</option>
+                    <option value="colorblind" class="togglebutton" [selected]="model.theme=='colorblind'">Colorblind Theme</option>
                 </select>
             </div>
 
