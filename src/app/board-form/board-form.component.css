@@ -215,6 +215,7 @@ select { width: 400px; text-align-last:center; }
 .btn-quick, .btn-quick:hover, .btn-quick:focus,
 .btn-quick-daily, .btn-quick-daily:hover, .btn-quick-daily:focus,
 .btn-quick-warning, .btn-quick-warning:hover, .btn-quick-warning:focus {
+    transition: background-color 0.6s ease;
     width: 150px;
     font-size: 25px;
     height: 40px;
@@ -301,6 +302,7 @@ select { width: 400px; text-align-last:center; }
 }
 
 .btn-outline-invert:hover, .btn-outline-invert:focus {
+    transition: background-color 0.6s ease;
     border-radius: 500px;
     width: 150px;
     background-color: #2c2c2c;
@@ -312,6 +314,7 @@ select { width: 400px; text-align-last:center; }
 }
 
 .btn-outline-invert {
+    transition: background-color 0.6s ease;
     border-radius: 500px;
     width: 150px;
     background-color: #e8d9be;
