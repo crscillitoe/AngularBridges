@@ -12,3 +12,73 @@ body {
     --newboard-color: #4bb5ac;
     --timer-color: #ffba53;
 }
+
+.btn-quick:hover, .btn-quick:focus {
+    background-color: #e8d9be;
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: #e8d9be;
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-daily:hover, .btn-quick-daily:focus {
+    background-color: #b58900;
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: #b58900;
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-daily {
+    background-color: #859000;
+    color: #e8d9be;
+    border-radius: 50px;
+    border-color: #859000;
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-warning:hover, .btn-quick-warning:focus {
+    background-color: #b53131;
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: #b53131;
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-warning {
+    background-color: #2c2c2c;
+    color: #b53131;
+    border-radius: 50px;
+    border-color: #b53131;
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick {
+    background-color: #2c2c2c;
+    color: #e8d9be;
+    border-radius: 50px;
+    border-color: #e8d9be;
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick, .btn-quick:hover, .btn-quick:focus,
+.btn-quick-daily, .btn-quick-daily:hover, .btn-quick-daily:focus,
+.btn-quick-warning, .btn-quick-warning:hover, .btn-quick-warning:focus {
+    transition: background-color 0.6s ease;
+    width: 150px;
+    font-size: 25px;
+    height: 40px;
+    padding-top: 3px;
+}
