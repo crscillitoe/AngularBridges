@@ -96,17 +96,23 @@ select { width: 400px; text-align-last:center; }
 }
 
 #launchers {
-    width: 520px;
+    width: 630px;
     position: absolute;
     display: flex;
     top: 150px;
-    right: calc(50% - 260px);
+    right: calc(50% - 320px);
 }
 
 #gauntlet {
     position: absolute;
-    top: 550px;
-    right: calc(50% - 50px);
+    top: 640px;
+    right: calc(50% - 75px);
+}
+
+#discord {
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 125px);
 }
 
 .title {
@@ -120,7 +126,7 @@ select { width: 400px; text-align-last:center; }
 }
 
 .quickLaunchers {
-    width: 120px;
+    width: 150px;
     font-size: 25px;
     background-color: #2c2c2c;
     text-align:center;
@@ -148,58 +154,71 @@ select { width: 400px; text-align-last:center; }
 
 .btn-quick:hover, .btn-quick:focus {
     background-color: #e8d9be;
-    height: 30px;
-    padding-top: 3px;
-    width:120px;
     color: #2c2c2c;
     border-radius: 50px;
     border-color: #e8d9be;
     border-style: solid;
     outline: 1px;
-    font-size:18px;
     margin-bottom:10px;
 }
 
 .btn-quick-daily:hover, .btn-quick-daily:focus {
     background-color: #b58900;
-    height: 30px;
-    padding-top: 3px;
-    width:120px;
     color: #2c2c2c;
     border-radius: 50px;
     border-color: #b58900;
     border-style: solid;
     outline: 1px;
-    font-size:18px;
     margin-bottom:10px;
 }
 
 .btn-quick-daily {
     background-color: #859000;
-    height: 30px;
-    padding-top: 3px;
-    width:120px;
     color: #e8d9be;
     border-radius: 50px;
     border-color: #859000;
     border-style: solid;
     outline: 1px;
-    font-size:18px;
+    margin-bottom:10px;
+}
+
+.btn-quick-warning:hover, .btn-quick-warning:focus {
+    background-color: #b53131;
+    color: #2c2c2c;
+    border-radius: 50px;
+    border-color: #b53131;
+    border-style: solid;
+    outline: 1px;
+    margin-bottom:10px;
+}
+
+.btn-quick-warning {
+    background-color: #2c2c2c;
+    color: #b53131;
+    border-radius: 50px;
+    border-color: #b53131;
+    border-style: solid;
+    outline: 1px;
     margin-bottom:10px;
 }
 
 .btn-quick {
     background-color: #2c2c2c;
-    height: 30px;
-    padding-top: 3px;
-    width:120px;
     color: #e8d9be;
     border-radius: 50px;
     border-color: #e8d9be;
     border-style: solid;
     outline: 1px;
-    font-size:18px;
     margin-bottom:10px;
+}
+
+.btn-quick, .btn-quick:hover, .btn-quick:focus,
+.btn-quick-daily, .btn-quick-daily:hover, .btn-quick-daily:focus,
+.btn-quick-warning, .btn-quick-warning:hover, .btn-quick-warning:focus {
+    width: 150px;
+    font-size: 25px;
+    height: 40px;
+    padding-top: 3px;
 }
 
 #grid{
