@@ -1846,6 +1846,21 @@ export class BoardComponentComponent implements OnInit {
         } else {
             if(this.gauntlet < 20) {
 
+                if("" + previousValue == "NaN") {
+                    localStorage.setItem("win", "1");
+                } else {
+                    localStorage.setItem("win", "" + (previousValue + 1));
+                }
+
+                for(let n of this.board.getNodes()) {
+                    var previousValue = parseInt(localStorage.getItem("" + n.val));
+                    if("" + previousValue == "NaN") {
+                        localStorage.setItem("" + n.val, "1");
+                    } else {
+                        localStorage.setItem("" + n.val, "" + (previousValue + 1));
+                    }
+                }
+
                 this.gauntlet++;
                 if(this.gauntlet == 2) {
                     this.width = 13;
@@ -1863,8 +1878,8 @@ export class BoardComponentComponent implements OnInit {
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 5) {
-                    this.width = 40;
-                    this.height = 32;
+                    this.width = 32;
+                    this.height = 40;
                     this.numNodes = 5000;
                     this.extreme = false;
                 } else if(this.gauntlet == 6) {
@@ -1923,13 +1938,13 @@ export class BoardComponentComponent implements OnInit {
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 17) {
-                    this.width = 7;
+                    this.width = 10;
                     this.height = 7;
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 18) {
                     this.width = 7;
-                    this.height = 7;
+                    this.height = 10;
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 19) {
@@ -1948,6 +1963,20 @@ export class BoardComponentComponent implements OnInit {
                 this.generateFairBoard(this.numNodes);
                 this.fixSizes();
             } else {
+                if("" + previousValue == "NaN") {
+                    localStorage.setItem("win", "1");
+                } else {
+                    localStorage.setItem("win", "" + (previousValue + 1));
+                }
+
+                for(let n of this.board.getNodes()) {
+                    var previousValue = parseInt(localStorage.getItem("" + n.val));
+                    if("" + previousValue == "NaN") {
+                        localStorage.setItem("" + n.val, "1");
+                    } else {
+                        localStorage.setItem("" + n.val, "" + (previousValue + 1));
+                    }
+                }
                 if((this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100)) >= this.previousTotalMillis) {
                     this.worseTime = true;
                 } else { 
