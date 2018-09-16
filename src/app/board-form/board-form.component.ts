@@ -41,12 +41,12 @@ export class BoardFormComponent implements OnInit {
             document.documentElement.style.setProperty('--newboard-color', '#FFFEF9');
             document.documentElement.style.setProperty('--btn-color', '#2C2C2C');
         } else if(theme == 'night' || 'colorblind') {
-            document.documentElement.style.setProperty('--done-color', '#FFFEF9');      
-            document.documentElement.style.setProperty('--grid-color', '#FFFEF9');      
+            document.documentElement.style.setProperty('--done-color', '#AAD46D');      
+            document.documentElement.style.setProperty('--grid-color', '#A89984');      
             document.documentElement.style.setProperty('--background-color', '#2C2C2C');       
-            document.documentElement.style.setProperty('--back-color', '#FFFEF9');
-            document.documentElement.style.setProperty('--timer-color', '#FFFEF9');
-            document.documentElement.style.setProperty('--newboard-color', '#FFFEF9');
+            document.documentElement.style.setProperty('--back-color', '#F24B3E');
+            document.documentElement.style.setProperty('--timer-color', '#FFBA53');
+            document.documentElement.style.setProperty('--newboard-color', '#4BB5AC');
             document.documentElement.style.setProperty('--btn-color', '#E8D9Be');
         }
 
