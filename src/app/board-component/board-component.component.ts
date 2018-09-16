@@ -165,6 +165,8 @@ export class BoardComponentComponent implements OnInit {
             max = 80;
         } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && !this.extreme) {
             //board = "7x7hard";
+            min = 7;
+            max = 7;
         } else if(this.width == 7 && this.height == 7 && numNodes == 500000 && this.extreme) {
             //board = "7x7extreme";
             min = 8;
@@ -179,6 +181,8 @@ export class BoardComponentComponent implements OnInit {
             max = 17;
         } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && !this.extreme) {
             //board = "10x10hard";
+            min = 15;
+            max = 17;
         } else if(this.width == 10 && this.height == 10 && numNodes == 500000 && this.extreme) {
             //board = "10x10extreme";
             min = 19;
