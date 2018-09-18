@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardComponentComponent implements OnInit {
 
+    level: any;
     skip: boolean;
     timesPaused: number;
     worseTime: boolean;
@@ -231,6 +232,8 @@ export class BoardComponentComponent implements OnInit {
     // Initializes data
     ngOnInit() {
         var previousValue = parseInt(localStorage.getItem("build"));
+        this.level = Math.trunc((Number(previousValue)) / 1239) + 1;
+
         var elem = document.getElementById("bar");
         elem.style.width = this.getProgress(previousValue) + '%';
 
@@ -1291,6 +1294,7 @@ export class BoardComponentComponent implements OnInit {
             localStorage.setItem("build", "" + (previousValue + num));
             var elem = document.getElementById("bar");
             elem.style.width = this.getProgress(previousValue + num) + '%';
+            this.level = Math.trunc((Number(previousValue + num)) / 1239) + 1;
         }
     } 
 
