@@ -53,11 +53,18 @@ export class StatsComponent implements OnInit {
       this.router.navigate(['mainMenu']);
   }
 
+  getProgress() {
+    return Math.round(((this.totalBuilt % 1239) / 1239) * 100);
+  }
+
   ngOnInit() {
     this.totalWins = localStorage.getItem("win");
     this.totalBuilt = localStorage.getItem("build");
 
-    this.level = Math.round((Number(this.totalBuilt)) / 1239) + 1;
+    this.level = Math.trunc((Number(this.totalBuilt)) / 1239) + 1;
+
+    var elem = document.getElementById("bar");
+    elem.style.width = this.getProgress() + '%';
 
     this.totalDestroyed = localStorage.getItem("destroy");
     this.w = localStorage.getItem("w");
