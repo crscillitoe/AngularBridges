@@ -230,6 +230,10 @@ export class BoardComponentComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        var previousValue = parseInt(localStorage.getItem("build"));
+        var elem = document.getElementById("bar");
+        elem.style.width = this.getProgress(previousValue) + '%';
+
         this.skip = false;
         this.timesPaused = 0;
         this.worseTime = true;
@@ -557,6 +561,10 @@ export class BoardComponentComponent implements OnInit {
         this.wrongCircleColor = "#68686b";
 
         this.draw();
+    }  
+
+    getProgress(totalBuilt) {
+        return Math.round(((totalBuilt % 1239) / 1239) * 100);
     }
 
     nightTheme() {
@@ -1281,6 +1289,8 @@ export class BoardComponentComponent implements OnInit {
             localStorage.setItem("build", "" + num);
         } else {
             localStorage.setItem("build", "" + (previousValue + num));
+            var elem = document.getElementById("bar");
+            elem.style.width = this.getProgress(previousValue + num) + '%';
         }
     } 
 

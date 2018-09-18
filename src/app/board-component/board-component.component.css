@@ -1,3 +1,21 @@
+#barContainer {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+}
+
+#progress {
+    width: 100%;
+    background-color: grey;
+}
+
+#bar {
+    width: 50%;
+    height: 15px;
+    background-color: green;
+}
+
 body {
     background-color: var(--background-color);
 }
@@ -163,6 +181,6 @@ hr{
     position: absolute;
     text-align: center;
     color:#a89984;
-    bottom:0;
+    bottom:15px;
     left:5px;
 }
