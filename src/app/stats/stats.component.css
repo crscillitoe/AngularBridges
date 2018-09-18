@@ -5,6 +5,13 @@
     display: flex;
 }
 
+#title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+}
+
 .left {
     float: left;
 }

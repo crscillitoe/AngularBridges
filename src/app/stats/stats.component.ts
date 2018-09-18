@@ -13,6 +13,7 @@ export class StatsComponent implements OnInit {
 
   totalWins: any;
   totalBuilt: any;
+  level: any;
   totalDestroyed: any;
   w: any;
   W: any;
@@ -55,6 +56,9 @@ export class StatsComponent implements OnInit {
   ngOnInit() {
     this.totalWins = localStorage.getItem("win");
     this.totalBuilt = localStorage.getItem("build");
+
+    this.level = Math.round((Number(this.totalBuilt)) / 1000) + 1;
+
     this.totalDestroyed = localStorage.getItem("destroy");
     this.w = localStorage.getItem("w");
     this.W = localStorage.getItem("W");

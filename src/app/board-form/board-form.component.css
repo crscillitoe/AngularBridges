@@ -341,3 +341,10 @@ select { width: 400px; text-align-last:center; }
 .warning{
     color: #FF0000;
 }
+
+.circle {
+    border-radius: 50%;
+    border: 1px var(--btn-color) solid;
+    width: 20px;
+    height: 20px;
+}
