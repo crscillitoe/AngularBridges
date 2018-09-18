@@ -1956,14 +1956,14 @@ export class BoardComponentComponent implements OnInit {
                     this.numNodes = 5000;
                     this.extreme = false;
                 } else if(this.gauntlet == 7) {
-                    this.width = 200;
-                    this.height = 32;
+                    this.width = 400;
+                    this.height = 1;
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 8) {
-                    this.width = 100;
-                    this.height = 100;
-                    this.numNodes = 200;
+                    this.width = 200;
+                    this.height = 10;
+                    this.numNodes = 500000;
                     this.extreme = false;
                 } else if(this.gauntlet == 9) {
                     this.width = 80;
@@ -1971,18 +1971,18 @@ export class BoardComponentComponent implements OnInit {
                     this.numNodes = 50000;
                     this.extreme = false;
                 } else if(this.gauntlet == 10) {
-                    this.width = 7;
+                    this.width = 10;
                     this.height = 7;
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 11) {
                     this.width = 7;
-                    this.height = 7;
+                    this.height = 10;
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 12) {
                     this.width = 7;
-                    this.height = 7;
+                    this.height = 8;
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 13) {
