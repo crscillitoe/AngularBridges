@@ -567,7 +567,7 @@ export class BoardComponentComponent implements OnInit {
     }  
 
     getProgress(totalBuilt) {
-        return Math.round(((totalBuilt % 1239) / 1239) * 100);
+        return (((totalBuilt % 1239) / 1239) * 100);
     }
 
     nightTheme() {
