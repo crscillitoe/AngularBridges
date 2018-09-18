@@ -2011,13 +2011,13 @@ export class BoardComponentComponent implements OnInit {
                     this.numNodes = 500000;
                     this.extreme = true;
                 } else if(this.gauntlet == 18) {
-                    this.width = 13;
-                    this.height = 400;
+                    this.width = 400;
+                    this.height = 13;
                     this.numNodes = 500000;
                     this.extreme =true;
                 } else if(this.gauntlet == 19) {
-                    this.width = 26;
-                    this.height = 400;
+                    this.width = 400;
+                    this.height = 26;
                     this.numNodes = 500000;
                     this.extreme =true;
                 } else if(this.gauntlet == 20) {
