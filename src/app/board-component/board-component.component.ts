@@ -1660,28 +1660,50 @@ export class BoardComponentComponent implements OnInit {
                 seed: this.board.initialSeed,
                 pauses: this.timesPaused
             };
+
             var board = "";
+            var equiv = "";
 
             if(this.daily && this.name != "" && this.width==25 && this.height==25 && numNodes == 500000) {
+                equiv = "25x25hard";
                 board = "dailyScores";
             } else if(this.daily && this.name != "" && this.width==10 && this.height == 10 && numNodes == 30) {
+                equiv = "10x10medium";
                 board = "dailyScoresEasy";
             } else if(this.daily && this.name != "" && this.width==15 && this.height == 15 && numNodes == 500000) {
+                equiv = "15x15medium";
                 board = "dailyScoresMedium";
             } else if(this.daily && this.name != "" && this.width==40 && this.height==40 && numNodes == 500000 && this.extreme) {
+                equiv = "40x40extreme"
                 board = "dailyScoresExtreme";
             }
 
+
             this._firebaseAuth.auth.currentUser.getIdToken(true)
                 .then((token) => {
-                    this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
-                        .subscribe((data) => {
 
-                        let mod = {
-                            page: 7
-                        }
-                        this.router.navigate(['leaderboards', mod]);
-                    });
+                    if(!this.worseTime) {
+                        this.http.put('https://woohoojinbridges.firebaseio.com/' + equiv + '/'+this.userDetails.uid+'.json?auth=' + token, m)
+                            .subscribe((data) => {
+                                this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
+                                    .subscribe((data) => {
+
+                                    let mod = {
+                                        page: 7
+                                    }
+                                    this.router.navigate(['leaderboards', mod]);
+                                });
+                            });
+                    } else {
+                        this.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+this.userDetails.uid+'.json?auth=' + token, m)
+                            .subscribe((data) => {
+
+                            let mod = {
+                                page: 7
+                            }
+                            this.router.navigate(['leaderboards', mod]);
+                        });
+                    }
                 })
         } else if(this.gauntlet > 0) {
             let m = {
