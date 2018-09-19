@@ -125,6 +125,16 @@ select { width: 400px; text-align-last:center; }
     text-align: center;
 }
 
+.subtitle {
+    position: absolute;
+    top: 110px;
+    left: 0px;
+    width: 100%;
+    color: var(--btn-color);
+    font-size: 25px;
+    text-align: center;
+}
+
 .quickLaunchers {
     width: 150px;
     font-size: 25px;
