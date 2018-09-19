@@ -1313,6 +1313,126 @@
   <tbody>
 </table>
 </div>
+<div class="leaderboardEntry mediumDaily">
+  <h2 style="color:cyan">7 Medley</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of _medleyEasyScores;
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
+<div class="leaderboardEntry hardDaily">
+  <h2 style="color:greenyellow">10 Medley</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of _medleyMediumScores;
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
+<div class="leaderboardEntry extremeDaily">
+  <h2 style="color:cadetblue">15 Medley</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of _medleyHardScores;
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
 </div>
 
 <div class="columnContainer" *ngIf="s==8">
@@ -1529,7 +1649,7 @@
     <button class="btn btn-quick" (click)="s = 7">Dailies</button>
   </div>
   <div class="col">
-    <button class="btn btn-quick-warning" (click)="s = 9">Gauntlet</button>
+    <button class="btn btn-quick-warning" (click)="s = 9">Specials</button>
   </div>
 </div>
 

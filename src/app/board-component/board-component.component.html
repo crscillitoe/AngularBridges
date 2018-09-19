@@ -21,13 +21,17 @@
         </div>
 
         <ng-container *ngIf="!daily">
-            <ng-container *ngIf="gauntlet == 0">
+            <ng-container *ngIf="gauntlet == 0 && !medley">
                 <h1 class="difficulty">{{difficulty}}</h1>
                 <h1 class="previousTime">{{previousTime}}</h1>
             </ng-container>
             <ng-container *ngIf="gauntlet > 0">
                 <h1 class="difficulty">{{gauntlet}}/20</h1>
                 <h1 class="previousTime">{{width}}x{{height}}</h1>
+            </ng-container>
+            <ng-container *ngIf="medley">
+                <h1 class="difficulty">{{medleyNum}}/100</h1>
+                <h1 class="previousTime">{{previousTime}}</h1>
             </ng-container>
         </ng-container>
 

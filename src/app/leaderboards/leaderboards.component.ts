@@ -47,6 +47,9 @@ export class LeaderboardsComponent implements OnInit {
   public _dailyScoresEasy: any;
   public _dailyScoresExtreme: any;
   public _gauntletScores: any;
+  public _medleyEasyScores: any;
+  public _medleyMediumScores: any;
+  public _medleyHardScores: any;
 
   public s: any;
 
@@ -58,6 +61,63 @@ export class LeaderboardsComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.http.get('https://woohoojinbridges.firebaseio.com/medley7.json?orderBy="totalTime"&limitToFirst=10')
+      .subscribe((data) => {
+        this._medleyEasyScores = [];
+        for(const key of Object.keys(data)) {
+          var temp = data[key];
+          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['key'] = key;
+          this._medleyEasyScores.push(data[key]);
+        }
+        this._medleyEasyScores.sort(function(a, b) {
+          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
+          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          if(aTime < bTime) return -1;
+          if(aTime > bTime) return 1;
+          return 0;
+        });
+        this._medleyEasyScores = this._medleyEasyScores.slice(0, 10);
+      });
+
+    this.http.get('https://woohoojinbridges.firebaseio.com/medley15.json?orderBy="totalTime"&limitToFirst=10')
+      .subscribe((data) => {
+        this._medleyHardScores = [];
+        for(const key of Object.keys(data)) {
+          var temp = data[key];
+          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['key'] = key;
+          this._medleyHardScores.push(data[key]);
+        }
+        this._medleyHardScores.sort(function(a, b) {
+          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
+          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          if(aTime < bTime) return -1;
+          if(aTime > bTime) return 1;
+          return 0;
+        });
+        this._medleyHardScores = this._medleyHardScores.slice(0, 10);
+      });
+    
+    this.http.get('https://woohoojinbridges.firebaseio.com/medley10.json?orderBy="totalTime"&limitToFirst=10')
+      .subscribe((data) => {
+        this._medleyMediumScores = [];
+        for(const key of Object.keys(data)) {
+          var temp = data[key];
+          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['key'] = key;
+          this._medleyMediumScores.push(data[key]);
+        }
+        this._medleyMediumScores.sort(function(a, b) {
+          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
+          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          if(aTime < bTime) return -1;
+          if(aTime > bTime) return 1;
+          return 0;
+        });
+        this._medleyMediumScores = this._medleyMediumScores.slice(0, 10);
+      });
+
     this.http.get('https://woohoojinbridges.firebaseio.com/gauntlet.json?orderBy="totalTime"&limitToFirst=10')
       .subscribe((data) => {
         this._gauntletScores = [];

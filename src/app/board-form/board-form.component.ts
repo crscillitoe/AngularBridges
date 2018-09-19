@@ -498,6 +498,28 @@ export class BoardFormComponent implements OnInit {
 
     }
 
+    medley(size) {
+        if(size == 7) {
+            this.model.width = 7;
+            this.model.height = 7;
+            this.difficulty = 'easy';
+            this.model.dailyDiff = "medley7";
+            this.onSubmit();
+        } else if(size == 10) {
+            this.model.width = 10;
+            this.model.height = 10;
+            this.difficulty = 'medium';
+            this.model.dailyDiff = "medley10";
+            this.onSubmit();
+        } else if(size == 15) {
+            this.model.width = 15;
+            this.model.height = 15;
+            this.difficulty = 'hard';
+            this.model.dailyDiff = "medley15";
+            this.onSubmit();
+        }
+    }
+
     resetDailies() {
         this._firebaseAuth.auth.currentUser.getIdToken(true)
                 .then((token) => {

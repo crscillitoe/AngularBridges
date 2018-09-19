@@ -41,6 +41,7 @@
                     <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100easy')" value="100x100">
                     <input *ngIf="canPlayDailyEasy" type="button" class="btn btn-quick-daily" (click)="playDaily('easy')" value="Daily">
                     <input *ngIf="!canPlayDailyEasy && dailyEasy" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyEasy}}">
+                    <input type="button" class="btn btn-quick-newboard" (click)="medley(7)" value="7 Medley">
                 </div>
 
                 <div class="quickLaunchers">
@@ -54,6 +55,7 @@
                     <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100medium')" value="100x100">
                     <input *ngIf="canPlayDailyMedium" type="button" class="btn btn-quick-daily" (click)="playDaily('medium')" value="Daily">
                     <input *ngIf="!canPlayDailyMedium && dailyMedium" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyMedium}}">
+                    <input type="button" class="btn btn-quick-newboard" (click)="medley(10)" value="10 Medley">
                 </div>
 
                 <div class="quickLaunchers">
@@ -67,6 +69,7 @@
                     <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100hard')" value="100x100">
                     <input *ngIf="canPlayDailyHard" type="button" class="btn btn-quick-daily" (click)="playDaily('hard')" value="Daily">
                     <input *ngIf="!canPlayDailyHard && dailyHard" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyHard}}">
+                    <input type="button" class="btn btn-quick-newboard" (click)="medley(15)" value="15 Medley">
                 </div>
 
                 <div class="quickLaunchers">
@@ -80,12 +83,12 @@
                     <input type="button" class="btn btn-quick" (click)="quickLaunch('100x100extreme')" value="100x100">
                     <input *ngIf="canPlayDailyExtreme" type="button" class="btn btn-quick-daily" (click)="playDaily('extreme')" value="Daily">
                     <input *ngIf="!canPlayDailyExtreme && dailyExtreme" type="button" class="btn btn-quick dailyTime" [disabled]="true" value="{{dailyExtreme}}">
+                    <input type="button" class="btn btn-quick-warning" (click)="startGauntlet()" value="Gauntlet">
                     <input *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" type="button" class="btn btn-quick dailyTime" (click)="resetDailies()" value="Reset">
                 </div>
             </div>
 
             <div id="gauntlet">
-                <input type="button" class="btn btn-quick-warning" (click)="startGauntlet()" value="Gauntlet">
             </div>
 
     

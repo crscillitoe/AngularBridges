@@ -17,6 +17,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardComponentComponent implements OnInit {
 
+    medley: any;
+    medleyNum: any;
     level: any;
     skip: boolean;
     timesPaused: number;
@@ -275,6 +277,14 @@ export class BoardComponentComponent implements OnInit {
         this.drawLetters = this.route.snapshot.paramMap.get('numbers') == "true";
         this.drawGridBool = this.route.snapshot.paramMap.get('grid') == "true";
         this.gauntlet = Number(this.route.snapshot.paramMap.get('gauntlet'));
+
+        var diff = this.route.snapshot.paramMap.get('dailyDiff');
+        if(diff == 'medley7' || diff == 'medley10' || diff == 'medley15') {
+            this.medley = true;
+            this.medleyNum = 1;
+        } else {
+            this.medley = false;
+        }
         
         var theme = this.route.snapshot.paramMap.get('theme');
         this.seed = Number(this.route.snapshot.paramMap.get('seed'));
@@ -407,7 +417,7 @@ export class BoardComponentComponent implements OnInit {
             this.difficulty = "Hard";
         }
 
-        if(this.gauntlet == 0) {
+        if(this.gauntlet == 0 && !this.medley) {
             try {
                 this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
                     .subscribe((data: any) => {
@@ -420,9 +430,22 @@ export class BoardComponentComponent implements OnInit {
                     });
             } catch {
             }
-        } else {
+        } else if(this.gauntlet > 0) {
             try {
                 this.http.get('https://woohoojinbridges.firebaseio.com/gauntlet/' + this.userDetails.uid + '.json')
+                    .subscribe((data: any) => {
+                        if(data != null) {
+                            this.previousTotalMillis = data.totalTime;
+                            this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+                        } else {
+
+                        }
+                    });
+            } catch {
+            }
+        } else if(this.medley) {
+            try {
+                this.http.get('https://woohoojinbridges.firebaseio.com/' + this.route.snapshot.paramMap.get('dailyDiff') + '/' + this.userDetails.uid + '.json')
                     .subscribe((data: any) => {
                         if(data != null) {
                             this.previousTotalMillis = data.totalTime;
@@ -1565,7 +1588,7 @@ export class BoardComponentComponent implements OnInit {
 
     submit() {
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
-        if(!this.daily && this.gauntlet == 0) {
+        if(!this.daily && this.gauntlet == 0 && !this.medley) {
             let m = {
                 name: this.name,
                 hours: this.hours,
@@ -1722,6 +1745,27 @@ export class BoardComponentComponent implements OnInit {
                         this.router.navigate(['leaderboards', mod]);
                     });
                 })
+        } else if(this.medley) {
+            let m = {
+                name: this.name,
+                hours: this.hours,
+                minutes: this.minutes,
+                seconds: this.seconds,
+                millis: this.millis,
+                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                seed: this.board.initialSeed,
+                pauses: this.timesPaused
+            };
+            this._firebaseAuth.auth.currentUser.getIdToken(true)
+                .then((token) => {
+                    this.http.put('https://woohoojinbridges.firebaseio.com/' + this.route.snapshot.paramMap.get('dailyDiff') + '/'+this.userDetails.uid+'.json?auth=' + token, m)
+                        .subscribe((data) => {
+                        let mod = {
+                            page: 9
+                        }
+                        this.router.navigate(['leaderboards', mod]);
+                    });
+                })
         }
     }
 
@@ -1869,7 +1913,7 @@ export class BoardComponentComponent implements OnInit {
             }
         }
 
-        if(this.gauntlet == 0) {
+        if(this.gauntlet == 0 && !this.medley) {
             var previousValue = parseInt(localStorage.getItem("win"));
             if("" + previousValue == "NaN") {
                 localStorage.setItem("win", "1");
@@ -1892,7 +1936,7 @@ export class BoardComponentComponent implements OnInit {
             } else { 
                 this.worseTime = false;
             }
-        } else {
+        } else if(this.gauntlet > 0) {
             if(this.gauntlet < 20) {
 
                 var previousValue = parseInt(localStorage.getItem("win"));
@@ -2033,6 +2077,58 @@ export class BoardComponentComponent implements OnInit {
                 } else { 
                     this.worseTime = false;
                 }
+                this.solved = true;
+            }
+        } else if(this.medley) {
+            if(this.medleyNum < 100) {
+                this.medleyNum++;
+
+                var previousValue = parseInt(localStorage.getItem("win"));
+                if("" + previousValue == "NaN") {
+                    localStorage.setItem("win", "1");
+                } else {
+                    localStorage.setItem("win", "" + (previousValue + 1));
+                }
+
+                for(let n of this.board.getNodes()) {
+                    var previousValue = parseInt(localStorage.getItem("" + n.val));
+                    if("" + previousValue == "NaN") {
+                        localStorage.setItem("" + n.val, "1");
+                    } else {
+                        localStorage.setItem("" + n.val, "" + (previousValue + 1));
+                    }
+                }
+                
+                var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
+                if(numNodes === 0) {
+                    numNodes = Math.floor(Math.sqrt(this.width * this.height)) * 2;
+                }
+
+                this.generateFairBoard(numNodes);
+                this.fixSizes();
+            } else {
+                var previousValue = parseInt(localStorage.getItem("win"));
+                if("" + previousValue == "NaN") {
+                    localStorage.setItem("win", "1");
+                } else {
+                    localStorage.setItem("win", "" + (previousValue + 1));
+                }
+
+                for(let n of this.board.getNodes()) {
+                    var previousValue = parseInt(localStorage.getItem("" + n.val));
+                    if("" + previousValue == "NaN") {
+                        localStorage.setItem("" + n.val, "1");
+                    } else {
+                        localStorage.setItem("" + n.val, "" + (previousValue + 1));
+                    }
+                }
+
+                if((this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100)) >= this.previousTotalMillis) {
+                    this.worseTime = true;
+                } else { 
+                    this.worseTime = false;
+                }
+
                 this.solved = true;
             }
         }
