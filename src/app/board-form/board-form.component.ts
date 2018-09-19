@@ -238,8 +238,8 @@ export class BoardFormComponent implements OnInit {
 
     playDaily(diff) {
         if(diff == 'hard') {
-            this.model.width = 25;
-            this.model.height = 25;
+            this.model.width = this.daily.hardWidth;
+            this.model.height = this.daily.hardHeight;
             this.difficulty = 'hard';
             this.model.daily = true;
             this.seed = this.daily.seed;
@@ -247,26 +247,26 @@ export class BoardFormComponent implements OnInit {
         }
 
         if(diff == 'easy') {
-            this.model.width = 10;
-            this.model.height = 10;
-            this.difficulty = 'medium';
+            this.model.width = this.daily.easyWidth;
+            this.model.height = this.daily.easyHeight;
+            this.difficulty = 'easy';
             this.model.daily = true;
             this.seed = this.daily.seed;
             this.onSubmit();
         }
 
         if(diff == 'medium') {
-            this.model.width = 15;
-            this.model.height = 15;
-            this.difficulty = 'hard';
+            this.model.width = this.daily.mediumWidth;
+            this.model.height = this.daily.mediumHeight;
+            this.difficulty = 'medium';
             this.model.daily = true;
             this.seed = this.daily.seed;
             this.onSubmit();
         }
 
         if(diff == 'extreme') {
-            this.model.width = 40;
-            this.model.height = 40;
+            this.model.width = this.daily.extremeWidth;
+            this.model.height = this.daily.extremeHeight;
             this.difficulty = 'extreme';
             this.model.daily = true;
             this.seed = this.daily.seed;
@@ -516,6 +516,14 @@ export class BoardFormComponent implements OnInit {
                         .subscribe((data) => {});
                     
                     let m = {
+                        easyWidth: this.randomIntReal(7, 15),
+                        easyHeight: this.randomIntReal(7, 15),
+                        mediumWidth: this.randomIntReal(15, 25),
+                        mediumHeight: this.randomIntReal(15, 25),
+                        hardWidth: this.randomIntReal(25, 40),
+                        hardHeight: this.randomIntReal(25, 40),
+                        extremeWidth: this.randomIntReal(40, 80),
+                        extremeHeight: this.randomIntReal(40, 80),
                         seed: this.randomIntReal(0, 2000000000)
                     }
 
