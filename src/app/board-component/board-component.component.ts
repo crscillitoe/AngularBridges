@@ -217,14 +217,14 @@ export class BoardComponentComponent implements OnInit {
         }
 
         if(min != 0 && max != 0) {
-            this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
+            this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet, null);
             this.board.generateBoard();
             while(this.board.nodes.length < min || this.board.nodes.length > max) {
-                this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
+                this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet, null);
                 this.board.generateBoard();
             }
         } else {
-            this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet);
+            this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet, null);
             this.board.generateBoard();
         }
     }
@@ -253,7 +253,7 @@ export class BoardComponentComponent implements OnInit {
 
         if(this.daily) {
             // This is a daily, so we should indicate that we're playing.
-            this.http.get('https://woohoojinbridges.firebaseio.com/playingDaily' + this.width + '/' + this.userDetails.uid + '.json')
+            this.http.get('https://woohoojinbridges.firebaseio.com/playingDaily' + this.route.snapshot.paramMap.get('dailyDiff') + '/' + this.userDetails.uid + '.json')
                 .subscribe((data) => {
                     if(data == null) {
                         var date: any = new Date()
@@ -262,7 +262,7 @@ export class BoardComponentComponent implements OnInit {
                         }
                         this._firebaseAuth.auth.currentUser.getIdToken(true)
                             .then((token) => {
-                                this.http.put('https://woohoojinbridges.firebaseio.com/playingDaily' + this.width + '/' + this.userDetails.uid + '.json?auth=' + token, model)
+                                this.http.put('https://woohoojinbridges.firebaseio.com/playingDaily' + this.route.snapshot.paramMap.get('dailyDiff') + '/' + this.userDetails.uid + '.json?auth=' + token, model)
                                     .subscribe((data) => {});
                             })
                     } else {
@@ -287,7 +287,7 @@ export class BoardComponentComponent implements OnInit {
         if(this.seed == 0) {
             this.generateFairBoard(numNodes);
         } else {
-            this.board = new Board(this.width, this.height, numNodes, this.extreme, this.seed, null, null, null, null, null, this.gauntlet);
+            this.board = new Board(this.width, this.height, numNodes, this.extreme, this.seed, null, null, null, null, null, this.gauntlet, null);
             this.board.generateBoard();
         }
 
@@ -1677,13 +1677,15 @@ export class BoardComponentComponent implements OnInit {
 
             var board = "";
 
-            if(this.daily && this.name != "" && this.width==25 && this.height==25 && numNodes == 500000) {
+            var dailyDiff  = this.route.snapshot.paramMap.get('dailyDiff');
+
+            if(dailyDiff == 'hard') {
                 board = "dailyScores";
-            } else if(this.daily && this.name != "" && this.width==10 && this.height == 10 && numNodes == 30) {
+            } else if(dailyDiff == 'easy') {
                 board = "dailyScoresEasy";
-            } else if(this.daily && this.name != "" && this.width==15 && this.height == 15 && numNodes == 500000) {
+            } else if(dailyDiff == 'medium') {
                 board = "dailyScoresMedium";
-            } else if(this.daily && this.name != "" && this.width==40 && this.height==40 && numNodes == 500000 && this.extreme) {
+            } else if(dailyDiff == 'extreme') {
                 board = "dailyScoresExtreme";
             }
 

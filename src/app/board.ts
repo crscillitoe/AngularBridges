@@ -12,8 +12,9 @@ export class Board {
     grid: boolean;
     daily: boolean;
     gauntlet: number;
+    dailyDiff: string;
 
-    constructor(width: number, height: number, numNodes: number, extreme: boolean, seed: number, theme: string, hotkeys: boolean, numbers: boolean, grid: boolean, daily: boolean, gauntlet: number) {
+    constructor(width: number, height: number, numNodes: number, extreme: boolean, seed: number, theme: string, hotkeys: boolean, numbers: boolean, grid: boolean, daily: boolean, gauntlet: number, dailyDiff: string) {
         this.width = width;
         this.height = height;
         this.numNodes = numNodes;
@@ -27,6 +28,7 @@ export class Board {
         this.daily = daily;
         this.gauntlet = gauntlet;
         this.nodes = new Array<MyNode>();
+        this.dailyDiff = dailyDiff;
     }
 
     public generateBoard() {

@@ -241,6 +241,7 @@ export class BoardFormComponent implements OnInit {
             this.model.width = this.daily.hardWidth;
             this.model.height = this.daily.hardHeight;
             this.difficulty = 'hard';
+            this.model.dailyDiff = 'hard';
             this.model.daily = true;
             this.seed = this.daily.seed;
             this.onSubmit();
@@ -251,6 +252,7 @@ export class BoardFormComponent implements OnInit {
             this.model.height = this.daily.easyHeight;
             this.difficulty = 'easy';
             this.model.daily = true;
+            this.model.dailyDiff = 'easy';
             this.seed = this.daily.seed;
             this.onSubmit();
         }
@@ -259,6 +261,7 @@ export class BoardFormComponent implements OnInit {
             this.model.width = this.daily.mediumWidth;
             this.model.height = this.daily.mediumHeight;
             this.difficulty = 'medium';
+            this.model.dailyDiff = 'medium';
             this.model.daily = true;
             this.seed = this.daily.seed;
             this.onSubmit();
@@ -268,6 +271,7 @@ export class BoardFormComponent implements OnInit {
             this.model.width = this.daily.extremeWidth;
             this.model.height = this.daily.extremeHeight;
             this.difficulty = 'extreme';
+            this.model.dailyDiff = 'extreme';
             this.model.daily = true;
             this.seed = this.daily.seed;
             this.onSubmit();
@@ -443,7 +447,7 @@ export class BoardFormComponent implements OnInit {
         }
     }
 
-    model = new Board(null , null, null, null, null, null, null, null, null, null, null);
+    model = new Board(null , null, null, null, null, null, null, null, null, null, null, null);
 
     leaderboards()
     {
@@ -506,13 +510,13 @@ export class BoardFormComponent implements OnInit {
                     this.http.delete('https://woohoojinbridges.firebaseio.com/dailyScores.json?auth=' + token)
                         .subscribe((data) => {});
 
-                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily10.json?auth=' + token)
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDailyeasy.json?auth=' + token)
                         .subscribe((data) => {});
-                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily15.json?auth=' + token)
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDailymedium.json?auth=' + token)
                         .subscribe((data) => {});
-                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily25.json?auth=' + token)
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDailyhard.json?auth=' + token)
                         .subscribe((data) => {});
-                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDaily40.json?auth=' + token)
+                    this.http.delete('https://woohoojinbridges.firebaseio.com/playingDailyextreme.json?auth=' + token)
                         .subscribe((data) => {});
                     
                     let m = {
