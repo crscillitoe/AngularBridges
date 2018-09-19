@@ -1273,46 +1273,6 @@
 </div>
 
 <div class="columnContainer" *ngIf="s==9">
-<div class="leaderboardEntry easyDaily">
-  <h2 style="color:red">GAUNTLET</h2>
-<table>
-  <thead>
-    <tr>
-      <td style="width:180px"><b>Name</b></td>
-        <td style="width:180px"><b>Time</b></td>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let entry of _gauntletScores;
-    let i=index">
-      <ng-container *ngIf="i == 0">
-        <tr class="first">
-          <td>{{entry.name}}</td> 
-          <td>{{entry.time}}</td>
-        </tr>
-      </ng-container>
-      <ng-container *ngIf="i == 1">
-        <tr class="second">
-          <td>{{entry.name}}</td> 
-          <td>{{entry.time}}</td>
-        </tr>
-      </ng-container>
-      <ng-container *ngIf="i == 2">
-        <tr class="third">
-          <td>{{entry.name}}</td> 
-          <td>{{entry.time}}</td>
-        </tr>
-      </ng-container>
-      <ng-container *ngIf="i >=3">
-        <tr class="others">
-          <td>{{entry.name}}</td> 
-          <td>{{entry.time}}</td>
-        </tr>
-      </ng-container>
-    </ng-container>
-  <tbody>
-</table>
-</div>
 <div class="leaderboardEntry mediumDaily">
   <h2 style="color:cyan">7 Medley</h2>
 <table>
@@ -1404,6 +1364,46 @@
   </thead>
   <tbody>
     <ng-container *ngFor="let entry of _medleyHardScores;
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
+<div class="leaderboardEntry easyDaily">
+  <h2 style="color:red">GAUNTLET</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of _gauntletScores;
     let i=index">
       <ng-container *ngIf="i == 0">
         <tr class="first">
