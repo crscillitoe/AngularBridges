@@ -428,7 +428,13 @@ export class BoardComponentComponent implements OnInit {
                     .subscribe((data: any) => {
                         if(data != null) {
                             this.previousTotalMillis = data.totalTime;
-                            this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+                            
+                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                            var seconds = Math.trunc(data.totalTime / 100) % 60;
+                            var millis = data.totalTime % 100;
+
+                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
                         } else {
 
                         }
@@ -441,7 +447,13 @@ export class BoardComponentComponent implements OnInit {
                     .subscribe((data: any) => {
                         if(data != null) {
                             this.previousTotalMillis = data.totalTime;
-                            this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+
+                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                            var seconds = Math.trunc(data.totalTime / 100) % 60;
+                            var millis = data.totalTime % 100;
+
+                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
                         } else {
 
                         }
