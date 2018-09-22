@@ -10,47 +10,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./leaderboards.component.css']
 })
 export class LeaderboardsComponent implements OnInit {
-  public _40x40scoresHard: any;
-  public _7x7scoresEasy: any;
-  public _7x7scoresMedium: any;
-  public _7x7scoresHard: any;
-  public _7x7scoresExtreme: any;
-  public _10x10scoresEasy: any;
-  public _10x10scoresMedium: any;
-  public _10x10scoresHard: any;
-  public _10x10scoresExtreme: any;
-  public _25x25scoresExtreme: any;
-  public _15x15scoresHard: any;
-  public _100x100scoresHard: any;
-  public _100x100scoresExtreme: any;
-  public _15x15scoresExtreme: any;
-  public _25x25scoresHard: any;
-  public _40x40scoresExtreme: any;
-  public _15x15scoresEasy: any;
-  public _15x15scoresMedium: any;
-  public _25x25scoresEasy: any;
-  public _25x25scoresMedium: any;
-  public _40x40scoresEasy: any;
-  public _40x40scoresMedium: any;
-  public _100x100scoresEasy: any;
-  public _100x100scoresMedium: any;
-  public _80x80scoresEasy: any;
-  public _80x80scoresMedium: any;
-  public _80x80scoresHard: any;
-  public _80x80scoresExtreme: any;
-  public _60x60scoresEasy: any;
-  public _60x60scoresMedium: any;
-  public _60x60scoresHard: any;
-  public _60x60scoresExtreme: any;
-  public _dailyScores: any;
-  public _dailyScoresMedium: any;
-  public _dailyScoresEasy: any;
-  public _dailyScoresExtreme: any;
-  public _gauntletScores: any;
-  public _medleyEasyScores: any;
-  public _medleyMediumScores: any;
-  public _medleyHardScores: any;
-
   public s: any;
   public scores: any;
 
@@ -152,8 +111,8 @@ export class LeaderboardsComponent implements OnInit {
         }
 
         this.scores['' + size + d + ''].sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
+          var aTime = a.totalTime;
+          var bTime = b.totalTime;
           if(aTime < bTime) return -1;
           if(aTime > bTime) return 1;
           return 0;
