@@ -1656,17 +1656,22 @@ export class BoardComponentComponent implements OnInit {
 
     submit() {
         var numNodes = Number(this.route.snapshot.paramMap.get('numNodes'));
+        var m;
         if(!this.daily && this.gauntlet == 0 && !this.medley) {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
-                seed: this.board.initialSeed,
-                pauses: this.timesPaused
-            };
+            if(this.timesPaused > 0) {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                    seed: this.board.initialSeed,
+                    pauses: this.timesPaused
+                };
+            } else {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                    seed: this.board.initialSeed
+                };
+            }
             var board = "";
             if(this.width == 40 && this.height == 40 && numNodes == 500000 && !this.extreme && this.name != "") {
                 board = "40x40hard";
@@ -1746,7 +1751,7 @@ export class BoardComponentComponent implements OnInit {
                         } else if(n == '60') {
                             p = 6;
                         } else if(n == '100') {
-                            p = 8;
+                            p = 7;
                         }
                         let mod = {
                             page: p
@@ -1755,16 +1760,18 @@ export class BoardComponentComponent implements OnInit {
                     });
                 })
         } else if(this.daily && this.gauntlet == 0) {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
-                seed: this.board.initialSeed,
-                pauses: this.timesPaused
-            };
+            if(this.timesPaused > 0) {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                    pauses: this.timesPaused
+                };
+            } else {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                };
+            }
 
             var board = "";
 
@@ -1787,22 +1794,24 @@ export class BoardComponentComponent implements OnInit {
                         .subscribe((data) => {
 
                         let mod = {
-                            page: 7
+                            page: 8
                         }
                         this.router.navigate(['leaderboards', mod]);
                     });
                 })
         } else if(this.gauntlet > 0) {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
-                seed: this.board.initialSeed,
-                pauses: this.timesPaused
-            };
+            if(this.timesPaused > 0) {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                    pauses: this.timesPaused
+                };
+            } else {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                };
+            }
             this._firebaseAuth.auth.currentUser.getIdToken(true)
                 .then((token) => {
                     this.http.put('https://woohoojinbridges.firebaseio.com/gauntlet/'+this.userDetails.uid+'.json?auth=' + token, m)
@@ -1814,16 +1823,18 @@ export class BoardComponentComponent implements OnInit {
                     });
                 })
         } else if(this.medley) {
-            let m = {
-                name: this.name,
-                hours: this.hours,
-                minutes: this.minutes,
-                seconds: this.seconds,
-                millis: this.millis,
-                totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
-                seed: this.board.initialSeed,
-                pauses: this.timesPaused
-            };
+            if(this.timesPaused > 0) {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                    pauses: this.timesPaused
+                };
+            } else {
+                m = {
+                    name: this.name,
+                    totalTime: this.millis + (this.seconds * 100) + (this.minutes * 60 * 100) + (this.hours * 60 * 60 * 100),
+                };
+            }
             this._firebaseAuth.auth.currentUser.getIdToken(true)
                 .then((token) => {
                     this.http.put('https://woohoojinbridges.firebaseio.com/' + this.route.snapshot.paramMap.get('dailyDiff') + '/'+this.userDetails.uid+'.json?auth=' + token, m)

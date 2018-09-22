@@ -52,778 +52,118 @@ export class LeaderboardsComponent implements OnInit {
   public _medleyHardScores: any;
 
   public s: any;
+  public scores: any;
+
+  public difficulties: any = ['easy', 'medium', 'hard', 'extreme'];
+  public sizes: any = ['7x7', '10x10', '15x15', '25x25', '40x40', '60x60', '100x100'];
+
+  toUpper(s) {
+    return s.charAt(0).toUpperCase() + s.substr(1);
+  }
 
     constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { 
-        this.s = Number(this.route.snapshot.paramMap.get('page'));
-        if(this.s == 0) {
-            this.s = 1;
-        }
     }
 
   ngOnInit() {
-    this.http.get('https://woohoojinbridges.firebaseio.com/medley7.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._medleyEasyScores = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._medleyEasyScores.push(data[key]);
-        }
-        this._medleyEasyScores.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._medleyEasyScores = this._medleyEasyScores.slice(0, 10);
-      });
+      this.s = Number(this.route.snapshot.paramMap.get('page'));
+      if(this.s == 0) {
+          this.s = 1;
+      }
 
-    this.http.get('https://woohoojinbridges.firebaseio.com/medley15.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._medleyHardScores = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._medleyHardScores.push(data[key]);
-        }
-        this._medleyHardScores.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._medleyHardScores = this._medleyHardScores.slice(0, 10);
-      });
-    
-    this.http.get('https://woohoojinbridges.firebaseio.com/medley10.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._medleyMediumScores = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._medleyMediumScores.push(data[key]);
-        }
-        this._medleyMediumScores.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._medleyMediumScores = this._medleyMediumScores.slice(0, 10);
-      });
+      this.scores = [];
 
-    this.http.get('https://woohoojinbridges.firebaseio.com/gauntlet.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._gauntletScores = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._gauntletScores.push(data[key]);
+      if(this.s == 1) {
+        this.loadBoards('7x7');
+      } else if(this.s == 2) {
+        this.loadBoards('10x10');
+      } else if(this.s == 3) {
+        this.loadBoards('15x15');
+      } else if(this.s == 4) {
+        this.loadBoards('25x25');
+      } else if(this.s == 5) {
+        this.loadBoards('40x40');
+      } else if(this.s == 6) {
+        this.loadBoards('60x60');
+      } else if(this.s == 7) {
+        this.loadBoards('100x100');
+      } else if(this.s == 8) {
+        this.loadBoards('daily');
+      } else if(this.s == 9) {
+        this.loadBoards('specials');
+      }
+  }
+
+  load(b) {
+    if(b < 8) {
+        if(this.scores['' + this.sizes[b - 1] + 'easy'] == undefined) {
+            this.loadBoards(this.sizes[b - 1]);
         }
-        this._gauntletScores.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._gauntletScores = this._gauntletScores.slice(0, 10);
-      });
+    } else if(b == 8) {
+        if(this.scores['dailyeasy'] == undefined) {
+            this.loadBoards('daily');
+        }
+    } else if(b == 9) {
+        if(this.scores['specialseasy'] == undefined) {
+            this.loadBoards('specials');
+        }
+    }
+
+    this.s = b;
+  }
+
+  loadBoards(size) {
+    this.difficulties.forEach(d => {
+        var requestString = '';
+
+        if(size == 'daily') {
+            var upper = this.toUpper(d);
+            if(upper != 'Hard') {
+                requestString = 'https://woohoojinbridges.firebaseio.com/dailyScores' + upper + '.json?orderBy="totalTime"&limitToFirst=10';
+            } else {
+                requestString = 'https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="totalTime"&limitToFirst=10';
+            }
+        } else if(size == 'specials') {
+            var specialName = '';
+            if(d == 'easy') specialName = 'medley7';
+            if(d == 'medium') specialName = 'medley10';
+            if(d == 'hard') specialName = 'medley15';
+            if(d == 'extreme') specialName = 'gauntlet';
+            requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
+        } else {
+            requestString = 'https://woohoojinbridges.firebaseio.com/' + size + d + '.json?orderBy="totalTime"&limitToFirst=10';
+        }
 
 
-    this.http.get('https://woohoojinbridges.firebaseio.com/dailyScores.json?orderBy="totalTime"&limitToFirst=10')
+      this.http.get(requestString)
       .subscribe((data) => {
-        this._dailyScores = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._dailyScores.push(data[key]);
-        }
-        this._dailyScores.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._dailyScores = this._dailyScores.slice(0, 10);
-      });
+        this.scores['' + size + d + ''] = [];
 
-          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresEasy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._dailyScoresEasy = [];
         for(const key of Object.keys(data)) {
           var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._dailyScoresEasy.push(data[key]);
-        }
-        this._dailyScoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._dailyScoresEasy = this._dailyScoresEasy.slice(0, 10);
-      });
+            
+          var hours =   Math.trunc(temp.totalTime / (60 * 60 * 100));
+          var minutes = Math.trunc(temp.totalTime / (60 * 100)) % 60;
+          var seconds = Math.trunc(temp.totalTime / 100) % 60;
+          var millis = temp.totalTime % 100;
 
-          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresMedium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._dailyScoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
+          (data[key])['time'] = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
           (data[key])['key'] = key;
-          this._dailyScoresMedium.push(data[key]);
+          this.scores['' + size + d + ''].push(data[key]);
         }
-        this._dailyScoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._dailyScoresMedium = this._dailyScoresMedium.slice(0, 10);
-      });
 
-          this.http.get('https://woohoojinbridges.firebaseio.com/dailyScoresExtreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._dailyScoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._dailyScoresExtreme.push(data[key]);
-        }
-        this._dailyScoresExtreme.sort(function(a, b) {
+        this.scores['' + size + d + ''].sort(function(a, b) {
           var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
           var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
           if(aTime < bTime) return -1;
           if(aTime > bTime) return 1;
           return 0;
         });
-        this._dailyScoresExtreme = this._dailyScoresExtreme.slice(0, 10);
       });
-
-    this.http.get('https://woohoojinbridges.firebaseio.com/40x40hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._40x40scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._40x40scoresHard.push(data[key]);
-        }
-        this._40x40scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._40x40scoresHard = this._40x40scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7easy.json?orderBy="totalTime"&limitToFirst=10') .subscribe((data) => { this._7x7scoresEasy = [];
-               for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._7x7scoresEasy.push(data[key]);
-        }
-        this._7x7scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._7x7scoresEasy = this._7x7scoresEasy.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._7x7scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._7x7scoresHard.push(data[key]);
-        }
-        this._7x7scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._7x7scoresHard = this._7x7scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._7x7scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._7x7scoresMedium.push(data[key]);
-        }
-        this._7x7scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._7x7scoresMedium = this._7x7scoresMedium.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/7x7extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._7x7scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._7x7scoresExtreme.push(data[key]);
-        }
-        this._7x7scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._7x7scoresExtreme = this._7x7scoresExtreme.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._25x25scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._25x25scoresExtreme.push(data[key]);
-        }
-        this._25x25scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._25x25scoresExtreme = this._25x25scoresExtreme.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._15x15scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._15x15scoresHard.push(data[key]);
-        }
-        this._15x15scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._15x15scoresHard = this._15x15scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._100x100scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._100x100scoresHard.push(data[key]);
-        }
-        this._100x100scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._100x100scoresHard = this._100x100scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._100x100scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._100x100scoresExtreme.push(data[key]);
-        }
-        this._100x100scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._100x100scoresExtreme = this._100x100scoresExtreme.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._15x15scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._15x15scoresExtreme.push(data[key]);
-        }
-        this._15x15scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._15x15scoresExtreme = this._15x15scoresExtreme.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._25x25scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._25x25scoresHard.push(data[key]);
-        }
-        this._25x25scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._25x25scoresHard = this._25x25scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/40x40extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._40x40scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._40x40scoresExtreme.push(data[key]);
-        }
-        this._40x40scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._40x40scoresExtreme = this._40x40scoresExtreme.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._10x10scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._10x10scoresExtreme.push(data[key]);
-        }
-        this._10x10scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._10x10scoresExtreme = this._10x10scoresExtreme.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._10x10scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._10x10scoresHard.push(data[key]);
-        }
-        this._10x10scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._10x10scoresHard = this._10x10scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._10x10scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._10x10scoresMedium.push(data[key]);
-        }
-        this._10x10scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._10x10scoresMedium = this._10x10scoresMedium.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/10x10easy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._10x10scoresEasy = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._10x10scoresEasy.push(data[key]);
-        }
-        this._10x10scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._10x10scoresEasy = this._10x10scoresEasy.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._15x15scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._15x15scoresMedium.push(data[key]);
-        }
-        this._15x15scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._15x15scoresMedium = this._15x15scoresMedium.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/15x15easy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._15x15scoresEasy = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._15x15scoresEasy.push(data[key]);
-        }
-        this._15x15scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._15x15scoresEasy = this._15x15scoresEasy.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._25x25scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._25x25scoresMedium.push(data[key]);
-        }
-        this._25x25scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._25x25scoresMedium = this._25x25scoresMedium.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/25x25easy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._25x25scoresEasy = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._25x25scoresEasy.push(data[key]);
-        }
-        this._25x25scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._25x25scoresEasy = this._25x25scoresEasy.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/40x40medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._40x40scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._40x40scoresMedium.push(data[key]);
-        }
-        this._40x40scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._40x40scoresMedium = this._40x40scoresMedium.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/40x40easy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._40x40scoresEasy = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._40x40scoresEasy.push(data[key]);
-        }
-        this._40x40scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._40x40scoresEasy = this._40x40scoresEasy.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._100x100scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._100x100scoresMedium.push(data[key]);
-        }
-        this._100x100scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._100x100scoresMedium = this._100x100scoresMedium.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/100x100easy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._100x100scoresEasy = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._100x100scoresEasy.push(data[key]);
-        }
-        this._100x100scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._100x100scoresEasy = this._100x100scoresEasy.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._80x80scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._80x80scoresExtreme.push(data[key]);
-        }
-        this._80x80scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._80x80scoresExtreme = this._80x80scoresExtreme.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._80x80scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._80x80scoresHard.push(data[key]);
-        }
-        this._80x80scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._80x80scoresHard = this._80x80scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._80x80scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._80x80scoresMedium.push(data[key]);
-        }
-        this._80x80scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._80x80scoresMedium = this._80x80scoresMedium.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/80x80easy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._80x80scoresEasy = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._80x80scoresEasy.push(data[key]);
-        }
-        this._80x80scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._80x80scoresEasy = this._80x80scoresEasy.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60extreme.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._60x60scoresExtreme = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._60x60scoresExtreme.push(data[key]);
-        }
-        this._60x60scoresExtreme.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._60x60scoresExtreme = this._60x60scoresExtreme.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60hard.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._60x60scoresHard = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._60x60scoresHard.push(data[key]);
-        }
-        this._60x60scoresHard.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._60x60scoresHard = this._60x60scoresHard.slice(0, 10);
-      });
-
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60medium.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._60x60scoresMedium = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._60x60scoresMedium.push(data[key]);
-        }
-        this._60x60scoresMedium.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._60x60scoresMedium = this._60x60scoresMedium.slice(0, 10);
-      });
-      this.http.get('https://woohoojinbridges.firebaseio.com/60x60easy.json?orderBy="totalTime"&limitToFirst=10')
-      .subscribe((data) => {
-        this._60x60scoresEasy = [];
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-          (data[key])['time'] = (temp.hours ? (temp.hours > 9 ? temp.hours : "0" + temp.hours) : "00") + ":" + (temp.minutes ? (temp.minutes > 9 ? temp.minutes : "0" + temp.minutes) : "00") + ":" + (temp.seconds > 9 ? temp.seconds : "0" + temp.seconds) + "." + (temp.millis > 9 ? temp.millis : "0"+temp.millis);
-          (data[key])['key'] = key;
-          this._60x60scoresEasy.push(data[key]);
-        }
-        this._60x60scoresEasy.sort(function(a, b) {
-          var aTime = (360000*a.hours) + (6000*a.minutes) + (100*a.seconds) + (a.millis);
-          var bTime = (360000*b.hours) + (6000*b.minutes) + (100*b.seconds) + (b.millis);
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
-        this._60x60scoresEasy = this._60x60scoresEasy.slice(0, 10);
-      });
+    });
   }
 
   mainMenu()
   {
-     /*   let m = {
-          name: "Leah",
-          hours: 3,
-          minutes: 40,
-          seconds: 26,
-          millis: 83
-      };
-      this.http.post('https://woohoojinbridges.firebaseio.com/100x100extreme.json', m)
-          .subscribe((data) => {
-          this.router.navigate(['leaderboards']);
-      });*/
       this.router.navigate(['mainMenu']);
   }
 
