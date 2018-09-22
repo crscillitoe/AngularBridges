@@ -78,7 +78,7 @@ hr{
     border-style: solid;
     border-width: 1px;
     background-color: var(--background-color);
-    position: absolute;
+    position: fixed;
     top:30px;
     left:10px;
     vertical-align: middle;
@@ -88,12 +88,21 @@ hr{
     padding-bottom:5px;
 }
 
+.buttonBackground {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 210px;
+    height: calc(100% - 15px);
+    background-color: var(--background-color);
+}
+
 #buttons {
     border-color: var(--grid-color);
     border-style: solid;
     border-width: 1px;
     background-color: var(--background-color);
-    position: absolute;
+    position: fixed;
     top:230px;
     left:10px;
     width:200px;
@@ -117,7 +126,7 @@ hr{
     border-style: solid;
     border-width: 1px;
     background-color: var(--background-color);
-    position: absolute;
+    position: fixed;
     top:164px;
     left:10px;
     vertical-align: middle;
@@ -141,7 +150,7 @@ hr{
     border-style: solid;
     border-width: 1px;
     background-color: var(--background-color);
-    position: absolute;
+    position: fixed;
     top:100px;
     left:10px;
     vertical-align: middle;
@@ -178,7 +187,7 @@ hr{
 }
 
 #memes {
-    position: absolute;
+    position: fixed;
     text-align: center;
     color:#a89984;
     bottom:15px;

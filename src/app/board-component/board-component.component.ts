@@ -17,6 +17,10 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardComponentComponent implements OnInit {
 
+    scrollPressed: boolean;
+    scrollX: number;
+    scrollY: number;
+    scrollMode: boolean;
     medley: any;
     medleyNum: any;
     level: any;
@@ -233,6 +237,7 @@ export class BoardComponentComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        this.scrollMode = false;
         var previousValue = parseInt(localStorage.getItem("build"));
         this.level = Math.trunc((Number(previousValue)) / 1239) + 1;
 
@@ -462,13 +467,25 @@ export class BoardComponentComponent implements OnInit {
     }
 
     mouseMove(mouseEventData) {
-        if(!this.pause) {
-            this.drawMouseX = mouseEventData.clientX - 225;
-            this.drawMouseY = mouseEventData.clientY;
-            this.mouseX = mouseEventData.clientX + window.scrollX;
-            this.mouseY = this.drawMouseY + window.scrollY;
-            
-            this.draw();
+        if(!this.scrollMode) {
+            if(!this.pause) {
+                this.drawMouseX = mouseEventData.clientX - 225;
+                this.drawMouseY = mouseEventData.clientY;
+                this.mouseX = mouseEventData.clientX + window.scrollX;
+                this.mouseY = this.drawMouseY + window.scrollY;
+                
+                this.draw();
+            }
+        } else {
+            console.log(mouseEventData);
+            if(this.scrollPressed) {
+                this.drawMouseX = mouseEventData.clientX - 225;
+                this.drawMouseY = mouseEventData.clientY;
+                this.mouseX = mouseEventData.clientX + window.scrollX;
+                this.mouseY = this.drawMouseY + window.scrollY;
+
+                window.scrollBy(this.scrollX - this.mouseX, this.scrollY - this.mouseY);
+            }
         }
     }
 
@@ -637,6 +654,44 @@ export class BoardComponentComponent implements OnInit {
         this.wrongCircleColor = "#FFFFFF";
 
         this.draw();
+    }
+
+    zoomOut() {
+        this.context.beginPath();
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.canvas.width = this.canvas.width - 300;
+        this.canvas.height = this.canvas.height- 300;
+        this.context.translate(0.5, 0.5)
+        
+        var larger = Math.max(this.width, this.height) + 1;
+        var size = Math.min(this.canvas.offsetWidth, this.canvas.offsetHeight);
+
+        this.factor = Math.floor(size/larger);
+        this.squareSize = this.factor;
+        this.context.font = 'bold '+Math.round(this.factor)+'px Arial';
+        this.xAdd = 0;
+        this.yAdd = 0;
+
+        this.draw();  
+    }
+
+    zoomIn() {
+        this.context.beginPath();
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.canvas.width = this.canvas.width + 300;
+        this.canvas.height = this.canvas.height+ 300;
+        this.context.translate(0.5, 0.5)
+        
+        var larger = Math.max(this.width, this.height) + 1;
+        var size = Math.min(this.canvas.offsetWidth, this.canvas.offsetHeight);
+
+        this.factor = Math.floor(size/larger);
+        this.squareSize = this.factor;
+        this.context.font = 'bold '+Math.round(this.factor)+'px Arial';
+        this.xAdd = 0;
+        this.yAdd = 0;
+
+        this.draw();  
     }
 
     bigBoard() {
@@ -912,24 +967,33 @@ export class BoardComponentComponent implements OnInit {
     }
 
     mousePressed(mouseEventData) {
-        if(!this.pause) {
-            if(!this.solved) {
-                var x = mouseEventData.clientX + window.scrollX;
-                var y = mouseEventData.clientY + window.scrollY;
-                this.pressedX = x;
-                this.pressedY = y;
+        if(!this.scrollMode) {
+            if(!this.pause) {
+                if(!this.solved) {
+                    var x = mouseEventData.clientX + window.scrollX;
+                    var y = mouseEventData.clientY + window.scrollY;
+                    this.pressedX = x;
+                    this.pressedY = y;
 
 
-                var pointX = Math.round(((x - 225))/this.factor);
-                var pointY = Math.round(((y - 0))/this.factor);
+                    var pointX = Math.round(((x - 225))/this.factor);
+                    var pointY = Math.round(((y - 0))/this.factor);
 
-                if(this.isCircleHere(pointX, pointY)) {
-                    this.coloredNode = this.getCircleHere(pointX, pointY);
-                    this.drawCircleRed(this.coloredNode);
-                } else {
-                    this.coloredNode = undefined;
+                    if(this.isCircleHere(pointX, pointY)) {
+                        this.coloredNode = this.getCircleHere(pointX, pointY);
+                        this.drawCircleRed(this.coloredNode);
+                    } else {
+                        this.coloredNode = undefined;
+                    }
                 }
             }
+        } else {
+            var x = mouseEventData.clientX + window.scrollX;
+            var y = mouseEventData.clientY + window.scrollY;
+
+            this.scrollPressed = true;
+            this.scrollX = x;
+            this.scrollY = y;
         }
     }
 
@@ -1525,64 +1589,68 @@ export class BoardComponentComponent implements OnInit {
     }
 
     mouseReleased(mouseEventData) {
-        if(!this.pause) {
-            var x = mouseEventData.clientX + window.scrollX;
-            var y = mouseEventData.clientY + window.scrollY;
-            var button = mouseEventData.button;
-            if(!this.shift) {
-                if(this.coloredNode !== undefined) {
-                    if(Math.abs(this.pressedX - x) > Math.abs(this.pressedY - y)) {
-                        if(this.pressedX > x) {
-                            this.bridgeLeft();
-                            if(button == 2) {
+        if(!this.scrollMode) {
+            if(!this.pause) {
+                var x = mouseEventData.clientX + window.scrollX;
+                var y = mouseEventData.clientY + window.scrollY;
+                var button = mouseEventData.button;
+                if(!this.shift) {
+                    if(this.coloredNode !== undefined) {
+                        if(Math.abs(this.pressedX - x) > Math.abs(this.pressedY - y)) {
+                            if(this.pressedX > x) {
                                 this.bridgeLeft();
-                            }
-                            this.done();
-                            this.draw();
-                        } else {
-                            this.bridgeRight();
-                            if(button == 2) {
+                                if(button == 2) {
+                                    this.bridgeLeft();
+                                }
+                                this.done();
+                                this.draw();
+                            } else {
                                 this.bridgeRight();
+                                if(button == 2) {
+                                    this.bridgeRight();
+                                }
+                                this.done();
+                                this.draw();
                             }
-                            this.done();
-                            this.draw();
-                        }
-                    } else {
-                        if(this.pressedY > y) {
-                            this.bridgeUp();
-                            if(button == 2) {
-                                this.bridgeUp();
-                            }
-                            this.done();
-                            this.draw();
                         } else {
-                            this.bridgeDown();
-                            if(button == 2) {
+                            if(this.pressedY > y) {
+                                this.bridgeUp();
+                                if(button == 2) {
+                                    this.bridgeUp();
+                                }
+                                this.done();
+                                this.draw();
+                            } else {
                                 this.bridgeDown();
+                                if(button == 2) {
+                                    this.bridgeDown();
+                                }
+                                this.done();
+                                this.draw();
                             }
-                            this.done();
-                            this.draw();
                         }
+                        this.coloredNode = undefined;
+                        this.draw();
+                    }
+                } else {
+                    if(button == 2) {
+                        this.numBridgeUp(2);
+                        this.numBridgeDown(2);
+                        this.numBridgeRight(2);
+                        this.numBridgeLeft(2);
+                    } else {
+                        this.numBridgeUp(1);
+                        this.numBridgeDown(1);
+                        this.numBridgeRight(1);
+                        this.numBridgeLeft(1);
                     }
                     this.coloredNode = undefined;
+                    this.done();
                     this.draw();
                 }
-            } else {
-                if(button == 2) {
-                    this.numBridgeUp(2);
-                    this.numBridgeDown(2);
-                    this.numBridgeRight(2);
-                    this.numBridgeLeft(2);
-                } else {
-                    this.numBridgeUp(1);
-                    this.numBridgeDown(1);
-                    this.numBridgeRight(1);
-                    this.numBridgeLeft(1);
-                }
-                this.coloredNode = undefined;
-                this.done();
-                this.draw();
             }
+        } else {
+            this.scrollPressed = false;
         }
     }
 
@@ -1778,6 +1846,9 @@ export class BoardComponentComponent implements OnInit {
     }
 
     keyPressed(event, __this) {
+        if(event.code == "ControlLeft") {
+            __this.scrollMode = true;
+        }
         if(!this.pause) {
             if(!this.solved) {
                 if(event.code == "ShiftLeft") {
@@ -1885,6 +1956,8 @@ export class BoardComponentComponent implements OnInit {
                     }
                 } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
                     this.pauseGame();
+                } else if(event.key == "n" || event.key == "N" && this.gauntlet == 0) {
+                    this.newBoard();
                 }
             }
         } else {
@@ -1895,6 +1968,10 @@ export class BoardComponentComponent implements OnInit {
     }
 
     keyReleased(event, __this) {
+        if(event.code == "ControlLeft") {
+            __this.scrollMode = false;
+            __this.scrollPressed = false;
+        }
         if(event.code == "ShiftLeft") {
             __this.shift = false;
         }

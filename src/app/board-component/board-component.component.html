@@ -16,6 +16,8 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
 
+        <div class="buttonBackground">
+
         <div class="container" id="timerContainer">
             <h1 id="timer"><time>00:00:00</time></h1>
         </div>
@@ -58,21 +60,20 @@
             <button class="btn btn-quick" (click)="fixSizes()">Resize</button>
             <br>
             <br>
-            <button class="btn btn-quick" (click)="bigBoard()">Big Board</button>
-            <ng-container *ngIf="gauntlet > 0">
-                <br>
-                <br>
-                <button class="btn btn-quick" (click)="veryBigBoard()">Very Big Board</button>
-            </ng-container>
+            <button class="btn btn-quick" (click)="zoomIn()">Zoom In</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="zoomOut()">Zoom Out</button>
             <hr>
             <button *ngIf="!daily" class="btn btn-quick-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
             <br>
             <br>
             <button class="btn btn-quick-warning" (click)="back()">Back to Main Menu</button>
-            <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1'" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
+            <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
         </div>
         <div *ngIf="!daily" id="memes">
-            <p>Level: {{level}}<br>Seed: {{board.initialSeed}}<br>Release Version: 9.0.2</p>
+            <p>Level: {{level}}<br>Seed: {{board.initialSeed}}<br>Release Version: 9.0.3</p>
+        </div>
         </div>
     </div>
 </html>
