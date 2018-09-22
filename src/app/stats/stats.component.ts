@@ -106,14 +106,6 @@ export class StatsComponent implements OnInit {
       _7: this._7,
       _8: this._8
     }
-
-    if(this.userDetails != null) {
-      this._firebaseAuth.auth.currentUser.getIdToken(true)
-          .then((token) => {
-              this.http.put('https://woohoojinbridges.firebaseio.com/stats/' + this.userDetails.uid + '.json?auth=' + token, m)
-                  .subscribe((data) => {});
-          })
-    }
   }
 
 }
