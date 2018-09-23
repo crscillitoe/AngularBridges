@@ -50,9 +50,6 @@
             <button class="btn btn-quick" (click)="toggleGrid()">Toggle Grid</button>
             <br>
             <br>
-            <button class="btn btn-quick" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2' || gauntlet > 0">Pause (P)</button>
-            <br>
-            <br>
             <button class="btn btn-quick" (click)="clearBoard()">Clear Board</button>
             <br>
             <br>
@@ -64,9 +61,6 @@
             <br>
             <button class="btn btn-quick" (click)="zoomOut()">Zoom Out</button>
             <hr>
-            <button *ngIf="!daily" class="btn btn-quick-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
-            <br>
-            <br>
             <button class="btn btn-quick-warning" (click)="back()">Back to Main Menu</button>
             <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
         </div>

@@ -422,57 +422,24 @@ export class MedleyModeComponent implements OnInit {
             this.difficulty = "Hard";
         }
 
-        if(this.gauntlet == 0 && !this.medley) {
-            try {
-                this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
-                    .subscribe((data: any) => {
-                        if(data != null) {
-                            this.previousTotalMillis = data.totalTime;
-                            
-                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
-                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
-                            var seconds = Math.trunc(data.totalTime / 100) % 60;
-                            var millis = data.totalTime % 100;
+        try {
+            this.http.get('https://woohoojinbridges.firebaseio.com/' + this.route.snapshot.paramMap.get('dailyDiff') + '/' + this.userDetails.uid + '.json')
+                .subscribe((data: any) => {
+                    if(data != null) {
+                        this.previousTotalMillis = data.totalTime;
 
-                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
-                        } else {
+                        var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                        var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                        var seconds = Math.trunc(data.totalTime / 100) % 60;
+                        var millis = data.totalTime % 100;
 
-                        }
-                    });
-            } catch {
-            }
-        } else if(this.gauntlet > 0) {
-            try {
-                this.http.get('https://woohoojinbridges.firebaseio.com/gauntlet/' + this.userDetails.uid + '.json')
-                    .subscribe((data: any) => {
-                        if(data != null) {
-                            this.previousTotalMillis = data.totalTime;
+                        this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
+                    } else {
 
-                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
-                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
-                            var seconds = Math.trunc(data.totalTime / 100) % 60;
-                            var millis = data.totalTime % 100;
+                    }
+                });
+        } catch {
 
-                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
-                        } else {
-
-                        }
-                    });
-            } catch {
-            }
-        } else if(this.medley) {
-            try {
-                this.http.get('https://woohoojinbridges.firebaseio.com/' + this.route.snapshot.paramMap.get('dailyDiff') + '/' + this.userDetails.uid + '.json')
-                    .subscribe((data: any) => {
-                        if(data != null) {
-                            this.previousTotalMillis = data.totalTime;
-                            this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
-                        } else {
-
-                        }
-                    });
-            } catch {
-            }
         }
 
         this.fixSizes();
@@ -1979,8 +1946,6 @@ export class MedleyModeComponent implements OnInit {
                     }
                 } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
                     this.pauseGame();
-                } else if(event.key == "n" || event.key == "N" && this.gauntlet == 0) {
-                    this.newBoard();
                 }
             }
         } else {

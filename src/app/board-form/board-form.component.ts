@@ -64,7 +64,31 @@ export class BoardFormComponent implements OnInit {
         this.model.extreme = false;
         this.model.seed = 0;
         this.model.gauntlet = 1;
-        this.router.navigate(['normal-mode', this.model]);
+        this.router.navigate(['gauntlet-mode', this.model]);
+    }
+
+    onSubmitMedley() { 
+        if(this.model.getWidth() < 7 || this.model.getHeight() < 7
+        || this.model.getWidth() > 100 || this.model.getHeight() > 100) {
+            
+        } else {
+            if(this.difficulty == 'easy') {
+                this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;
+                this.model.extreme = false;
+            } else if(this.difficulty == 'medium') {
+                this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;     
+                this.model.extreme = false;
+            } else if(this.difficulty == 'hard') {
+                this.model.numNodes = 500000;  
+                this.model.extreme = false;
+            } else if(this.difficulty == 'extreme') {
+                this.model.numNodes = 500000;
+                this.model.extreme = true;
+            }
+            this.model.seed = this.seed;
+            this.model.gauntlet = 0;
+            this.router.navigate(['medley-mode', this.model]);
+        }
     }
 
     onSubmit() { 
@@ -509,19 +533,19 @@ export class BoardFormComponent implements OnInit {
             this.model.height = 7;
             this.difficulty = 'easy';
             this.model.dailyDiff = "medley7";
-            this.onSubmit();
+            this.onSubmitMedley();
         } else if(size == 10) {
             this.model.width = 10;
             this.model.height = 10;
             this.difficulty = 'medium';
             this.model.dailyDiff = "medley10";
-            this.onSubmit();
+            this.onSubmitMedley();
         } else if(size == 15) {
             this.model.width = 15;
             this.model.height = 15;
             this.difficulty = 'hard';
             this.model.dailyDiff = "medley15";
-            this.onSubmit();
+            this.onSubmitMedley();
         }
     }
 

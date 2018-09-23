@@ -64,9 +64,6 @@
             <br>
             <button class="btn btn-quick" (click)="zoomOut()">Zoom Out</button>
             <hr>
-            <button *ngIf="!daily" class="btn btn-quick-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
-            <br>
-            <br>
             <button class="btn btn-quick-warning" (click)="back()">Back to Main Menu</button>
             <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
         </div>

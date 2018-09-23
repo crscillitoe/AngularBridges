@@ -1977,15 +1977,7 @@ export class GauntletModeComponent implements OnInit {
                         this.draw();
                         this.coloredNode = undefined;
                     }
-                } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
-                    this.pauseGame();
-                } else if(event.key == "n" || event.key == "N" && this.gauntlet == 0) {
-                    this.newBoard();
                 }
-            }
-        } else {
-            if(event.key == "p" || event.key == "P" || event.key == "Escape") {
-                this.pauseGame();
             }
         }
     }
