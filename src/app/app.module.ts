@@ -19,6 +19,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RulesComponent } from './rules/rules.component';
 import { StatsComponent } from './stats/stats.component';
+import { NormalModeComponent } from './normal-mode/normal-mode.component';
+import { GauntletModeComponent } from './gauntlet-mode/gauntlet-mode.component';
+import { MedleyModeComponent } from './medley-mode/medley-mode.component';
 
 
 const appRoutes: Routes = [
@@ -37,7 +40,10 @@ const appRoutes: Routes = [
     BoardComponentComponent,
     LeaderboardsComponent,
     RulesComponent,
-    StatsComponent
+    StatsComponent,
+    NormalModeComponent,
+    GauntletModeComponent,
+    MedleyModeComponent
   ],
   imports: [
       BrowserModule,
