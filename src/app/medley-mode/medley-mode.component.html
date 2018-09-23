@@ -1,3 +1,78 @@
-<p>
-  medley-mode works!
-</p>
+<html>
+        
+    <div class="container" id="gameScreen" onresize="fixSizes()" (contextmenu)="contextMenu()">
+            <img id="mouseImage" src="assets/mouse.png" style="display: none;">
+            <img id="mouseHoverImage" src="assets/mouseHover.png" style="display: none;">
+
+            <canvas id="myCanvas" width="1500" height="800"></canvas>
+
+        <div id="barContainer">
+            <div id="progress">
+              <div id="bar">
+              </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
+
+        <div class="buttonBackground">
+
+        <div class="container" id="timerContainer">
+            <h1 id="timer"><time>00:00:00</time></h1>
+        </div>
+
+        <ng-container *ngIf="!daily">
+            <ng-container *ngIf="gauntlet == 0 && !medley">
+                <h1 class="difficulty">{{difficulty}}</h1>
+                <h1 class="previousTime">{{previousTime}}</h1>
+            </ng-container>
+            <ng-container *ngIf="gauntlet > 0">
+                <h1 class="difficulty">{{gauntlet}}/20</h1>
+                <h1 class="previousTime">{{width}}x{{height}}</h1>
+            </ng-container>
+            <ng-container *ngIf="medley">
+                <h1 class="difficulty">{{medleyNum}}/100</h1>
+                <h1 class="previousTime">{{previousTime}}</h1>
+            </ng-container>
+        </ng-container>
+
+        <div class="container" id="buttons">
+            <label *ngIf="solved && ((seed == 0 && !daily) || (daily))" id="label">Enter your name
+                <p style="color:red" *ngIf="!isLoggedIn()">You are not logged in! You cannot submit scores. Log in using a google account
+                                                            on the main menu.</p>
+                <input class="form-control" *ngIf="solved && ((seed == 0 && !daily) || (daily)) && isLoggedIn()" type="text" [(ngModel)]="name" maxlength="10">
+            </label>
+            <button *ngIf="solved && ((seed == 0 && !daily) || (daily))" class="btn btn-quick-submit" [disabled]="worseTime && !daily" (click)="submit()">Submit</button>
+            <hr *ngIf="solved && seed == 0">
+            <button class="btn btn-quick" (click)="toggleLetters()">Toggle Numbers</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="toggleGrid()">Toggle Grid</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2' || gauntlet > 0">Pause (P)</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="clearBoard()">Clear Board</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="fixSizes()">Resize</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="zoomIn()">Zoom In</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="zoomOut()">Zoom Out</button>
+            <hr>
+            <button *ngIf="!daily" class="btn btn-quick-newboard" (click)="newBoard()" [disabled]="gauntlet > 0">New Board</button>
+            <br>
+            <br>
+            <button class="btn btn-quick-warning" (click)="back()">Back to Main Menu</button>
+            <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
+        </div>
+        <div *ngIf="!daily" id="memes">
+            <p>Level: {{level}}<br>Seed: {{board.initialSeed}}<br>Release Version: 9.0.3</p>
+        </div>
+        </div>
+    </div>
+</html>

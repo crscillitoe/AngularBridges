@@ -27,7 +27,9 @@ import { MedleyModeComponent } from './medley-mode/medley-mode.component';
 const appRoutes: Routes = [
     { path: '', component: BoardFormComponent},
     { path: 'mainMenu', component: BoardFormComponent},
-    { path: 'routedPage', component: BoardComponentComponent },
+    { path: 'normal-mode', component: NormalModeComponent },
+    { path: 'gauntlet-mode', component: GauntletModeComponent },
+    { path: 'medley-mode', component: MedleyModeComponent },
     { path: 'leaderboards', component: LeaderboardsComponent},
     { path: 'rules', component: RulesComponent},
     { path: 'stats', component: StatsComponent}

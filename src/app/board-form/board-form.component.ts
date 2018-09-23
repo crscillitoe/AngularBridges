@@ -64,7 +64,7 @@ export class BoardFormComponent implements OnInit {
         this.model.extreme = false;
         this.model.seed = 0;
         this.model.gauntlet = 1;
-        this.router.navigate(['routedPage', this.model]);
+        this.router.navigate(['normal-mode', this.model]);
     }
 
     onSubmit() { 
@@ -87,7 +87,7 @@ export class BoardFormComponent implements OnInit {
             }
             this.model.seed = this.seed;
             this.model.gauntlet = 0;
-            this.router.navigate(['routedPage', this.model]);
+            this.router.navigate(['normal-mode', this.model]);
         }
     }
 

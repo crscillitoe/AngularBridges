@@ -1,0 +1,195 @@
+#barContainer {
+    position:fixed;
+    width: 100%;
+    bottom: 0pt;
+    left: 0pt;
+}
+
+#progress {
+    width: 100%;
+    background-color: grey;
+}
+
+#bar {
+    width: 50%;
+    height: 15px;
+    background-color: green;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.btn-outline {
+    width: 100%;
+    background-color: var(--background-color);
+    border-color: var(--grid-color);
+    border-style: solid;
+    color: var(--grid-color);
+    outline: 5px;
+    margin:auto;
+}
+
+.btn-outline-done {
+    width: 100%;
+    background-color: var(--background-color);
+    border-color: var(--done-color);
+    border-style: solid;
+    color: var(--done-color);
+    outline: 5px;
+    margin:auto;
+    }
+hr{
+    border: 1px solid var(--grid-color);
+}
+
+#label {
+    color: var(--grid-color);
+}
+
+.btn-quick, .btn-quick-newboard, .btn-quick-warning, .btn-quick-submit {
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.btn-outline-back {
+    width: 100%;
+    background-color: var(--background-color);
+    border-color: var(--back-color);
+    border-style: solid;
+    color: var(--back-color);
+    outline: 5px;
+    margin:auto;
+}
+
+.btn-outline-newboard {
+    width: 100%;
+    background-color: var(--background-color);
+    border-color: var(--newboard-color);
+    border-style: solid;
+    color: var(--newboard-color);
+    outline: 5px;
+    margin:auto;
+}
+
+#timerContainer {
+    border-color: var(--grid-color);
+    border-style: solid;
+    border-width: 1px;
+    background-color: var(--background-color);
+    position: fixed;
+    top:30px;
+    left:10px;
+    vertical-align: middle;
+    width:200px;
+    padding-left:4px;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.buttonBackground {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 210px;
+    height: calc(100% - 15px);
+    background-color: var(--background-color);
+}
+
+#buttons {
+    border-color: var(--grid-color);
+    border-style: solid;
+    border-width: 1px;
+    background-color: var(--background-color);
+    position: fixed;
+    top:230px;
+    left:10px;
+    width:200px;
+    padding-top:15px;
+    padding-bottom:15px;
+    display: block;
+}
+.previousTime {
+    color: var(--timer-color);
+    background-color: var(--background-color);
+    width:200px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: auto;
+    text-align: center;
+    border-color: var(--grid-color);
+    border-style: solid;
+    border-width: 1px;
+    background-color: var(--background-color);
+    position: fixed;
+    top:164px;
+    left:10px;
+    vertical-align: middle;
+    width:200px;
+    height:50px;
+    padding-top:3px;
+}
+.difficulty {
+    color: var(--timer-color);
+    background-color: var(--background-color);
+    width:200px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: auto;
+    text-align: center;
+    border-color: var(--grid-color);
+    border-style: solid;
+    border-width: 1px;
+    background-color: var(--background-color);
+    position: fixed;
+    top:100px;
+    left:10px;
+    vertical-align: middle;
+    width:200px;
+    height:50px;
+    padding-top:3px;
+}
+
+#timer {
+    color: var(--timer-color);
+    background-color: var(--background-color);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: auto;
+}
+
+
+#myCanvas {
+    position: absolute;
+    cursor: url(mouse.png), auto;
+    left: 225px;
+    top:0px;
+    background-color: var(--background-color);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#memes {
+    position: fixed;
+    text-align: center;
+    color:#a89984;
+    bottom:15px;
+    left:5px;
+}
