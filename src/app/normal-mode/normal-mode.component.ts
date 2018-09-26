@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class NormalModeComponent implements OnInit {
 
+    displayCoords: boolean;
     scrollPressed: boolean;
     scrollX: number;
     scrollY: number;
@@ -237,6 +238,7 @@ export class NormalModeComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        this.displayCoords = false;
         this.scrollMode = false;
         var previousValue = parseInt(localStorage.getItem("build"));
         this.level = Math.trunc((Number(previousValue)) / 1239) + 1;
@@ -815,6 +817,20 @@ export class NormalModeComponent implements OnInit {
                 this.context.stroke();
             }
         }
+
+      if(this.displayCoords) {
+        var x = 0;
+        var y = 0;
+        for(x = 1 ; x <= this.width ; x++) {
+          for(y = 1; y <= this.height ; y++) {
+            var circleX = this.xAdd + (x * (this.factor));
+            var circleY = this.yAdd + (y * (this.factor));
+            this.context.font = 'bold '+Math.round(this.factor/5)+'px Arial';
+            this.context.fillStyle = this.gridColor;
+            this.context.fillText(""+ x + "," + y + "", circleX, circleY);
+          }
+        }
+      }
     }
 
     drawCircles() {
@@ -829,6 +845,7 @@ export class NormalModeComponent implements OnInit {
         var circleY = (node.getY() * (this.factor)) - this.factor/2;
 
         var circleString = "" + node.getVal();
+        this.context.font = 'bold '+Math.round(this.factor)+'px Arial';
 
         if(node.getVal() - this.getNumBridges(node) >= 0) {
             this.context.fillStyle = this.circleColor[node.getVal() - this.getNumBridges(node)];
@@ -2232,6 +2249,11 @@ export class NormalModeComponent implements OnInit {
                 this.solved = true;
             }
         }
+    }
+
+    toggleCoords() {
+      this.displayCoords = !this.displayCoords;
+      this.draw();
     }
 
     isLoggedIn() {
