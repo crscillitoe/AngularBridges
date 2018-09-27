@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     StatsComponent,
     NormalModeComponent,
     GauntletModeComponent,
-    MedleyModeComponent
+    MedleyModeComponent,
   ],
   imports: [
       BrowserModule,

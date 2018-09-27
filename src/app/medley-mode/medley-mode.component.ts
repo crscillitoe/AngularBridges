@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class MedleyModeComponent implements OnInit {
 
+    version: string;
     scrollPressed: boolean;
     scrollX: number;
     scrollY: number;
@@ -233,6 +234,7 @@ export class MedleyModeComponent implements OnInit {
             this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet, null);
             this.board.generateBoard();
         }
+        this.version = this.board.version;
     }
 
     // Initializes data

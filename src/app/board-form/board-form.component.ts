@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class BoardFormComponent implements OnInit {
 
+    version: string;
     difficulty: string;
     seed: any;
     hotkeys: boolean;
@@ -494,6 +495,7 @@ export class BoardFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.version = this.model.version;
         this.canPlayDailyEasy = true;
         this.canPlayDailyMedium = true;
         this.canPlayDailyHard = true;

@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class NormalModeComponent implements OnInit {
 
+    version: string;
     displayCoords: boolean;
     scrollPressed: boolean;
     scrollX: number;
@@ -234,6 +235,8 @@ export class NormalModeComponent implements OnInit {
             this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet, null);
             this.board.generateBoard();
         }
+        
+        this.version = this.board.version;
     }
 
     // Initializes data
