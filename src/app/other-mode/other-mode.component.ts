@@ -9,15 +9,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-medley-mode',
-  templateUrl: './medley-mode.component.html',
-  styleUrls: ['./medley-mode.component.css']
+  selector: 'app-other-mode',
+  templateUrl: './other-mode.component.html',
+  styleUrls: ['./other-mode.component.css']
 })
 
 @Injectable()
-export class MedleyModeComponent implements OnInit {
+export class OtherModeComponent implements OnInit {
 
+
+    timePaused: any;
+    startPause: any;
     version: string;
+    displayCoords: boolean;
     scrollPressed: boolean;
     scrollX: number;
     scrollY: number;
@@ -77,6 +81,8 @@ export class MedleyModeComponent implements OnInit {
 
     gauntlet: number;
 
+    startDate: any;
+
     private user: Observable<firebase.User>;
     private userDetails: firebase.User = null;
 
@@ -113,6 +119,9 @@ export class MedleyModeComponent implements OnInit {
         }
         this.seed = 0;
 
+
+        this.timePaused = 0;
+        this.startPause = null;
         this.generateFairBoard(numNodes);
         this.name = "";
         this.millis = 0;
@@ -125,6 +134,8 @@ export class MedleyModeComponent implements OnInit {
         }
 
         this.solved = false;
+
+        this.startDate = new Date();
         this.draw();
     }
 
@@ -234,11 +245,14 @@ export class MedleyModeComponent implements OnInit {
             this.board = new Board(this.width, this.height, numNodes, this.extreme, 0, null, null, null, null, null, this.gauntlet, null);
             this.board.generateBoard();
         }
+        
         this.version = this.board.version;
     }
 
     // Initializes data
     ngOnInit() {
+        
+        this.displayCoords = false;
         this.scrollMode = false;
         var previousValue = parseInt(localStorage.getItem("build"));
         this.level = Math.trunc((Number(previousValue)) / 1239) + 1;
@@ -246,6 +260,8 @@ export class MedleyModeComponent implements OnInit {
         var elem = document.getElementById("bar");
         elem.style.width = this.getProgress(previousValue) + '%';
 
+        this.timePaused = 0;
+        this.startPause = null;
         this.skip = false;
         this.timesPaused = 0;
         this.worseTime = true;
@@ -424,26 +440,66 @@ export class MedleyModeComponent implements OnInit {
             this.difficulty = "Hard";
         }
 
-        try {
-            this.http.get('https://woohoojinbridges.firebaseio.com/' + this.route.snapshot.paramMap.get('dailyDiff') + '/' + this.userDetails.uid + '.json')
-                .subscribe((data: any) => {
-                    if(data != null) {
-                        this.previousTotalMillis = data.totalTime;
+        if(this.gauntlet == 0 && !this.medley) {
+            try {
+                this.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + this.userDetails.uid + '.json')
+                    .subscribe((data: any) => {
+                        if(data != null) {
+                            this.previousTotalMillis = data.totalTime;
+                            
+                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                            var seconds = Math.trunc(data.totalTime / 100) % 60;
+                            var millis = data.totalTime % 100;
 
-                        var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
-                        var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
-                        var seconds = Math.trunc(data.totalTime / 100) % 60;
-                        var millis = data.totalTime % 100;
+                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
+                        } else {
 
-                        this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
-                    } else {
+                        }
+                    });
+            } catch {
+            }
+        } else if(this.gauntlet > 0) {
+            try {
+                this.http.get('https://woohoojinbridges.firebaseio.com/gauntlet/' + this.userDetails.uid + '.json')
+                    .subscribe((data: any) => {
+                        if(data != null) {
+                            this.previousTotalMillis = data.totalTime;
 
-                    }
-                });
-        } catch {
+                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                            var seconds = Math.trunc(data.totalTime / 100) % 60;
+                            var millis = data.totalTime % 100;
 
+                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
+                        } else {
+
+                        }
+                    });
+            } catch {
+            }
+        } else if(this.medley) {
+            try {
+                this.http.get('https://woohoojinbridges.firebaseio.com/' + this.route.snapshot.paramMap.get('dailyDiff') + '/' + this.userDetails.uid + '.json')
+                    .subscribe((data: any) => {
+                        if(data != null) {
+                            this.previousTotalMillis = data.totalTime;
+
+                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                            var seconds = Math.trunc(data.totalTime / 100) % 60;
+                            var millis = data.totalTime % 100;
+
+                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
+                        } else {
+
+                        }
+                    });
+            } catch {
+            }
         }
 
+        this.startDate = new Date();
         this.fixSizes();
     }
 
@@ -454,11 +510,8 @@ export class MedleyModeComponent implements OnInit {
                 this.drawMouseY = mouseEventData.clientY;
                 this.mouseX = mouseEventData.clientX + window.scrollX;
                 this.mouseY = this.drawMouseY + window.scrollY;
-                
-                this.draw();
             }
         } else {
-            console.log(mouseEventData);
             if(this.scrollPressed) {
                 this.drawMouseX = mouseEventData.clientX - 225;
                 this.drawMouseY = mouseEventData.clientY;
@@ -467,15 +520,6 @@ export class MedleyModeComponent implements OnInit {
 
                 window.scrollBy(this.scrollX - this.mouseX, this.scrollY - this.mouseY);
             }
-        }
-    }
-
-    drawMouse() {
-        var pointX = Math.round(((this.mouseX - 225))/this.factor);
-        var pointY = Math.round(((this.mouseY - 0))/this.factor);
-        var img;
-        if(this.isCircleHere(pointX, pointY)) {
-            this.drawCircleOutline(this.getCircleHere(pointX, pointY));
         }
     }
 
@@ -493,29 +537,37 @@ export class MedleyModeComponent implements OnInit {
 
     add(___this) {
         var h1 = document.getElementsByTagName("h1")[0];
-        if(!this.pause) {
-            ___this.millis++;
-            if(___this.millis >= 100) {
-                ___this.millis = 0
-                ___this.seconds++;
-                if (___this.seconds >= 60) {
-                    ___this.seconds = 0;
-                    ___this.minutes++;
-                    if (___this.minutes >= 60) {
-                        ___this.minutes = 0;
-                        ___this.hours++;
-                    }
-                }
-            }
-                h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds) + "." + (___this.millis > 9 ? ___this.millis : "0"+___this.millis);
+
+        if(!this.pause && !this.solved) {
+          var now = +new Date();
+
+          if(this.startPause != null) {
+            this.timePaused += ((now - this.startPause)/10);
+            this.startPause = null;
+          }
+
+          var diff = ((now - this.startDate)/10) - this.timePaused;
+
+          ___this.hours = Math.trunc(diff / (60 * 60 * 100));
+          ___this.minutes = Math.trunc(diff / (60 * 100)) % 60;
+          ___this.seconds = Math.trunc(diff / 100) % 60;
+          ___this.millis = Math.trunc(diff % 100);
+          
+
+                h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds);
+        } else {
+          if(this.startPause == null) {
+            this.startPause = new Date();
+          }
         }
+
         ___this.timer();
     }
 
     timer() {
         if(!this.solved) {
             var ___this = this;
-            this.t = setTimeout(function() {___this.add(___this)}, 10);
+            this.t = setTimeout(function() {___this.add(___this)}, 1000);
         }
     }
 
@@ -746,10 +798,6 @@ export class MedleyModeComponent implements OnInit {
         this.drawGrid();    
         this.drawBridges();
         this.drawCircles();
-        if(this.coloredNode != undefined) {
-            this.drawCircleRed(this.coloredNode);
-        }
-        this.drawMouse();
     }
 
     drawGrid() {
@@ -784,6 +832,20 @@ export class MedleyModeComponent implements OnInit {
                 this.context.stroke();
             }
         }
+
+      if(this.displayCoords) {
+        var x = 0;
+        var y = 0;
+        for(x = 1 ; x <= this.width ; x++) {
+          for(y = 1; y <= this.height ; y++) {
+            var circleX = this.xAdd + (x * (this.factor));
+            var circleY = this.yAdd + (y * (this.factor));
+            this.context.font = 'bold '+Math.round(this.factor/5)+'px Arial';
+            this.context.fillStyle = this.gridColor;
+            this.context.fillText(""+ x + "," + y + "", circleX, circleY);
+          }
+        }
+      }
     }
 
     drawCircles() {
@@ -798,6 +860,7 @@ export class MedleyModeComponent implements OnInit {
         var circleY = (node.getY() * (this.factor)) - this.factor/2;
 
         var circleString = "" + node.getVal();
+        this.context.font = 'bold '+Math.round(this.factor)+'px Arial';
 
         if(node.getVal() - this.getNumBridges(node) >= 0) {
             this.context.fillStyle = this.circleColor[node.getVal() - this.getNumBridges(node)];
@@ -1047,7 +1110,15 @@ export class MedleyModeComponent implements OnInit {
 
                         this.context.strokeStyle = this.bridgeColor;
                         this.context.lineWidth = this.factor/10;
-                        this.context.strokeRect(n1x, n1y, n2x-n1x, n2y-n1y);
+                        if(n1x === n2x) {
+                            var b1x = n1x - this.factor/5;
+                            var b2x = n2x - this.factor/5;
+                            this.context.strokeRect(b1x, n1y, (b2x-b1x) * bridge.width1, (n2y-n1y) * bridge.width1);
+                        } else {
+                            var b1y = n1y - this.factor/5;
+                            var b2y = n2y - this.factor/5;
+                            this.context.strokeRect(n1x, b1y, (n2x-n1x) * bridge.width1, (b2y-b1y) * bridge.width1);
+                        }
                     } else {
                         var n1x = this.xAdd + (bridge.getN1().getX() * (this.factor));
                         var n1y = this.yAdd + (bridge.getN1().getY() * (this.factor));
@@ -1060,8 +1131,8 @@ export class MedleyModeComponent implements OnInit {
                             var b4x = n2x + this.factor/5;
                             this.context.strokeStyle = this.bridgeColor;
                             this.context.lineWidth = this.factor/10;
-                            this.context.strokeRect(b1x, n1y, b2x-b1x, (n2y-n1y));
-                            this.context.strokeRect(b3x, n1y, b4x-b3x, (n2y-n1y));
+                            this.context.strokeRect(b1x, n1y, (b2x-b1x) * bridge.width1, (n2y-n1y) * bridge.width1);
+                            this.context.strokeRect(b3x, n1y, (b4x-b3x) * bridge.width2, (n2y-n1y) * bridge.width2);
                         } else {
                             var b1y = n1y - this.factor/5;
                             var b2y = n2y - this.factor/5;
@@ -1069,8 +1140,8 @@ export class MedleyModeComponent implements OnInit {
                             var b4y = n2y + this.factor/5;
                             this.context.strokeStyle = this.bridgeColor;
                             this.context.lineWidth = this.factor/10;
-                            this.context.strokeRect(n1x, b1y, (n2x-n1x), (b2y-b1y));
-                            this.context.strokeRect(n1x, b3y, (n2x-n1x), (b4y-b3y));
+                            this.context.strokeRect(n1x, b1y, (n2x-n1x) * bridge.width1, (b2y-b1y) * bridge.width1);
+                            this.context.strokeRect(n1x, b3y, (n2x-n1x) * bridge.width2, (b4y-b3y) * bridge.width2);
                         }
                     }
                 }
@@ -1100,9 +1171,11 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1113,11 +1186,46 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
             }
         }
+    }
+
+    growBridge(bridge) {
+      var that = this;
+      this.bridgeGrowTimer(bridge, 0.01, that);
+      if(bridge.num == 2) {
+        this.bridgeGrowTimer2(bridge, 0.01, that);
+      }
+    }
+
+    bridgeGrowTimer2(bridge, speed, that) {
+      if(bridge.width2 == 1) {
+        that.draw();
+      } else if(bridge.width2 + speed >= 1) {
+        bridge.width2 = 1;
+        that.draw();
+      } else {
+        bridge.width2 += speed;
+        that.draw();
+        setTimeout(function() { that.bridgeGrowTimer2(bridge, speed, that) }, 1);
+      }
+    }
+
+    bridgeGrowTimer(bridge, speed, that) {
+      if(bridge.width1 == 1) {
+        that.draw();
+      } else if(bridge.width1 + speed >= 1) {
+        bridge.width1 = 1;
+        that.draw();
+      } else {
+        bridge.width1 += speed;
+        that.draw();
+        setTimeout(function() { that.bridgeGrowTimer(bridge, speed, that) }, 1);
+      }
     }
 
     specialBridgeUp() {
@@ -1140,9 +1248,12 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
+                            bridge.width2 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1153,6 +1264,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1181,6 +1293,7 @@ export class MedleyModeComponent implements OnInit {
                             this.addConstructedBridges(2 - bridge.getNum());
                         }
                         bridge.setNum(num);
+                        this.growBridge(bridge);
                         bridgeExists = true;
                     }
                 }
@@ -1190,6 +1303,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1218,6 +1332,7 @@ export class MedleyModeComponent implements OnInit {
                             this.addConstructedBridges(2 - bridge.getNum());
                         }
                         bridge.setNum(num);
+                        this.growBridge(bridge);
                         bridgeExists = true;
                     }
                 }
@@ -1227,6 +1342,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1254,9 +1370,12 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
+                            bridge.width2 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1267,6 +1386,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1294,9 +1414,12 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
+                            bridge.width2 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1307,6 +1430,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1334,9 +1458,12 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
+                            bridge.width2 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1347,6 +1474,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1396,6 +1524,7 @@ export class MedleyModeComponent implements OnInit {
                             this.addConstructedBridges(2 - bridge.getNum());
                         }
                         bridge.setNum(num);
+                        this.growBridge(bridge);
                         bridgeExists = true;
                     }
                 }
@@ -1405,6 +1534,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1432,9 +1562,12 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
+                            bridge.width2 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1445,6 +1578,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1473,6 +1607,7 @@ export class MedleyModeComponent implements OnInit {
                             this.addConstructedBridges(2 - bridge.getNum());
                         }
                         bridge.setNum(num);
+                        this.growBridge(bridge);
                         bridgeExists = true;
                     }
                 }
@@ -1482,6 +1617,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, num);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1509,9 +1645,12 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
+                            bridge.width2 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(2);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1522,6 +1661,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 2);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1549,9 +1689,12 @@ export class MedleyModeComponent implements OnInit {
                         if(bridge.getNum() === 2) {
                             this.addDestroyedBridges(2);
                             bridge.setNum(0);
+                            bridge.width1 = 0;
+                            bridge.width2 = 0;
                         } else {
                             this.addConstructedBridges(2 - bridge.getNum());
                             bridge.setNum(bridge.getNum() + 1);
+                            this.growBridge(bridge);
                         }
                         bridgeExists = true;
                     }
@@ -1562,6 +1705,7 @@ export class MedleyModeComponent implements OnInit {
                     var bridge = new Bridge(this.coloredNode, toBridgeTo, 1);
                     this.coloredNode.addBridge(bridge);
                     toBridgeTo.addBridge(bridge);
+                    this.growBridge(bridge);
                 }
 
                 return;
@@ -1948,7 +2092,7 @@ export class MedleyModeComponent implements OnInit {
                     }
                 } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
                     this.pauseGame();
-                }
+                }            
             }
         } else {
             if(event.key == "p" || event.key == "P" || event.key == "Escape") {
@@ -1979,6 +2123,24 @@ export class MedleyModeComponent implements OnInit {
                 }
             }
         }
+
+
+        var now = +new Date();
+
+        if(this.startPause != null) {
+          this.timePaused += ((now - this.startPause)/10);
+          this.startPause = null;
+        }
+
+        var diff = ((now - this.startDate)/10) - this.timePaused;
+
+        this.hours = Math.trunc(diff / (60 * 60 * 100));
+        this.minutes = Math.trunc(diff / (60 * 100)) % 60;
+        this.seconds = Math.trunc(diff / 100) % 60;
+        this.millis = Math.trunc(diff % 100);
+
+        var h1 = document.getElementsByTagName("h1")[0];
+        h1.textContent = (this.hours ? (this.hours > 9 ?this.hours : "0" +this.hours) : "00") + ":" + (this.minutes ? (this.minutes > 9 ?this.minutes : "0" +this.minutes) : "00") + ":" + (this.seconds > 9 ?this.seconds : "0" +this.seconds) + "." + (this.millis > 9 ?this.millis : "0"+this.millis);
 
         if(this.gauntlet == 0 && !this.medley) {
             var previousValue = parseInt(localStorage.getItem("win"));
@@ -2201,6 +2363,11 @@ export class MedleyModeComponent implements OnInit {
         }
     }
 
+    toggleCoords() {
+      this.displayCoords = !this.displayCoords;
+      this.draw();
+    }
+
     isLoggedIn() {
         if (this.userDetails == null ) {
             return false;
@@ -2213,6 +2380,8 @@ export class MedleyModeComponent implements OnInit {
         for(let n of this.board.getNodes()) {
             for(let b of n.getBridges()) {
                 b.setNum(0);
+                b.width1 = 0;
+                b.width2 = 0;
             }
         }
         this.draw();

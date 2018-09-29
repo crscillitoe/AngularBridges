@@ -32,6 +32,11 @@
                     <option value="night" class="togglebutton" [selected]="model.theme=='night'">Night Theme</option>
                     <option value="colorblind" class="togglebutton" [selected]="model.theme=='colorblind'">Colorblind Theme</option>
                 </select>
+                
+                <select id="buttons2" (change)="changeAnimation($event.target.value)">
+                    <option value="off" class="togglebutton">Animations Off</option>
+                    <option value="on" class="togglebutton">Animations On</option>
+                </select>
             </div>
 
             <div id="launchers">

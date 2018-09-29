@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GauntletModeComponent } from './gauntlet-mode.component';
+import { OtherModeComponent } from './other-mode.component';
 
-describe('GauntletModeComponent', () => {
-  let component: GauntletModeComponent;
-  let fixture: ComponentFixture<GauntletModeComponent>;
+describe('OtherModeComponent', () => {
+  let component: OtherModeComponent;
+  let fixture: ComponentFixture<OtherModeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GauntletModeComponent ]
+      declarations: [ OtherModeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GauntletModeComponent);
+    fixture = TestBed.createComponent(OtherModeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

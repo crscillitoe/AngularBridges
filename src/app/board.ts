@@ -1,5 +1,5 @@
 export class Board {
-    version: string = "9.1.5";
+    version: string = "9.1.6";
     width: number;
     theme: string;
     height: number;
@@ -525,11 +525,15 @@ export class Bridge {
     n1: MyNode;
     n2: MyNode;
     num: number;
+    width1: number;
+    width2: number;
 
     constructor(n1: MyNode, n2: MyNode, num: number) {
         this.n1 = n1;
         this.n2 = n2;
         this.num = num;
+        this.width1 = 0;
+        this.width2 = 0;
     }
 
     setNum(num: number) {

@@ -25,6 +25,7 @@ export class BoardFormComponent implements OnInit {
     canPlayDailyMedium: boolean;
     canPlayDailyHard: boolean;
     canPlayDailyExtreme: boolean;
+    animations: boolean;
 
     dailyEasy: any;
     dailyMedium: any;
@@ -65,7 +66,11 @@ export class BoardFormComponent implements OnInit {
         this.model.extreme = false;
         this.model.seed = 0;
         this.model.gauntlet = 1;
-        this.router.navigate(['normal-mode', this.model]);
+        if(this.animations) {
+          this.router.navigate(['other-mode', this.model]);
+        } else {
+          this.router.navigate(['normal-mode', this.model]);
+        }
     }
 
     onSubmitMedley() { 
@@ -88,7 +93,11 @@ export class BoardFormComponent implements OnInit {
             }
             this.model.seed = this.seed;
             this.model.gauntlet = 0;
-            this.router.navigate(['normal-mode', this.model]);
+            if(this.animations) {
+              this.router.navigate(['other-mode', this.model]);
+            } else {
+              this.router.navigate(['normal-mode', this.model]);
+            }
         }
     }
 
@@ -112,8 +121,20 @@ export class BoardFormComponent implements OnInit {
             }
             this.model.seed = this.seed;
             this.model.gauntlet = 0;
-            this.router.navigate(['normal-mode', this.model]);
+            if(this.animations) {
+              this.router.navigate(['other-mode', this.model]);
+            } else {
+              this.router.navigate(['normal-mode', this.model]);
+            }
         }
+    }
+
+    changeAnimation(event) {
+      if(event == "on") {
+        this.animations = true;
+      } else {
+        this.animations = false;
+      }
     }
 
     changeNumbering(clicked) {
@@ -495,6 +516,7 @@ export class BoardFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.animations = false;
         this.version = this.model.version;
         this.canPlayDailyEasy = true;
         this.canPlayDailyMedium = true;
