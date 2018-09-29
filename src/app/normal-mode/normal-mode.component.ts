@@ -17,6 +17,9 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class NormalModeComponent implements OnInit {
 
+
+    timePaused: any;
+    startPause: any;
     version: string;
     displayCoords: boolean;
     scrollPressed: boolean;
@@ -78,6 +81,8 @@ export class NormalModeComponent implements OnInit {
 
     gauntlet: number;
 
+    startDate: any;
+
     private user: Observable<firebase.User>;
     private userDetails: firebase.User = null;
 
@@ -114,6 +119,9 @@ export class NormalModeComponent implements OnInit {
         }
         this.seed = 0;
 
+
+        this.timePaused = 0;
+        this.startPause = null;
         this.generateFairBoard(numNodes);
         this.name = "";
         this.millis = 0;
@@ -126,6 +134,8 @@ export class NormalModeComponent implements OnInit {
         }
 
         this.solved = false;
+
+        this.startDate = new Date();
         this.draw();
     }
 
@@ -241,6 +251,7 @@ export class NormalModeComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+        
         this.displayCoords = false;
         this.scrollMode = false;
         var previousValue = parseInt(localStorage.getItem("build"));
@@ -249,6 +260,8 @@ export class NormalModeComponent implements OnInit {
         var elem = document.getElementById("bar");
         elem.style.width = this.getProgress(previousValue) + '%';
 
+        this.timePaused = 0;
+        this.startPause = null;
         this.skip = false;
         this.timesPaused = 0;
         this.worseTime = true;
@@ -471,7 +484,13 @@ export class NormalModeComponent implements OnInit {
                     .subscribe((data: any) => {
                         if(data != null) {
                             this.previousTotalMillis = data.totalTime;
-                            this.previousTime = (data.hours ? (data.hours > 9 ? data.hours : "0" + data.hours) : "00") + ":" + (data.minutes ? (data.minutes > 9 ? data.minutes : "0" + data.minutes) : "00") + ":" + (data.seconds > 9 ? data.seconds : "0" + data.seconds) + "." + (data.millis > 9 ? data.millis : "0" + data.millis);
+
+                            var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                            var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                            var seconds = Math.trunc(data.totalTime / 100) % 60;
+                            var millis = data.totalTime % 100;
+
+                            this.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
                         } else {
 
                         }
@@ -480,6 +499,7 @@ export class NormalModeComponent implements OnInit {
             }
         }
 
+        this.startDate = new Date();
         this.fixSizes();
     }
 
@@ -490,11 +510,8 @@ export class NormalModeComponent implements OnInit {
                 this.drawMouseY = mouseEventData.clientY;
                 this.mouseX = mouseEventData.clientX + window.scrollX;
                 this.mouseY = this.drawMouseY + window.scrollY;
-                
-                this.draw();
             }
         } else {
-            console.log(mouseEventData);
             if(this.scrollPressed) {
                 this.drawMouseX = mouseEventData.clientX - 225;
                 this.drawMouseY = mouseEventData.clientY;
@@ -503,15 +520,6 @@ export class NormalModeComponent implements OnInit {
 
                 window.scrollBy(this.scrollX - this.mouseX, this.scrollY - this.mouseY);
             }
-        }
-    }
-
-    drawMouse() {
-        var pointX = Math.round(((this.mouseX - 225))/this.factor);
-        var pointY = Math.round(((this.mouseY - 0))/this.factor);
-        var img;
-        if(this.isCircleHere(pointX, pointY)) {
-            this.drawCircleOutline(this.getCircleHere(pointX, pointY));
         }
     }
 
@@ -529,29 +537,37 @@ export class NormalModeComponent implements OnInit {
 
     add(___this) {
         var h1 = document.getElementsByTagName("h1")[0];
-        if(!this.pause) {
-            ___this.millis++;
-            if(___this.millis >= 100) {
-                ___this.millis = 0
-                ___this.seconds++;
-                if (___this.seconds >= 60) {
-                    ___this.seconds = 0;
-                    ___this.minutes++;
-                    if (___this.minutes >= 60) {
-                        ___this.minutes = 0;
-                        ___this.hours++;
-                    }
-                }
-            }
-                h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds) + "." + (___this.millis > 9 ? ___this.millis : "0"+___this.millis);
+
+        if(!this.pause && !this.solved) {
+          var now = +new Date();
+
+          if(this.startPause != null) {
+            this.timePaused += ((now - this.startPause)/10);
+            this.startPause = null;
+          }
+
+          var diff = ((now - this.startDate)/10) - this.timePaused;
+
+          ___this.hours = Math.trunc(diff / (60 * 60 * 100));
+          ___this.minutes = Math.trunc(diff / (60 * 100)) % 60;
+          ___this.seconds = Math.trunc(diff / 100) % 60;
+          ___this.millis = Math.trunc(diff % 100);
+          
+
+                h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds);
+        } else {
+          if(this.startPause == null) {
+            this.startPause = new Date();
+          }
         }
+
         ___this.timer();
     }
 
     timer() {
         if(!this.solved) {
             var ___this = this;
-            this.t = setTimeout(function() {___this.add(___this)}, 10);
+            this.t = setTimeout(function() {___this.add(___this)}, 1000);
         }
     }
 
@@ -782,10 +798,6 @@ export class NormalModeComponent implements OnInit {
         this.drawGrid();    
         this.drawBridges();
         this.drawCircles();
-        if(this.coloredNode != undefined) {
-            this.drawCircleRed(this.coloredNode);
-        }
-        this.drawMouse();
     }
 
     drawGrid() {
@@ -1999,9 +2011,7 @@ export class NormalModeComponent implements OnInit {
                     }
                 } else if(event.key == "p" || event.key == "P" || event.key == "Escape") {
                     this.pauseGame();
-                } else if(event.key == "n" || event.key == "N" && this.gauntlet == 0) {
-                    this.newBoard();
-                }
+                }            
             }
         } else {
             if(event.key == "p" || event.key == "P" || event.key == "Escape") {
@@ -2032,6 +2042,24 @@ export class NormalModeComponent implements OnInit {
                 }
             }
         }
+
+
+        var now = +new Date();
+
+        if(this.startPause != null) {
+          this.timePaused += ((now - this.startPause)/10);
+          this.startPause = null;
+        }
+
+        var diff = ((now - this.startDate)/10) - this.timePaused;
+
+        this.hours = Math.trunc(diff / (60 * 60 * 100));
+        this.minutes = Math.trunc(diff / (60 * 100)) % 60;
+        this.seconds = Math.trunc(diff / 100) % 60;
+        this.millis = Math.trunc(diff % 100);
+
+        var h1 = document.getElementsByTagName("h1")[0];
+        h1.textContent = (this.hours ? (this.hours > 9 ?this.hours : "0" +this.hours) : "00") + ":" + (this.minutes ? (this.minutes > 9 ?this.minutes : "0" +this.minutes) : "00") + ":" + (this.seconds > 9 ?this.seconds : "0" +this.seconds) + "." + (this.millis > 9 ?this.millis : "0"+this.millis);
 
         if(this.gauntlet == 0 && !this.medley) {
             var previousValue = parseInt(localStorage.getItem("win"));
