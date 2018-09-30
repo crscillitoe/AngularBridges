@@ -73,6 +73,34 @@ export class BoardFormComponent implements OnInit {
         }
     }
 
+    rotating(diff) {
+      this.model.seed = 0;
+      this.difficulty = diff;
+      this.model.gauntlet = 0;
+
+      if(diff == 'easy') {
+        this.model.width = 8;
+        this.model.height = 15;
+        this.model.extreme = false;
+      } else if(diff == 'medium') {
+        this.model.width = 28;
+        this.model.height = 14;
+        this.model.extreme = false;
+      } else if(diff == 'hard') {
+        this.model.width = 35;
+        this.model.height = 35;
+        this.model.extreme = false;
+      } else if(diff == 'extreme') {
+        this.model.width = 60;
+        this.model.height = 50;
+        this.model.extreme = true;
+      }
+
+      this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;
+
+      this.router.navigate(['rotating-mode', this.model]);
+    }
+
     onSubmitMedley() { 
         if(this.model.getWidth() < 7 || this.model.getHeight() < 7
         || this.model.getWidth() > 100 || this.model.getHeight() > 100) {

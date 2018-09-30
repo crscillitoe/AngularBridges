@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BoardFormComponent } from './board-form/board-form.component';
-import { BoardComponentComponent } from './board-component/board-component.component';
 import { RouterModule, Routes } from '@angular/router';
 import {    MatFormFieldModule, 
             MatRadioModule,
@@ -21,12 +20,15 @@ import { RulesComponent } from './rules/rules.component';
 import { StatsComponent } from './stats/stats.component';
 import { NormalModeComponent } from './normal-mode/normal-mode.component';
 import { OtherModeComponent } from './other-mode/other-mode.component';
+import { HashiStandardComponent } from './hashi-standard/hashi-standard.component';
+import { RotatingModeOneComponent } from './rotating-mode-one/rotating-mode-one.component';
 
 
 const appRoutes: Routes = [
     { path: '', component: BoardFormComponent},
     { path: 'mainMenu', component: BoardFormComponent},
     { path: 'normal-mode', component: NormalModeComponent },
+    { path: 'rotating-mode', component: RotatingModeOneComponent },
     { path: 'other-mode', component: OtherModeComponent },
     { path: 'leaderboards', component: LeaderboardsComponent},
     { path: 'rules', component: RulesComponent},
@@ -37,12 +39,13 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     BoardFormComponent,
-    BoardComponentComponent,
     LeaderboardsComponent,
     RulesComponent,
     StatsComponent,
     NormalModeComponent,
     OtherModeComponent,
+    HashiStandardComponent,
+    RotatingModeOneComponent,
   ],
   imports: [
       BrowserModule,

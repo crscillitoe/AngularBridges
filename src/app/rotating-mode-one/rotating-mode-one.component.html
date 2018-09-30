@@ -1,4 +1,3 @@
-
 <html>
         
     <div class="container" id="gameScreen" onresize="fixSizes()" (contextmenu)="contextMenu()">
@@ -22,20 +21,8 @@
             <h1 id="timer"><time>00:00:00</time></h1>
         </div>
 
-        <ng-container *ngIf="!daily">
-            <ng-container *ngIf="gauntlet == 0 && !medley">
-                <h1 class="difficulty">{{difficulty}}</h1>
-                <h1 class="previousTime">{{previousTime}}</h1>
-            </ng-container>
-            <ng-container *ngIf="gauntlet > 0">
-                <h1 class="difficulty">{{gauntlet}}/20</h1>
-                <h1 class="previousTime">{{width}}x{{height}}</h1>
-            </ng-container>
-            <ng-container *ngIf="medley">
-                <h1 class="difficulty">{{medleyNum}}/100</h1>
-                <h1 class="previousTime">{{previousTime}}</h1>
-            </ng-container>
-        </ng-container>
+        <h1 class="difficulty">Rotating</h1>
+        <h1 class="previousTime">{{previousTime}}</h1>
 
         <div class="container" id="buttons">
             <label *ngIf="solved && ((seed == 0 && !daily) || (daily))" id="label">Enter your name
@@ -45,19 +32,13 @@
             </label>
             <button *ngIf="solved && ((seed == 0 && !daily) || (daily))" class="btn btn-quick-submit" [disabled]="worseTime && !daily" (click)="submit()">Submit</button>
             <hr *ngIf="solved && seed == 0">
-            <button class="btn btn-quick" (click)="toggleLetters()">Toggle Numbers</button>
-            <br>
-            <br>
-            <button class="btn btn-quick" (click)="toggleGrid()">Toggle Grid</button>
-            <br>
-            <br>
-            <button class="btn btn-quick" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2' || gauntlet > 0">Pause (P)</button>
-            <br>
-            <br>
-            <button class="btn btn-quick" (click)="clearBoard()">Clear Board</button>
+            <button class="btn btn-quick" (click)="Switch()">SWITCH..?</button>
             <br>
             <br>
             <button class="btn btn-quick" (click)="fixSizes()">Resize</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="toggleCoords()">Display Coordinates</button>
             <br>
             <br>
             <button class="btn btn-quick" (click)="zoomIn()">Zoom In</button>
@@ -72,7 +53,7 @@
             <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
         </div>
         <div *ngIf="!daily" id="memes">
-            <p>Level: {{level}}<br>Seed: {{board.initialSeed}}<br>Release Version: 9.0.3</p>
+          <p>Level: {{level}}<br>Seed: {{board.initialSeed}}<br>Release Version: {{version}}</p>
         </div>
         </div>
     </div>

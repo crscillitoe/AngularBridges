@@ -10,14 +10,13 @@ import { Observable } from 'rxjs';
 import { HashiStandardComponent } from '../hashi-standard/hashi-standard.component';
 
 @Component({
-  selector: 'app-normal-mode',
-  templateUrl: './normal-mode.component.html',
-  styleUrls: ['./normal-mode.component.css']
+  selector: 'app-rotating-mode-one',
+  templateUrl: './rotating-mode-one.component.html',
+  styleUrls: ['./rotating-mode-one.component.css']
 })
+export class RotatingModeOneComponent implements OnInit {
 
-@Injectable()
-export class NormalModeComponent implements OnInit {
-
+    switchNum: any;
     timePaused: any;
     startPause: any;
     version: string;
@@ -123,8 +122,102 @@ export class NormalModeComponent implements OnInit {
 
     // Initializes data
     ngOnInit() {
+      this.switchNum = 0;
       var that = this;
-      return HashiStandardComponent.ngOnInitOverwrite(that);
+        that.displayCoords = false;
+        that.scrollMode = false;
+        var previousValue = parseInt(localStorage.getItem("build"));
+        that.level = Math.trunc((Number(previousValue)) / 1239) + 1;
+
+        var elem = document.getElementById("bar");
+        elem.style.width = that.getProgress(previousValue) + '%';
+
+        that.timePaused = 0;
+        that.startPause = null;
+        that.skip = false;
+        that.timesPaused = 0;
+        that.worseTime = true;
+        that.name = "";
+        that.drawTextColorBool = false;
+        that.solved = false;
+        that.width = Number(that.route.snapshot.paramMap.get('width'));
+        that.height = Number(that.route.snapshot.paramMap.get('height'));
+        that.extreme = "true" == that.route.snapshot.paramMap.get('extreme');
+        that.daily = "true" == that.route.snapshot.paramMap.get('daily');
+        var numNodes = Number(that.route.snapshot.paramMap.get('numNodes'));
+        that.drawLetters = that.route.snapshot.paramMap.get('numbers') == "true";
+        that.drawGridBool = that.route.snapshot.paramMap.get('grid') == "true";
+        that.gauntlet = Number(that.route.snapshot.paramMap.get('gauntlet'));
+
+        that.drawLetters = false;
+        that.drawGridBool = false;
+
+        var theme = that.route.snapshot.paramMap.get('theme');
+        that.seed = Number(that.route.snapshot.paramMap.get('seed'));
+        if(numNodes === 0) {
+            numNodes = Math.floor(Math.sqrt(that.width * that.height)) * 2;
+        }
+
+        that.numNodes = numNodes;
+
+        if(that.seed == 0) {
+            that.generateFairBoard(numNodes);
+        } else {
+            that.board = new Board(that.width, that.height, numNodes, that.extreme, that.seed, null, null, null, null, null, that.gauntlet, null);
+            that.board.generateBoard();
+        }
+
+        that.canvas = document.getElementById('myCanvas');
+        that.context = that.canvas.getContext('2d');
+       
+        that.millis = 0;
+        that.seconds = 0;
+        that.minutes = 0;
+        that.hours = 0;
+        that.timer();
+
+        var __that = that;
+
+        that.canvas.addEventListener('mousedown', (e) => that.mousePressed(e), false);
+        that.canvas.addEventListener('mouseup', (e) => that.mouseReleased(e), false);
+        
+        var hotkeys = that.route.snapshot.paramMap.get('hotkeys') == 'true';
+        if(hotkeys) {
+            that.canvas.addEventListener('mousemove', (e) => that.mouseMove(e), false);
+        }
+        window.addEventListener('keydown', function(e) {__that.keyPressed(e, __that) }, false);
+        window.addEventListener('keyup', function(e) {__that.keyReleased(e, __that) }, false);
+
+        if(theme == 'night') {
+            that.nightTheme();
+        } else if(theme == 'light') {
+            that.lightTheme();
+        } else if(theme == 'colorblind') {
+            that.colorblindMode();
+        }
+
+      var board = "rotating-" + that.width + "x" + that.height;
+      try {
+          that.http.get('https://woohoojinbridges.firebaseio.com/' + board + '/' + that.userDetails.uid + '.json')
+              .subscribe((data: any) => {
+                  if(data != null) {
+                      that.previousTotalMillis = data.totalTime;
+                      
+                      var hours =   Math.trunc(data.totalTime / (60 * 60 * 100));
+                      var minutes = Math.trunc(data.totalTime / (60 * 100)) % 60;
+                      var seconds = Math.trunc(data.totalTime / 100) % 60;
+                      var millis = data.totalTime % 100;
+
+                      that.previousTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
+                  } else {
+
+                  }
+              });
+      } catch {
+      }
+
+        that.startDate = new Date();
+        that.fixSizes();
     }
 
     mouseMove(mouseEventData) {
@@ -147,6 +240,8 @@ export class NormalModeComponent implements OnInit {
             this.timePaused += ((now - this.startPause)/10);
             this.startPause = null;
           }
+
+          console.log(this.solved);
 
           var diff = ((now - this.startDate)/10) - this.timePaused;
 
@@ -328,7 +423,24 @@ export class NormalModeComponent implements OnInit {
 
     drawCircles() {
       var that = this;
-      return HashiStandardComponent.drawCircles(that);
+      var count = 0;
+      for(let node of that.board.getNodes()) {
+        if(count % 2 == this.switchNum) {
+          that.drawCircle(node);
+        }
+
+        count++;
+      }
+    }
+
+    Switch() {
+      if(this.switchNum == 1) {
+        this.switchNum = 0;
+      } else {
+        this.switchNum = 1;
+      }
+
+      this.draw();
     }
 
     drawCircle(node: MyNode) {
@@ -498,7 +610,36 @@ export class NormalModeComponent implements OnInit {
 
     submit() {
       var that = this;
-      return HashiStandardComponent.submit(that);
+
+      var board = "rotating-" + that.width + "x" + that.height;
+      var m;
+
+      if(that.timesPaused > 0) {
+          m = {
+              name: that.name,
+              totalTime: that.millis + (that.seconds * 100) + (that.minutes * 60 * 100) + (that.hours * 60 * 60 * 100),
+              seed: that.board.initialSeed,
+              pauses: that.timesPaused
+          };
+      } else {
+          m = {
+              name: that.name,
+              totalTime: that.millis + (that.seconds * 100) + (that.minutes * 60 * 100) + (that.hours * 60 * 60 * 100),
+              seed: that.board.initialSeed
+          };
+      }
+
+      that._firebaseAuth.auth.currentUser.getIdToken(true)
+          .then((token) => {
+              that.http.put('https://woohoojinbridges.firebaseio.com/' + board + '/'+that.userDetails.uid+'.json?auth=' + token, m)
+                  .subscribe((data) => {
+                  var p = 10;
+                  let mod = {
+                      page: p
+                  }
+                  that.router.navigate(['leaderboards', mod]);
+              });
+          })
     }
 
     getUid() {
@@ -536,4 +677,5 @@ export class NormalModeComponent implements OnInit {
       return HashiStandardComponent.clearBoard(that);
     }
     contextMenu() {return false;}
+
 }

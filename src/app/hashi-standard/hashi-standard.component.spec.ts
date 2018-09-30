@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoardComponentComponent } from './board-component.component';
+import { HashiStandardComponent } from './hashi-standard.component';
 
-describe('BoardComponentComponent', () => {
-  let component: BoardComponentComponent;
-  let fixture: ComponentFixture<BoardComponentComponent>;
+describe('HashiStandardComponent', () => {
+  let component: HashiStandardComponent;
+  let fixture: ComponentFixture<HashiStandardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BoardComponentComponent ]
+      declarations: [ HashiStandardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BoardComponentComponent);
+    fixture = TestBed.createComponent(HashiStandardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

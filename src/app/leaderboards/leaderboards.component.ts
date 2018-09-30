@@ -88,6 +88,8 @@ export class LeaderboardsComponent implements OnInit {
         this.loadBoards('daily');
       } else if(this.s == 9) {
         this.loadBoards('specials');
+      } else if(this.s == 10) {
+        this.loadBoards('rotating');
       }
   }
 
@@ -126,6 +128,13 @@ export class LeaderboardsComponent implements OnInit {
             if(d == 'medium') specialName = 'medley10';
             if(d == 'hard') specialName = 'medley15';
             if(d == 'extreme') specialName = 'gauntlet';
+            requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
+        } else if(size == 'rotating') {
+            var specialName = '';
+            if(d == 'easy') specialName = 'rotating-8x15';
+            if(d == 'medium') specialName = 'rotating-28x14';
+            if(d == 'hard') specialName = 'rotating-35x35';
+            if(d == 'extreme') specialName = 'rotating-60x50';
             requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
         } else {
             requestString = 'https://woohoojinbridges.firebaseio.com/' + size + d + '.json?orderBy="totalTime"&limitToFirst=10';

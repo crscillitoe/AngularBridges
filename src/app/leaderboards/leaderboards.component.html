@@ -378,6 +378,168 @@
 </div>
 </div>
 
+<div class="columnContainer" *ngIf="s==10">
+<div class="leaderboardEntry mediumDaily">
+  <h2 style="color:cyan">Rotating Easy</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of scores['rotatingeasy'];
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
+<div class="leaderboardEntry hardDaily">
+  <h2 style="color:greenyellow">Rotating Medium</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of scores['rotatingmedium'];
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
+<div class="leaderboardEntry extremeDaily">
+  <h2 style="color:cadetblue">Rotating Hard</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of scores['rotatinghard'];
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
+<div class="leaderboardEntry easyDaily">
+  <h2 style="color:red">Rotating Extreme</h2>
+<table>
+  <thead>
+    <tr>
+      <td style="width:180px"><b>Name</b></td>
+        <td style="width:180px"><b>Time</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let entry of scores['rotatingextreme'];
+    let i=index">
+      <ng-container *ngIf="i == 0">
+        <tr class="first">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 1">
+        <tr class="second">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i == 2">
+        <tr class="third">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i >=3">
+        <tr class="others">
+          <td>{{entry.name}}</td> 
+          <td>{{entry.time}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  <tbody>
+</table>
+</div>
+</div>
 
 </div>
 </html>
