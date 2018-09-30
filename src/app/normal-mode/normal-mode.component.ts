@@ -165,7 +165,10 @@ export class NormalModeComponent implements OnInit {
           }
         }
 
-        ___this.timer();
+        var elem = document.getElementById("gameScreen");
+        if(elem != null) {
+            ___this.timer();
+        }
     }
 
     timer() {
