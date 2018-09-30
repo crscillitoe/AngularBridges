@@ -117,7 +117,31 @@ export class RotatingModeOneComponent implements OnInit {
 
     generateFairBoard(numNodes) {
       var that = this;
-      return HashiStandardComponent.generateFairBoard(that, numNodes);
+        var min = 0;
+        var max = 0;
+        if(that.width == 8 && that.height == 15) {
+            //board = "40x40hard";
+            min = 12;
+            max = 16;
+        } else if(that.width == 28 && that.height == 14) {
+            //board = "7x7easy";
+            min = 30;
+            max = 300;
+        }
+
+        if(min != 0 && max != 0) {
+            that.board = new Board(that.width, that.height, numNodes, that.extreme, 0, null, null, null, null, null, that.gauntlet, null);
+            that.board.generateBoard();
+            while(that.board.nodes.length < min || that.board.nodes.length > max) {
+                that.board = new Board(that.width, that.height, numNodes, that.extreme, 0, null, null, null, null, null, that.gauntlet, null);
+                that.board.generateBoard();
+            }
+        } else {
+            that.board = new Board(that.width, that.height, numNodes, that.extreme, 0, null, null, null, null, null, that.gauntlet, null);
+            that.board.generateBoard();
+        }
+        
+        that.version = that.board.version;
     }
 
     // Initializes data
@@ -241,8 +265,6 @@ export class RotatingModeOneComponent implements OnInit {
             this.startPause = null;
           }
 
-          console.log(this.solved);
-
           var diff = ((now - this.startDate)/10) - this.timePaused;
 
           ___this.hours = Math.trunc(diff / (60 * 60 * 100));
@@ -251,7 +273,10 @@ export class RotatingModeOneComponent implements OnInit {
           ___this.millis = Math.trunc(diff % 100);
           
 
-                h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds);
+          try {
+            h1.textContent = (___this.hours ? (___this.hours > 9 ? ___this.hours : "0" + ___this.hours) : "00") + ":" + (___this.minutes ? (___this.minutes > 9 ? ___this.minutes : "0" + ___this.minutes) : "00") + ":" + (___this.seconds > 9 ? ___this.seconds : "0" + ___this.seconds);
+          } catch {
+          }
         } else {
           if(this.startPause == null) {
             this.startPause = new Date();
@@ -427,9 +452,35 @@ export class RotatingModeOneComponent implements OnInit {
       for(let node of that.board.getNodes()) {
         if(count % 2 == this.switchNum) {
           that.drawCircle(node);
+        } else {
+          that.drawBlankCircle(node);
         }
 
         count++;
+      }
+    }
+
+    drawBlankCircle(node: MyNode) {
+      var that = this;
+      var circleX = (node.getX() * (that.factor)) - that.factor/2;
+      var circleY = (node.getY() * (that.factor)) - that.factor/2;
+
+      var circleString = "" + node.getVal();
+      that.context.font = 'bold '+Math.round(that.factor)+'px Arial';
+
+      that.context.fillStyle = that.backgroundColor;
+      
+      //that.context.fillRect(circleX, circleY, that.squareSize, that.squareSize);
+      that.ellipse(that.context, circleX, circleY, that.squareSize, that.squareSize);
+
+      if(that.drawLetters) {
+          if(that.drawTextColorBool) {
+              that.context.fillStyle = that.circleTextColors[node.getVal() - that.getNumBridges(node)];
+          } else {
+              that.context.fillStyle = that.circleTextColor;
+          }
+          
+          that.context.fillText(circleString, circleX + that.factor/4.3, circleY + that.factor/1.2);
       }
     }
 

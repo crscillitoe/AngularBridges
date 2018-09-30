@@ -106,6 +106,10 @@ export class LeaderboardsComponent implements OnInit {
         if(this.scores['specialseasy'] == undefined) {
             this.loadBoards('specials');
         }
+    } else if(b == 10) {
+        if(this.scores['rotatingeasy'] == undefined) {
+            this.loadBoards('rotating');
+        }
     }
 
     this.s = b;
@@ -145,26 +149,29 @@ export class LeaderboardsComponent implements OnInit {
       .subscribe((data) => {
         this.scores['' + size + d + ''] = [];
 
-        for(const key of Object.keys(data)) {
-          var temp = data[key];
-            
-          var hours =   Math.trunc(temp.totalTime / (60 * 60 * 100));
-          var minutes = Math.trunc(temp.totalTime / (60 * 100)) % 60;
-          var seconds = Math.trunc(temp.totalTime / 100) % 60;
-          var millis = temp.totalTime % 100;
+        try {
+          for(const key of Object.keys(data)) {
+            var temp = data[key];
+              
+            var hours =   Math.trunc(temp.totalTime / (60 * 60 * 100));
+            var minutes = Math.trunc(temp.totalTime / (60 * 100)) % 60;
+            var seconds = Math.trunc(temp.totalTime / 100) % 60;
+            var millis = temp.totalTime % 100;
 
-          (data[key])['time'] = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
-          (data[key])['key'] = key;
-          this.scores['' + size + d + ''].push(data[key]);
+            (data[key])['time'] = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
+            (data[key])['key'] = key;
+            this.scores['' + size + d + ''].push(data[key]);
+          }
+
+          this.scores['' + size + d + ''].sort(function(a, b) {
+            var aTime = a.totalTime;
+            var bTime = b.totalTime;
+            if(aTime < bTime) return -1;
+            if(aTime > bTime) return 1;
+            return 0;
+          });
+        } catch {
         }
-
-        this.scores['' + size + d + ''].sort(function(a, b) {
-          var aTime = a.totalTime;
-          var bTime = b.totalTime;
-          if(aTime < bTime) return -1;
-          if(aTime > bTime) return 1;
-          return 0;
-        });
       });
     });
   }
