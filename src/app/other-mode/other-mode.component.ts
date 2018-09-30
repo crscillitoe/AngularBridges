@@ -1196,9 +1196,9 @@ export class OtherModeComponent implements OnInit {
 
     growBridge(bridge) {
       var that = this;
-      this.bridgeGrowTimer(bridge, 0.01, that);
+      this.bridgeGrowTimer(bridge, 0.1, that);
       if(bridge.num == 2) {
-        this.bridgeGrowTimer2(bridge, 0.01, that);
+        this.bridgeGrowTimer2(bridge, 0.1, that);
       }
     }
 
@@ -1211,7 +1211,7 @@ export class OtherModeComponent implements OnInit {
       } else {
         bridge.width2 += speed;
         that.draw();
-        setTimeout(function() { that.bridgeGrowTimer2(bridge, speed, that) }, 1);
+        setTimeout(function() { that.bridgeGrowTimer2(bridge, speed, that) }, 100);
       }
     }
 
@@ -1224,7 +1224,7 @@ export class OtherModeComponent implements OnInit {
       } else {
         bridge.width1 += speed;
         that.draw();
-        setTimeout(function() { that.bridgeGrowTimer(bridge, speed, that) }, 1);
+        setTimeout(function() { that.bridgeGrowTimer(bridge, speed, that) }, 100);
       }
     }
 
