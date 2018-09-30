@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
+import { Observable } from 'rxjs';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-leaderboards',
@@ -13,6 +16,8 @@ export class LeaderboardsComponent implements OnInit {
   public s: any;
   public scores: any;
 
+  public showpause: boolean;
+
   public difficulties: any = ['easy', 'medium', 'hard', 'extreme'];
   public sizes: any = ['7x7', '10x10', '15x15', '25x25', '40x40', '60x60', '100x100'];
 
@@ -20,8 +25,42 @@ export class LeaderboardsComponent implements OnInit {
     return s.charAt(0).toUpperCase() + s.substr(1);
   }
 
-    constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { 
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private _firebaseAuth: AngularFireAuth) { 
+      this.user = _firebaseAuth.authState;
+        this.user.subscribe(
+        (user) => {
+          if (user) {
+            this.userDetails = user;
+          }
+          else {
+            this.userDetails = null;
+          }
+        }
+      );
+  }
+
+  private user: Observable<firebase.User>;
+  private userDetails: firebase.User = null;
+
+  getUid() {
+      if(this.userDetails == null) {
+          return '';
+      } else {
+          return this.userDetails.uid;
+      }
+  }
+
+  getNumPauses(val) {
+    try {
+      return val.pauses;
+    } catch {
+      return 0;
     }
+  }
+
+  dumpScreenPauses() {
+    console.log(this.scores);
+  }
 
   ngOnInit() {
       this.s = Number(this.route.snapshot.paramMap.get('page'));
