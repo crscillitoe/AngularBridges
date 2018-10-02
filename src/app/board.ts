@@ -1,5 +1,10 @@
+export const WHJData = {
+  donators: ['AqsUsrfYBMVEs6IGLHRHHvDlydw1', 'osGCDphCMUTMnvyURrfQXT4gMY23']
+}
+
 export class Board {
-    version: string = "9.3.0";
+    version: string = "9.3.1";
+
     width: number;
     theme: string;
     height: number;

@@ -19,7 +19,9 @@
             <div id="premium-members-only">
                 <!-- Arco's image -->
                 <img *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2'" width="250" src="assets/singed.png">
-                <img *ngIf="getUid()!='1nDPOP9KWCfDXjwgtB4REoAQKRB2' && getUid()!='4UF1vLpR0eVL3Lor900jvE716mM2'" width="250" src="assets/LogicBridges2.0._v2.png">
+                <img *ngIf="getUid()!='1nDPOP9KWCfDXjwgtB4REoAQKRB2' && getUid()!='4UF1vLpR0eVL3Lor900jvE716mM2' && !isDonator" width="250" src="assets/LogicBridges2.0._v2.png">
+
+                <img *ngIf="getUid()!='1nDPOP9KWCfDXjwgtB4REoAQKRB2' && getUid()!='4UF1vLpR0eVL3Lor900jvE716mM2' && isDonator" width="350" src="assets/donation.png">
                 
                 <!-- Bam Bam -->
                 <img *ngIf="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2'" width="250" src="assets/bambam.png">

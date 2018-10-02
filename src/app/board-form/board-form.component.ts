@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Board } from '../board';
+import { Board, WHJData } from '../board';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
@@ -26,6 +26,7 @@ export class BoardFormComponent implements OnInit {
     canPlayDailyHard: boolean;
     canPlayDailyExtreme: boolean;
     animations: boolean;
+    isDonator: boolean;
 
     normals: boolean;
 
@@ -695,12 +696,19 @@ export class BoardFormComponent implements OnInit {
         this.model.hotkeys = true;
         this.model.grid = true;
         this.model.numbers = true;
+        this.isDonator = false;
       this.user = _firebaseAuth.authState;
         this.user.subscribe(
         (user) => {
           if (user) {
             this.userDetails = user;
             this.canPlayDailyFunc();
+
+            WHJData.donators.forEach(d => {
+              if(d == this.getUid()) {
+                this.isDonator = true;
+              }
+            });
           }
           else {
             this.userDetails = null;
