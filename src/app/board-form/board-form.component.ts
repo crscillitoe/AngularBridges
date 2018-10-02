@@ -27,6 +27,8 @@ export class BoardFormComponent implements OnInit {
     canPlayDailyExtreme: boolean;
     animations: boolean;
 
+    normals: boolean;
+
     dailyEasy: any;
     dailyMedium: any;
     dailyHard: any;
@@ -74,7 +76,7 @@ export class BoardFormComponent implements OnInit {
     }
 
     rotating(diff) {
-      this.model.seed = 0;
+      this.model.seed = this.seed;
       this.difficulty = diff;
       this.model.gauntlet = 0;
 
@@ -82,7 +84,7 @@ export class BoardFormComponent implements OnInit {
         this.model.width = 8;
         this.model.height = 15;
         this.model.extreme = false;
-        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;     
+        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;     
       } else if(diff == 'medium') {
         this.model.width = 28;
         this.model.height = 14;
@@ -101,6 +103,36 @@ export class BoardFormComponent implements OnInit {
       }
 
       this.router.navigate(['rotating-mode', this.model]);
+    }
+
+    pain(diff) {
+      this.model.seed = this.seed;
+      this.difficulty = diff;
+      this.model.gauntlet = 0;
+
+      if(diff == 'easy') {
+        this.model.width = 15;
+        this.model.height = 8;
+        this.model.extreme = false;
+        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;     
+      } else if(diff == 'medium') {
+        this.model.width = 14;
+        this.model.height = 28;
+        this.model.extreme = false;
+        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;     
+      } else if(diff == 'hard') {
+        this.model.width = 35;
+        this.model.height = 35;
+        this.model.extreme = false;
+        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;     
+      } else if(diff == 'extreme') {
+        this.model.width = 50;
+        this.model.height = 60;
+        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;     
+        this.model.extreme = true;
+      }
+
+      this.router.navigate(['annoying-mode', this.model]);
     }
 
     onSubmitMedley() { 
@@ -545,7 +577,12 @@ export class BoardFormComponent implements OnInit {
         this.router.navigate(['stats']);
     }
 
+    toggleNormals() {
+      this.normals = !this.normals;
+    }
+
     ngOnInit() {
+        this.normals = true;
         this.animations = false;
         this.version = this.model.version;
         this.canPlayDailyEasy = true;

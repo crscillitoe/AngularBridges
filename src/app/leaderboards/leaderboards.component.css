@@ -38,6 +38,12 @@ html {
     top: 150px;
 }
 
+#specialControls {
+    position: absolute;
+    right: 50px;
+    top: 150px;
+}
+
 .col {
     padding-bottom: 10px;
 }

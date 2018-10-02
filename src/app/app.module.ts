@@ -22,6 +22,7 @@ import { NormalModeComponent } from './normal-mode/normal-mode.component';
 import { OtherModeComponent } from './other-mode/other-mode.component';
 import { HashiStandardComponent } from './hashi-standard/hashi-standard.component';
 import { RotatingModeOneComponent } from './rotating-mode-one/rotating-mode-one.component';
+import { AnnoyingModeComponent } from './annoying-mode/annoying-mode.component';
 
 
 const appRoutes: Routes = [
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
     { path: 'mainMenu', component: BoardFormComponent},
     { path: 'normal-mode', component: NormalModeComponent },
     { path: 'rotating-mode', component: RotatingModeOneComponent },
+    { path: 'annoying-mode', component: AnnoyingModeComponent },
     { path: 'other-mode', component: OtherModeComponent },
     { path: 'leaderboards', component: LeaderboardsComponent},
     { path: 'rules', component: RulesComponent},
@@ -46,6 +48,7 @@ const appRoutes: Routes = [
     OtherModeComponent,
     HashiStandardComponent,
     RotatingModeOneComponent,
+    AnnoyingModeComponent,
   ],
   imports: [
       BrowserModule,

@@ -21,8 +21,8 @@
             <h1 id="timer"><time>00:00:00</time></h1>
         </div>
 
-        <h1 class="difficulty">Switch</h1>
-        <h1 class="previousTime">{{previousTime}}</h1>
+        <h1 class="difficulty">Pain</h1>
+        <h1 class="previousTime">{{hotkeyString}}</h1>
 
         <div class="container" id="buttons">
             <label *ngIf="solved && ((seed == 0 && !daily) || (daily))" id="label">Enter your name
@@ -32,7 +32,16 @@
             </label>
             <button *ngIf="solved && ((seed == 0 && !daily) || (daily))" class="btn btn-quick-submit" [disabled]="worseTime && !daily" (click)="submit()">Submit</button>
             <hr *ngIf="solved && seed == 0">
-            <button class="btn btn-quick" (click)="Switch()">SWITCH..?</button>
+            <button class="btn btn-quick" (click)="toggleLetters()">Toggle Numbers</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="toggleGrid()">Toggle Grid</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="pauseGame()" [disabled]="getUid()=='4UF1vLpR0eVL3Lor900jvE716mM2' || gauntlet > 0">Pause (P)</button>
+            <br>
+            <br>
+            <button class="btn btn-quick" (click)="clearBoard()">Clear Board</button>
             <br>
             <br>
             <button class="btn btn-quick" (click)="fixSizes()">Resize</button>
@@ -50,7 +59,7 @@
             <br>
             <br>
             <button class="btn btn-quick-warning" (click)="back()">Back to Main Menu</button>
-            <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1' && false" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
+            <button *ngIf="getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1'" class="btn btn-quick-warning" (click)="skip = !skip">skip</button>
         </div>
         <div *ngIf="!daily" id="memes">
           <p>Level: {{level}}<br>Seed: {{board.initialSeed}}<br>Release Version: {{version}}</p>

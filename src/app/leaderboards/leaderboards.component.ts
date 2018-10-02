@@ -90,6 +90,8 @@ export class LeaderboardsComponent implements OnInit {
         this.loadBoards('specials');
       } else if(this.s == 10) {
         this.loadBoards('rotating');
+      } else if(this.s == 11) {
+        this.loadBoards('annoying');
       }
   }
 
@@ -109,6 +111,10 @@ export class LeaderboardsComponent implements OnInit {
     } else if(b == 10) {
         if(this.scores['rotatingeasy'] == undefined) {
             this.loadBoards('rotating');
+        }
+    } else if(b == 11) {
+        if(this.scores['annoyingeasy'] == undefined) {
+            this.loadBoards('annoying');
         }
     }
 
@@ -139,6 +145,13 @@ export class LeaderboardsComponent implements OnInit {
             if(d == 'medium') specialName = 'rotating-28x14';
             if(d == 'hard') specialName = 'rotating-35x35';
             if(d == 'extreme') specialName = 'rotating-60x50';
+            requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
+        } else if(size == 'annoying') {
+            var specialName = '';
+            if(d == 'easy') specialName = 'annoying-15x8';
+            if(d == 'medium') specialName = 'annoying-14x28';
+            if(d == 'hard') specialName = 'annoying-35x35';
+            if(d == 'extreme') specialName = 'annoying-50x60';
             requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
         } else {
             requestString = 'https://woohoojinbridges.firebaseio.com/' + size + d + '.json?orderBy="totalTime"&limitToFirst=10';
