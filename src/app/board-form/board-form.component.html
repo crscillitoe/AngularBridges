@@ -128,10 +128,10 @@
             </div>
 
             <div id="gauntlet">
-              <ng-container *ngIf="normals">
+              <ng-container *ngIf="!normals">
                 <input type="button" class="btn btn-quick-daily" (click)="toggleNormals()" value="Normal">
               </ng-container>
-              <ng-container *ngIf="!normals">
+              <ng-container *ngIf="normals">
                 <input type="button" class="btn btn-quick-daily" (click)="toggleNormals()" value="Special">
               </ng-container>
             </div>
