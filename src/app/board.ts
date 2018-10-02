@@ -1,5 +1,5 @@
 export class Board {
-    version: string = "9.2.2";
+    version: string = "9.3.0";
     width: number;
     theme: string;
     height: number;

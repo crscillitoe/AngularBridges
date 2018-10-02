@@ -446,7 +446,27 @@ export class AnnoyingModeComponent implements OnInit {
 
     drawCircle(node: MyNode) {
       var that = this;
-      return HashiStandardComponent.drawCircle(that, node);
+        var circleX = (node.getX() * (that.factor)) - that.factor/2;
+        var circleY = (node.getY() * (that.factor)) - that.factor/2;
+
+        var circleString = "" + node.getVal();
+        that.context.font = 'bold '+Math.round(that.factor)+'px Arial';
+
+        that.context.fillStyle = that.wrongCircleColor;
+
+        
+        //that.context.fillRect(circleX, circleY, that.squareSize, that.squareSize);
+        that.ellipse(that.context, circleX, circleY, that.squareSize, that.squareSize);
+
+        if(that.drawLetters) {
+            if(that.drawTextColorBool) {
+                that.context.fillStyle = that.circleTextColors[node.getVal() - that.getNumBridges(node)];
+            } else {
+                that.context.fillStyle = that.circleTextColor;
+            }
+            
+            that.context.fillText(circleString, circleX + that.factor/4.3, circleY + that.factor/1.2);
+        }
     }
 
     ellipse(context, cx, cy, rx, ry){
