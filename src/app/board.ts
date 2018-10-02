@@ -1,5 +1,5 @@
 export const WHJData = {
-  donators: ['AqsUsrfYBMVEs6IGLHRHHvDlydw1', 'osGCDphCMUTMnvyURrfQXT4gMY23']
+  donators: ['AqsUsrfYBMVEs6IGLHRHHvDlydw1', 'osGCDphCMUTMnvyURrfQXT4gMY23', 'Eq26ep0jI8h5GN2GqVrT0cbBExD2']
 }
 
 export class Board {
