@@ -607,3 +607,8 @@
     <button class="btn btn-quick" (click)="load(11)">Pain</button>
   </div>
 </div>
+
+<div class="back">
+  <button class="btn btn-quick" (click)="mainMenu()">Main Menu</button>
+  <button *ngIf="getUid()=='1nDPOP9KWCfDXjwgtB4REoAQKRB2' || getUid()=='AqsUsrfYBMVEs6IGLHRHHvDlydw1'" class="btn btn-quick" (click)="dumpScreenPauses()">Log Pauses</button>
+</div>
