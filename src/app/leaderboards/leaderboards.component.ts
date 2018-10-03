@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
+import { Board, WHJData } from '../board';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 
@@ -21,11 +22,30 @@ export class LeaderboardsComponent implements OnInit {
   public difficulties: any = ['easy', 'medium', 'hard', 'extreme'];
   public sizes: any = ['7x7', '10x10', '15x15', '25x25', '40x40', '60x60', '100x100'];
 
+  public specials: any = [];
+
   toUpper(s) {
     return s.charAt(0).toUpperCase() + s.substr(1);
   }
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private _firebaseAuth: AngularFireAuth) { 
+      let m1 = {
+        modeName: "rotating",
+        modeDisplay: "Switch",
+        modeNum: 10
+      }
+
+      this.specials.push(m1);
+
+      let m2 = {
+        modeName: "annoying",
+        modeDisplay: "Pain",
+        modeNum: 11
+      }
+
+      this.specials.push(m2);
+
+
       this.user = _firebaseAuth.authState;
         this.user.subscribe(
         (user) => {
@@ -173,6 +193,7 @@ export class LeaderboardsComponent implements OnInit {
 
             (data[key])['time'] = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (millis > 9 ? millis : "0"+millis);
             (data[key])['key'] = key;
+            
             this.scores['' + size + d + ''].push(data[key]);
           }
 
@@ -187,6 +208,16 @@ export class LeaderboardsComponent implements OnInit {
         }
       });
     });
+  }
+
+  isDonator(key) {
+    for(const d of WHJData.donators) {
+      if(d == key) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   mainMenu()

@@ -1,9 +1,9 @@
 export const WHJData = {
-  donators: ['AqsUsrfYBMVEs6IGLHRHHvDlydw1', 'osGCDphCMUTMnvyURrfQXT4gMY23', 'Eq26ep0jI8h5GN2GqVrT0cbBExD2']
+  donators: ['AqsUsrfYBMVEs6IGLHRHHvDlydw1', 'osGCDphCMUTMnvyURrfQXT4gMY23', 'Eq26ep0jI8h5GN2GqVrT0cbBExD2', '1nDPOP9KWCfDXjwgtB4REoAQKRB2']
 }
 
 export class Board {
-    version: string = "9.3.1";
+    version: string = "9.3.2";
 
     width: number;
     theme: string;
