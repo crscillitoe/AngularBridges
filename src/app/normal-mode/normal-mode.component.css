@@ -5,6 +5,12 @@
     left: 0pt;
 }
 
+#play {
+    position: absolute;
+    left:0px;
+    top:0px;
+}
+
 #progress {
     width: 100%;
     background-color: grey;

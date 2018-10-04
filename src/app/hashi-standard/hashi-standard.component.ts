@@ -1643,6 +1643,43 @@ export class HashiStandardComponent implements OnInit {
     }
 
     public static ngOnInitOverwrite(that) {
+        that.loading = true;
+        that.playing = false;
+
+        that.width = Number(that.route.snapshot.paramMap.get('width'));
+        that.height = Number(that.route.snapshot.paramMap.get('height'));
+        that.extreme = "true" == that.route.snapshot.paramMap.get('extreme');
+        that.daily = "true" == that.route.snapshot.paramMap.get('daily');
+        var numNodes = Number(that.route.snapshot.paramMap.get('numNodes'));
+        var diff = that.route.snapshot.paramMap.get('dailyDiff');
+        if(diff == 'medley7' || diff == 'medley10' || diff == 'medley15') {
+            that.medley = true;
+            that.medleyNum = 1;
+        } else {
+            that.medley = false;
+        }
+        
+        that.seed = Number(that.route.snapshot.paramMap.get('seed'));
+        if(numNodes === 0) {
+            numNodes = Math.floor(Math.sqrt(that.width * that.height)) * 2;
+        }
+
+        that.numNodes = numNodes;
+
+        if(that.seed == 0) {
+            that.generateFairBoard(numNodes);
+        } else {
+            that.board = new Board(that.width, that.height, numNodes, that.extreme, that.seed, null, null, null, null, null, that.gauntlet, null);
+            that.board.generateBoard();
+        }
+
+        that.loading = false;
+    }
+
+    public static play(that) {
+        that.playing = true;
+        var numNodes = Number(that.route.snapshot.paramMap.get('numNodes'));
+        var theme = that.route.snapshot.paramMap.get('theme');
         that.displayCoords = false;
         that.scrollMode = false;
         var previousValue = parseInt(localStorage.getItem("build"));
@@ -1661,10 +1698,6 @@ export class HashiStandardComponent implements OnInit {
         that.drawGridBool = true;
         that.drawTextColorBool = false;
         that.solved = false;
-        that.width = Number(that.route.snapshot.paramMap.get('width'));
-        that.height = Number(that.route.snapshot.paramMap.get('height'));
-        that.extreme = "true" == that.route.snapshot.paramMap.get('extreme');
-        that.daily = "true" == that.route.snapshot.paramMap.get('daily');
 
 
         if(that.daily) {
@@ -1687,33 +1720,9 @@ export class HashiStandardComponent implements OnInit {
                 })
         }
 
-        var numNodes = Number(that.route.snapshot.paramMap.get('numNodes'));
         that.drawLetters = that.route.snapshot.paramMap.get('numbers') == "true";
         that.drawGridBool = that.route.snapshot.paramMap.get('grid') == "true";
         that.gauntlet = Number(that.route.snapshot.paramMap.get('gauntlet'));
-
-        var diff = that.route.snapshot.paramMap.get('dailyDiff');
-        if(diff == 'medley7' || diff == 'medley10' || diff == 'medley15') {
-            that.medley = true;
-            that.medleyNum = 1;
-        } else {
-            that.medley = false;
-        }
-        
-        var theme = that.route.snapshot.paramMap.get('theme');
-        that.seed = Number(that.route.snapshot.paramMap.get('seed'));
-        if(numNodes === 0) {
-            numNodes = Math.floor(Math.sqrt(that.width * that.height)) * 2;
-        }
-
-        that.numNodes = numNodes;
-
-        if(that.seed == 0) {
-            that.generateFairBoard(numNodes);
-        } else {
-            that.board = new Board(that.width, that.height, numNodes, that.extreme, that.seed, null, null, null, null, null, that.gauntlet, null);
-            that.board.generateBoard();
-        }
 
         that.canvas = document.getElementById('myCanvas');
         that.context = that.canvas.getContext('2d');
@@ -1722,7 +1731,6 @@ export class HashiStandardComponent implements OnInit {
         that.seconds = 0;
         that.minutes = 0;
         that.hours = 0;
-        that.timer();
 
         var __that = that;
 
@@ -1891,6 +1899,7 @@ export class HashiStandardComponent implements OnInit {
         }
 
         that.startDate = new Date();
+        that.timer();
         that.fixSizes();
     }
 

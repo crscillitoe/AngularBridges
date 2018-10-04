@@ -81,6 +81,9 @@ export class NormalModeComponent implements OnInit {
 
     gauntlet: number;
 
+    loading: boolean;
+    playing: boolean;
+
     startDate: any;
 
     private user: Observable<firebase.User>;
@@ -125,6 +128,11 @@ export class NormalModeComponent implements OnInit {
     ngOnInit() {
       var that = this;
       return HashiStandardComponent.ngOnInitOverwrite(that);
+    }
+
+    play() {
+      var that = this;
+      return HashiStandardComponent.play(that);
     }
 
     mouseMove(mouseEventData) {
