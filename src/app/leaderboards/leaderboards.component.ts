@@ -191,7 +191,7 @@ export class LeaderboardsComponent implements OnInit {
             if(d == 'easy') specialName = 'disappear-8x15';
             if(d == 'medium') specialName = 'disappear-28x14';
             if(d == 'hard') specialName = 'disappear-35x35';
-            if(d == 'extreme') specialName = 'disappear-60x50';
+            if(d == 'extreme') specialName = 'disappear-10x10';
             requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
         } else {
             requestString = 'https://woohoojinbridges.firebaseio.com/' + size + d + '.json?orderBy="totalTime"&limitToFirst=10';

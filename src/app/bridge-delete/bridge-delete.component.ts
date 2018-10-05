@@ -127,7 +127,6 @@ export class BridgeDeleteComponent implements OnInit {
     // Initializes data
     ngOnInit() {
       this.count = 0;
-      this.countTo = 2;
       var that = this;
         that.displayCoords = false;
         that.scrollMode = false;
@@ -153,6 +152,12 @@ export class BridgeDeleteComponent implements OnInit {
         that.drawLetters = that.route.snapshot.paramMap.get('numbers') == "true";
         that.drawGridBool = that.route.snapshot.paramMap.get('grid') == "true";
         that.gauntlet = Number(that.route.snapshot.paramMap.get('gauntlet'));
+
+        if(that.width == 10 && that.height == 10) {
+          that.countTo = 1;
+        } else {
+          that.countTo = 2;
+        }
 
         var theme = that.route.snapshot.paramMap.get('theme');
         that.seed = Number(that.route.snapshot.paramMap.get('seed'));
@@ -248,7 +253,6 @@ export class BridgeDeleteComponent implements OnInit {
 
     deleteRandomBridge() {
       var island = this.getRandomIslandWithBridge();
-      console.log(island);
 
       if(island && !this.solved) {
         var bridge = island.bridges[Math.floor(Math.random() * island.bridges.length)]
@@ -263,8 +267,16 @@ export class BridgeDeleteComponent implements OnInit {
     add(___this) {
         this.count++;
 
+        console.log(this.count);
+        console.log(this.countTo);
+
         if(this.count % this.countTo == 0) {
           this.deleteRandomBridge();
+          if(this.width == 10 && this.height == 10) {
+            this.deleteRandomBridge();
+            this.deleteRandomBridge();
+            this.deleteRandomBridge();
+          }
         }
 
         var h1 = document.getElementsByTagName("h1")[0];

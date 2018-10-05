@@ -97,10 +97,10 @@ export class BoardFormComponent implements OnInit {
         this.model.extreme = false;
         this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;     
       } else if(diff == 'extreme') {
-        this.model.width = 60;
-        this.model.height = 50;
-        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 3;     
-        this.model.extreme = true;
+        this.model.width = 10;
+        this.model.height = 10;
+        this.model.numNodes = Math.floor(Math.sqrt(this.model.getWidth() * this.model.getHeight())) * 2;     
+        this.model.extreme = false;
       }
 
       this.router.navigate(['delete-mode', this.model]);
