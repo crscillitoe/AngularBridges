@@ -248,10 +248,13 @@ export class BridgeDeleteComponent implements OnInit {
 
     deleteRandomBridge() {
       var island = this.getRandomIslandWithBridge();
+      console.log(island);
 
       if(island && !this.solved) {
         var bridge = island.bridges[Math.floor(Math.random() * island.bridges.length)]
-        bridge.num = bridge.num - 1;
+        if(bridge.num > 0) {
+          bridge.num = bridge.num - 1;
+        }
 
         this.draw();
       }
