@@ -45,6 +45,14 @@ export class LeaderboardsComponent implements OnInit {
 
       this.specials.push(m2);
 
+      let m3 = {
+        modeName: "disappear",
+        modeDisplay: "Disappear",
+        modeNum: 12
+      }
+
+      this.specials.push(m3);
+
 
       this.user = _firebaseAuth.authState;
         this.user.subscribe(
@@ -112,6 +120,8 @@ export class LeaderboardsComponent implements OnInit {
         this.loadBoards('rotating');
       } else if(this.s == 11) {
         this.loadBoards('annoying');
+      } else if(this.s == 12) {
+        this.loadBoards('disappear');
       }
   }
 
@@ -135,6 +145,10 @@ export class LeaderboardsComponent implements OnInit {
     } else if(b == 11) {
         if(this.scores['annoyingeasy'] == undefined) {
             this.loadBoards('annoying');
+        }
+    } else if(b == 12) {
+        if(this.scores['disappeareasy'] == undefined) {
+            this.loadBoards('disappear');
         }
     }
 
@@ -172,6 +186,12 @@ export class LeaderboardsComponent implements OnInit {
             if(d == 'medium') specialName = 'annoying-14x28';
             if(d == 'hard') specialName = 'annoying-35x35';
             if(d == 'extreme') specialName = 'annoying-50x60';
+            requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
+        } else if(size == 'disappear') {
+            if(d == 'easy') specialName = 'disappear-8x15';
+            if(d == 'medium') specialName = 'disappear-28x14';
+            if(d == 'hard') specialName = 'disappear-35x35';
+            if(d == 'extreme') specialName = 'disappear-60x50';
             requestString = 'https://woohoojinbridges.firebaseio.com/' + specialName + '.json?orderBy="totalTime"&limitToFirst=10';
         } else {
             requestString = 'https://woohoojinbridges.firebaseio.com/' + size + d + '.json?orderBy="totalTime"&limitToFirst=10';

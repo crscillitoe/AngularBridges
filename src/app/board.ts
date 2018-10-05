@@ -3,7 +3,7 @@ export const WHJData = {
 }
 
 export class Board {
-    version: string = "9.3.4";
+    version: string = "9.3.5";
 
     width: number;
     theme: string;
