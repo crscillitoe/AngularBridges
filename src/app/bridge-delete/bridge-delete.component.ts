@@ -267,9 +267,6 @@ export class BridgeDeleteComponent implements OnInit {
     add(___this) {
         this.count++;
 
-        console.log(this.count);
-        console.log(this.countTo);
-
         if(this.count % this.countTo == 0) {
           this.deleteRandomBridge();
           if(this.width == 10 && this.height == 10) {
